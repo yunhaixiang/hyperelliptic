@@ -31,6 +31,7 @@ Arguments:
 - `--output FILE`: output path. Defaults to `hyperelliptic_results.txt`.
 - `--reduction {pgl2,affine,pgl2save,affinesave}`: presentation reduction before point counting. Defaults to `pgl2save`.
 - `--monic-only`: enumerate only monic presentations. By default, the nonsquare leading-coefficient class is included too.
+- `--hasse-witt-prefilter`: experimental mod-`p` prefilter. Disabled by default.
 - Default output mode: print only accepted presentations, their index, the
   middle coefficient, and presentation/class counts so far.
 - `--quiet`: suppress accepted-presentation progress; summaries still print.
@@ -74,6 +75,7 @@ Useful options:
 - `--verbose`: pass `--verbose` to `hyperelliptic_finder.py`.
 - `--log`: write `batch.log.txt` and pass `--log` to each finder run.
 - `--monic-only`: pass `--monic-only` to each finder run. Output filenames include `_monic`.
+- `--hasse-witt-prefilter`: pass the experimental Hasse-Witt prefilter flag to each finder run.
 
 The script always writes:
 
@@ -183,13 +185,10 @@ For PGL2 modes, powers of the linear factors used in fractional linear
 transformations are precomputed once for each `(p, g)` and reused across orbit
 computations.
 
-The search also applies a Cartier-Manin/Hasse-Witt prefilter before point
-counting. It computes `det(I - tM) mod p` from the Hasse-Witt matrix and
-rejects a presentation when one of the required zero coefficients
-`a_1, ..., a_{g-1}` is already nonzero modulo `p`. This is only a necessary
-condition, so passing the filter still requires point counting. For `p = 3`,
-the matrix is especially cheap because it is read directly from coefficients of
-`f(x)`.
+There is an experimental Cartier-Manin/Hasse-Witt prefilter available with
+`--hasse-witt-prefilter`. It is disabled by default because it is only useful
+once its convention has been checked against point-count coefficients for the
+target genera. The complete search path does not rely on it.
 
 ### `--reduction pgl2`
 

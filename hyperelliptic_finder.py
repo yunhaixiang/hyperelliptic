@@ -408,7 +408,7 @@ def hasse_witt_matrix(p: int, g: int, f_coeffs: Sequence[int]) -> list[list[int]
         matrix_row = []
         for col in range(g):
             coeff_index = p * (row + 1) - (col + 1)
-            matrix_row.append(powered[coeff_index] % p if coeff_index < len(powered) else 0)
+            matrix_row.append(powered[coeff_index] % p if 0 <= coeff_index < len(powered) else 0)
         matrix.append(matrix_row)
     return matrix
 
@@ -696,7 +696,7 @@ def write_results() -> None:
         handle.write(f"monic enforced: {not bool(run_context.get('allow_nonmonic', False))}\n")
         handle.write(f"nonmonic leading square class included: {run_context.get('allow_nonmonic', False)}\n")
         handle.write(f"leading coefficient representatives: {run_context.get('leading_representatives', [1])}\n")
-        handle.write("hasse-witt prefilter: enabled\n")
+        handle.write(f"hasse-witt prefilter: {run_context.get('hasse_witt_prefilter', False)}\n")
         handle.write(f"reduction class count: {class_count}\n")
         if is_pgl2_reduction:
             handle.write(f"isomorphism class count: {class_count}\n")
@@ -726,7 +726,7 @@ def write_results() -> None:
         "monic_enforced": not bool(run_context.get("allow_nonmonic", False)),
         "allow_nonmonic": bool(run_context.get("allow_nonmonic", False)),
         "leading_representatives": list(run_context.get("leading_representatives", [1])),
-        "hasse_witt_prefilter": True,
+        "hasse_witt_prefilter": bool(run_context.get("hasse_witt_prefilter", False)),
         "reduction_class_count": class_count,
         "isomorphism_class_count": class_count if is_pgl2_reduction else None,
         "isomorphism_class_count_note": (
@@ -752,6 +752,7 @@ def find_curves(
     reduction: str,
     output_mode: str,
     allow_nonmonic: bool,
+    use_hasse_witt_prefilter: bool,
 ) -> list[CurveResult]:
     stats = SearchStats()
     verbose = output_mode == "verbose"
@@ -806,15 +807,15 @@ def find_curves(
             seen_orbit_owner.setdefault(member, stats.considered)
 
         stats.checked += 1
-        if verbose:
+        if use_hasse_witt_prefilter and verbose:
             emit("New reduction orbit; applying Hasse-Witt prefilter.")
-        if not passes_hasse_witt_prefilter(p, g, f_coeffs):
+        if use_hasse_witt_prefilter and not passes_hasse_witt_prefilter(p, g, f_coeffs):
             stats.rejected_by_hasse_witt += 1
             if verbose:
                 emit("Hasse-Witt rejected: a pre-middle coefficient is nonzero modulo p.")
             continue
         if verbose:
-            emit("Hasse-Witt passed; checking L-polynomial coefficients.")
+            emit("Checking L-polynomial coefficients.")
         status, middle_coefficient = trinomial_middle_coefficient(p, g, f_coeffs)
         if status == "early_l_coefficient":
             stats.rejected_by_early_l_coefficient += 1
@@ -851,7 +852,8 @@ def find_curves(
     emit(f"Considered {stats.considered} squarefree {presentation_kind} presentations.")
     emit(f"Checked {stats.checked} new reduction-orbit representatives after {reduction} reduction.")
     emit(f"Skipped {stats.skipped_by_reduction} {reduction}-equivalent presentations.")
-    emit(f"Hasse-Witt rejected {stats.rejected_by_hasse_witt} presentations.")
+    if use_hasse_witt_prefilter:
+        emit(f"Hasse-Witt rejected {stats.rejected_by_hasse_witt} presentations.")
     emit(f"Early-rejected {stats.rejected_by_early_l_coefficient} presentations.")
     return results
 
@@ -891,6 +893,11 @@ def main() -> int:
         action="store_true",
         help="enumerate only monic presentations",
     )
+    parser.add_argument(
+        "--hasse-witt-prefilter",
+        action="store_true",
+        help="experimental: use Hasse-Witt mod-p prefilter before point counting",
+    )
     args = parser.parse_args()
 
     if not is_prime(args.p):
@@ -920,6 +927,7 @@ def main() -> int:
             "reduction": args.reduction,
             "allow_nonmonic": not args.monic_only,
             "leading_representatives": list(leading_representatives(args.p, not args.monic_only)),
+            "hasse_witt_prefilter": args.hasse_witt_prefilter,
             "search_status": "incomplete",
             "complete_list": False,
         }
@@ -946,6 +954,7 @@ def main() -> int:
             args.reduction,
             output_mode=output_mode,
             allow_nonmonic=not args.monic_only,
+            use_hasse_witt_prefilter=args.hasse_witt_prefilter,
         )
         run_context["search_status"] = "complete" if args.max == 0 else "max_reached"
         run_context["complete_list"] = args.max == 0
