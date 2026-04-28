@@ -33,6 +33,7 @@ Arguments:
 
 If `--output` ends in `.txt`, a matching `.json` file is also written. If it
 ends in `.json`, a matching `.txt` file is also written.
+Progress printed to the terminal is also saved to a matching `.log.txt` file.
 
 ## Examples
 
@@ -66,11 +67,13 @@ The script also writes:
 
 ```text
 batch_results/batch_summary.json
+batch_results/batch.log.txt
 ```
 
 `batch_summary.json` is updated after each completed case, so partial progress
 is preserved if the batch is interrupted with Ctrl+C. Each individual
-`hyperelliptic_finder.py` run also saves its own results incrementally.
+`hyperelliptic_finder.py` run also saves its own results and progress log
+incrementally.
 
 The full grid can be expensive. For a quick test, use:
 
@@ -108,7 +111,7 @@ The reported `accuracy_among_available` only uses LMFDB records that were found.
 Detailed results are saved to the text and JSON output files. The terminal only
 prints run status, per-presentation progress, reduction skips, early rejections,
 and saved matches. Use `--quiet` to print only saved matches and the final
-summary.
+summary. The same terminal progress is written to the `.log.txt` file.
 
 Each saved curve presentation is indexed and includes:
 

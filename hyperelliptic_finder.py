@@ -25,6 +25,7 @@ from typing import Iterable, Sequence
 DEFAULT_OUTPUT = "hyperelliptic_results.txt"
 results: list["CurveResult"] = []
 run_context: dict[str, object] = {}
+log_handle = None
 
 
 @dataclass
@@ -43,6 +44,39 @@ class SearchStats:
     rejected_by_early_l_coefficient: int = 0
     rejected_by_zero_middle_coefficient: int = 0
     saved: int = 0
+
+
+def output_paths(path: str) -> tuple[str, str]:
+    if path.endswith(".json"):
+        return path[:-5] + ".txt", path
+    if path.endswith(".txt"):
+        return path, path[:-4] + ".json"
+    return path, path + ".json"
+
+
+def log_path_for_output(path: str) -> str:
+    if path.endswith(".txt"):
+        return path[:-4] + ".log.txt"
+    return path + ".log.txt"
+
+
+def open_log(path: str) -> None:
+    global log_handle
+    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+    log_handle = open(path, "w", encoding="utf-8", buffering=1)
+
+
+def close_log() -> None:
+    global log_handle
+    if log_handle is not None:
+        log_handle.close()
+        log_handle = None
+
+
+def emit(message: str = "") -> None:
+    print(message, flush=True)
+    if log_handle is not None:
+        log_handle.write(message + "\n")
 
 
 def trim(poly: Sequence[int]) -> list[int]:
@@ -399,6 +433,14 @@ def generate_polynomials(p: int, g: int) -> Iterable[list[int]]:
                 yield poly
 
 
+@lru_cache(maxsize=None)
+def presentation_number(target: tuple[int, ...], p: int, g: int) -> int | None:
+    for number, poly in enumerate(generate_polynomials(p, g), 1):
+        if tuple(poly) == target:
+            return number
+    return None
+
+
 def format_polynomial(coeffs: Sequence[int], var: str = "x") -> str:
     terms = []
     for exponent, coeff in enumerate(coeffs):
@@ -432,6 +474,9 @@ def write_results() -> None:
         handle.write(f"g = {g}\n")
         handle.write(f"base field: F_{p}\n")
         handle.write(f"presentation reduction: {run_context['reduction']}\n")
+        handle.write(f"log file: {run_context.get('log_file', '')}\n")
+        handle.write(f"search status: {run_context.get('search_status', 'incomplete')}\n")
+        handle.write(f"complete list: {run_context.get('complete_list', False)}\n")
         handle.write(f"total presentations found: {len(results)}\n\n")
         handle.write("Only the middle L-polynomial coefficient a_g is listed.\n")
         handle.write("Each entry is a presentation y^2 = f(x).\n\n")
@@ -446,6 +491,9 @@ def write_results() -> None:
         "g": g,
         "field": f"F_{p}",
         "presentation_reduction": str(run_context["reduction"]),
+        "log_file": str(run_context.get("log_file", "")),
+        "search_status": str(run_context.get("search_status", "incomplete")),
+        "complete_list": bool(run_context.get("complete_list", False)),
         "total_presentations_found": len(results),
         "curves": [asdict(result) for result in results],
     }
@@ -456,30 +504,42 @@ def write_results() -> None:
 
 def find_curves(p: int, g: int, max_curves: int, reduction: str, verbose: bool) -> list[CurveResult]:
     stats = SearchStats()
+    canonical_owner: dict[tuple[int, ...], int] = {}
     for f_coeffs in generate_polynomials(p, g):
         stats.considered += 1
         if verbose:
-            print(f"[{stats.considered}] Considering f(x) = {format_polynomial(f_coeffs)}", flush=True)
-            print(f"Checking {reduction} repeats.", flush=True)
-        if tuple(f_coeffs) != canonical_key(f_coeffs, p, g, reduction):
+            emit(f"[{stats.considered}]")
+            emit(f"Considering f(x) = {format_polynomial(f_coeffs)}")
+            emit(f"Checking {reduction} repeats.")
+
+        key = canonical_key(f_coeffs, p, g, reduction)
+        owner = canonical_owner.get(key)
+        if tuple(f_coeffs) != key:
             stats.skipped_by_reduction += 1
             if verbose:
-                print(f"Skipped: {reduction}-equivalent repeat.", flush=True)
+                if owner is None:
+                    owner = presentation_number(key, p, g)
+                    canonical_owner[key] = owner if owner is not None else stats.considered
+                if owner is None:
+                    emit(f"Skipped: {reduction}-equivalent repeat.")
+                else:
+                    emit(f"Skipped: {reduction}-equivalent repeat of [{owner}].")
             continue
+        canonical_owner.setdefault(key, stats.considered)
 
         stats.checked += 1
         if verbose:
-            print("Canonical; checking L-polynomial coefficients.", flush=True)
+            emit("Canonical; checking L-polynomial coefficients.")
         status, middle_coefficient = trinomial_middle_coefficient(p, g, f_coeffs)
         if status == "early_l_coefficient":
             stats.rejected_by_early_l_coefficient += 1
             if verbose:
-                print("Early rejected: pre-middle coefficient is nonzero.", flush=True)
+                emit("Early rejected: pre-middle coefficient is nonzero.")
             continue
         if status == "zero_middle_coefficient":
             stats.rejected_by_zero_middle_coefficient += 1
             if verbose:
-                print("Rejected: middle coefficient is zero.", flush=True)
+                emit("Rejected: middle coefficient is zero.")
             continue
         if middle_coefficient is None:
             raise AssertionError("valid trinomial candidate is missing its middle coefficient")
@@ -494,40 +554,35 @@ def find_curves(p: int, g: int, max_curves: int, reduction: str, verbose: bool) 
         stats.saved += 1
         write_results()
         if verbose:
-            print(f"Saved presentation {result.index}; a_{g} = {result.middle_coefficient}.", flush=True)
+            emit(f"Saved presentation {result.index}; a_{g} = {result.middle_coefficient}.")
         else:
-            print(f"Saved presentation {result.index}; a_{g} = {result.middle_coefficient}.", flush=True)
+            emit(f"Saved presentation {result.index}; a_{g} = {result.middle_coefficient}.")
 
         if max_curves > 0 and len(results) >= max_curves:
             break
 
-    print("", flush=True)
-    print("SUMMARY", flush=True)
-    print(f"Considered {stats.considered} squarefree monic presentations.", flush=True)
-    print(f"Checked {stats.checked} canonical presentations after {reduction} reduction.", flush=True)
-    print(f"Skipped {stats.skipped_by_reduction} {reduction}-equivalent presentations.", flush=True)
-    print(f"Early-rejected {stats.rejected_by_early_l_coefficient} presentations.", flush=True)
-    print(f"Rejected {stats.rejected_by_zero_middle_coefficient} presentations with zero middle coefficient.", flush=True)
+    emit("")
+    emit("SUMMARY")
+    emit(f"Considered {stats.considered} squarefree monic presentations.")
+    emit(f"Checked {stats.checked} canonical presentations after {reduction} reduction.")
+    emit(f"Skipped {stats.skipped_by_reduction} {reduction}-equivalent presentations.")
+    emit(f"Early-rejected {stats.rejected_by_early_l_coefficient} presentations.")
+    emit(f"Rejected {stats.rejected_by_zero_middle_coefficient} presentations with zero middle coefficient.")
     return results
 
 
 def handle_interrupt(_sig, _frame) -> None:
+    run_context["search_status"] = "interrupted"
+    run_context["complete_list"] = False
     write_results()
     output_file = run_context.get("output_file", DEFAULT_OUTPUT)
-    print(f"\nInterrupted. Saved {len(results)} presentations to {output_file}.", flush=True)
+    emit("")
+    emit(f"Interrupted. Saved {len(results)} presentations to {output_file}.")
     raise SystemExit(130)
 
 
 def save_on_exit() -> None:
     write_results()
-
-
-def output_paths(path: str) -> tuple[str, str]:
-    if path.endswith(".json"):
-        return path[:-5] + ".txt", path
-    if path.endswith(".txt"):
-        return path, path[:-4] + ".json"
-    return path, path + ".json"
 
 
 def main() -> int:
@@ -559,30 +614,43 @@ def main() -> int:
         return 1
 
     text_path, json_path = output_paths(args.output)
+    log_path = log_path_for_output(text_path)
+    open_log(log_path)
     run_context.update(
         {
             "p": args.p,
             "g": args.g,
             "output_file": text_path,
             "json_file": json_path,
+            "log_file": log_path,
             "reduction": args.reduction,
+            "search_status": "incomplete",
+            "complete_list": False,
         }
     )
     atexit.register(save_on_exit)
+    atexit.register(close_log)
     signal.signal(signal.SIGINT, handle_interrupt)
     signal.signal(signal.SIGTERM, handle_interrupt)
 
     write_results()
-    print(f"Searching over F_{args.p}.", flush=True)
-    print(f"Using {args.reduction} presentation reduction.", flush=True)
-    print(f"Saving detailed results to {text_path} and {json_path}.", flush=True)
+    emit(f"Searching over F_{args.p}.")
+    emit(f"Using {args.reduction} presentation reduction.")
+    emit(f"Saving detailed results to {text_path} and {json_path}.")
+    emit(f"Writing progress log to {log_path}.")
     try:
         find_curves(args.p, args.g, args.max, args.reduction, verbose=not args.quiet)
+        run_context["search_status"] = "complete" if args.max == 0 else "max_reached"
+        run_context["complete_list"] = args.max == 0
         return_code = 0
+    except Exception:
+        run_context["search_status"] = "error"
+        run_context["complete_list"] = False
+        raise
     finally:
         write_results()
 
-    print(f"Done. Saved {len(results)} presentations to {text_path} and {json_path}.", flush=True)
+    emit(f"Done. Saved {len(results)} presentations to {text_path} and {json_path}.")
     return return_code
 
 

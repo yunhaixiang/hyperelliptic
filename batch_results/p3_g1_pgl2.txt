@@ -4,6 +4,7 @@ p = 3
 g = 1
 base field: F_3
 presentation reduction: pgl2
+log file: /Users/yunhai/Home/Repositories/hyperelliptic/batch_results/p3_g1_pgl2.log.txt
 total presentations found: 8
 
 Only the middle L-polynomial coefficient a_g is listed.

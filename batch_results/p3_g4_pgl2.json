@@ -3,6 +3,7 @@
   "g": 4,
   "field": "F_3",
   "presentation_reduction": "pgl2",
+  "log_file": "/Users/yunhai/Home/Repositories/hyperelliptic/batch_results/p3_g4_pgl2.log.txt",
   "total_presentations_found": 12,
   "curves": [
     {

@@ -5,14 +5,31 @@ from __future__ import annotations
 
 import argparse
 import json
+import select
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 
 PRIMES = (3, 5, 7)
 DEFAULT_MAX_GENUS = 5
 SEPARATOR = "=" * 72
+
+
+class Tee:
+    def __init__(self, *streams):
+        self.streams = streams
+
+    def write(self, data: str) -> int:
+        for stream in self.streams:
+            stream.write(data)
+            stream.flush()
+        return len(data)
+
+    def flush(self) -> None:
+        for stream in self.streams:
+            stream.flush()
 
 
 def write_summary(path: Path, summary: list[dict[str, object]]) -> None:
@@ -28,10 +45,7 @@ def print_case_header(p: int, g: int, reduction: str, output_json: Path) -> None
 
 
 def print_case_footer(case: dict[str, object]) -> None:
-    stdout = str(case.get("stdout") or "")
     stderr = str(case.get("stderr") or "")
-    if stdout:
-        print(stdout, end="" if stdout.endswith("\n") else "\n", flush=True)
     if stderr:
         print("stderr:", flush=True)
         print(stderr, end="" if stderr.endswith("\n") else "\n", flush=True)
@@ -71,30 +85,63 @@ def run_case(
         "output_json": str(output_base.with_suffix(".json")),
         "command": command,
     }
-    try:
-        completed = subprocess.run(
-            command,
-            cwd=script.parent,
-            text=True,
-            capture_output=True,
-            timeout=timeout,
-            check=False,
-        )
-        case.update(
-            {
-                "returncode": completed.returncode,
-                "stdout": completed.stdout,
-                "stderr": completed.stderr,
-                "status": "ok" if completed.returncode == 0 else "failed",
-            }
-        )
-    except subprocess.TimeoutExpired as exc:
+    output_lines: list[str] = []
+    start = time.monotonic()
+    process = subprocess.Popen(
+        command,
+        cwd=script.parent,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        bufsize=1,
+    )
+    assert process.stdout is not None
+
+    timed_out = False
+    while True:
+        if timeout is not None and time.monotonic() - start > timeout:
+            timed_out = True
+            process.terminate()
+            break
+
+        ready, _, _ = select.select([process.stdout], [], [], 0.1)
+        if ready:
+            line = process.stdout.readline()
+            if line:
+                output_lines.append(line)
+                print(line, end="" if line.endswith("\n") else "\n", flush=True)
+
+        if process.poll() is not None:
+            for line in process.stdout:
+                output_lines.append(line)
+                print(line, end="" if line.endswith("\n") else "\n", flush=True)
+            break
+
+    if timed_out:
+        try:
+            remaining, _ = process.communicate(timeout=5)
+        except subprocess.TimeoutExpired:
+            process.kill()
+            remaining, _ = process.communicate()
+        if remaining:
+            output_lines.append(remaining)
+            print(remaining, end="" if remaining.endswith("\n") else "\n", flush=True)
         case.update(
             {
                 "returncode": None,
-                "stdout": exc.stdout or "",
-                "stderr": exc.stderr or "",
+                "stdout": "".join(output_lines),
+                "stderr": "",
                 "status": "timeout",
+            }
+        )
+    else:
+        returncode = process.returncode
+        case.update(
+            {
+                "returncode": returncode,
+                "stdout": "".join(output_lines),
+                "stderr": "",
+                "status": "ok" if returncode == 0 else "failed",
             }
         )
     return case
@@ -117,10 +164,15 @@ def main() -> int:
     outdir = (root / args.outdir).resolve()
     outdir.mkdir(parents=True, exist_ok=True)
     summary_path = outdir / "batch_summary.json"
+    log_path = outdir / "batch.log.txt"
+    log_handle = open(log_path, "w", encoding="utf-8", buffering=1)
+    original_stdout = sys.stdout
+    sys.stdout = Tee(sys.stdout, log_handle)
 
     timeout = args.timeout if args.timeout > 0 else None
     summary = []
     try:
+        print(f"Writing batch log to {log_path}.", flush=True)
         for p in PRIMES:
             for g in range(args.min_genus, args.max_genus + 1):
                 output_json = outdir / f"p{p}_g{g}_{args.reduction}.json"
@@ -139,9 +191,13 @@ def main() -> int:
         summary.append({"status": "interrupted"})
         write_summary(summary_path, summary)
         print(f"\nInterrupted; wrote partial summary to {summary_path}.")
+        sys.stdout = original_stdout
+        log_handle.close()
         return 130
 
     print(f"Wrote {summary_path}.")
+    sys.stdout = original_stdout
+    log_handle.close()
     return 0
 
 

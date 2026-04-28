@@ -1,0 +1,2670 @@
+Searching over F_3.
+Using pgl2 presentation reduction.
+Saving detailed results to /Users/yunhai/Home/Repositories/hyperelliptic/batch_results/p3_g2_pgl2.txt and /Users/yunhai/Home/Repositories/hyperelliptic/batch_results/p3_g2_pgl2.json.
+Writing progress log to /Users/yunhai/Home/Repositories/hyperelliptic/batch_results/p3_g2_pgl2.log.txt.
+[1]
+Considering f(x) = x + x^5
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Saved presentation 1; a_2 = 2.
+[2]
+Considering f(x) = x + x^4 + x^5
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[3]
+Considering f(x) = x + 2x^4 + x^5
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[4]
+Considering f(x) = x + x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [166].
+[5]
+Considering f(x) = x + x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[6]
+Considering f(x) = x + 2x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [2].
+[7]
+Considering f(x) = x + 2x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [3].
+[8]
+Considering f(x) = x + x^2 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [2].
+[9]
+Considering f(x) = x + x^2 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [177].
+[10]
+Considering f(x) = x + x^2 + x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [166].
+[11]
+Considering f(x) = x + x^2 + x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[12]
+Considering f(x) = x + x^2 + x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Saved presentation 2; a_2 = -2.
+[13]
+Considering f(x) = x + x^2 + 2x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [2].
+[14]
+Considering f(x) = x + 2x^2 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [3].
+[15]
+Considering f(x) = x + 2x^2 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [177].
+[16]
+Considering f(x) = x + 2x^2 + x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [5].
+[17]
+Considering f(x) = x + 2x^2 + x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [12].
+[18]
+Considering f(x) = x + 2x^2 + x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [165].
+[19]
+Considering f(x) = x + 2x^2 + 2x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [3].
+[20]
+Considering f(x) = 2x + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [12].
+[21]
+Considering f(x) = 2x + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [180].
+[22]
+Considering f(x) = 2x + 2x^4 + x^5
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[23]
+Considering f(x) = 2x + x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [188].
+[24]
+Considering f(x) = 2x + 2x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [188].
+[25]
+Considering f(x) = 2x + 2x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[26]
+Considering f(x) = 2x + 2x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [200].
+[27]
+Considering f(x) = 2x + x^2 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [180].
+[28]
+Considering f(x) = 2x + x^2 + x^4 + x^5
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[29]
+Considering f(x) = 2x + x^2 + x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [25].
+[30]
+Considering f(x) = 2x + x^2 + x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [3].
+[31]
+Considering f(x) = 2x + x^2 + x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [197].
+[32]
+Considering f(x) = 2x + x^2 + 2x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [3].
+[33]
+Considering f(x) = 2x + x^2 + 2x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [163].
+[34]
+Considering f(x) = 2x + 2x^2 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [22].
+[35]
+Considering f(x) = 2x + 2x^2 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [179].
+[36]
+Considering f(x) = 2x + 2x^2 + x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [200].
+[37]
+Considering f(x) = 2x + 2x^2 + x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [163].
+[38]
+Considering f(x) = 2x + 2x^2 + x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [2].
+[39]
+Considering f(x) = 2x + 2x^2 + 2x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [197].
+[40]
+Considering f(x) = 2x + 2x^2 + 2x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [2].
+[41]
+Considering f(x) = 1 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [163].
+[42]
+Considering f(x) = 1 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [186].
+[43]
+Considering f(x) = 1 + x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [163].
+[44]
+Considering f(x) = 1 + x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [165].
+[45]
+Considering f(x) = 1 + x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [168].
+[46]
+Considering f(x) = 1 + 2x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [176].
+[47]
+Considering f(x) = 1 + 2x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [198].
+[48]
+Considering f(x) = 1 + x^2 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [165].
+[49]
+Considering f(x) = 1 + x^2 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [182].
+[50]
+Considering f(x) = 1 + x^2 + x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [193].
+[51]
+Considering f(x) = 1 + x^2 + 2x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [178].
+[52]
+Considering f(x) = 1 + x^2 + 2x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [200].
+[53]
+Considering f(x) = 1 + x^2 + 2x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [171].
+[54]
+Considering f(x) = 1 + 2x^2 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [168].
+[55]
+Considering f(x) = 1 + 2x^2 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [180].
+[56]
+Considering f(x) = 1 + 2x^2 + x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [173].
+[57]
+Considering f(x) = 1 + 2x^2 + x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [1].
+[58]
+Considering f(x) = 1 + 2x^2 + x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [180].
+[59]
+Considering f(x) = 1 + 2x^2 + 2x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [171].
+[60]
+Considering f(x) = 1 + 2x^2 + 2x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [222].
+[61]
+Considering f(x) = 1 + x + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [179].
+[62]
+Considering f(x) = 1 + x + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [181].
+[63]
+Considering f(x) = 1 + x + x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [171].
+[64]
+Considering f(x) = 1 + x + x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [191].
+[65]
+Considering f(x) = 1 + x + x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [3].
+[66]
+Considering f(x) = 1 + x + 2x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [166].
+[67]
+Considering f(x) = 1 + x + 2x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [202].
+[68]
+Considering f(x) = 1 + x + x^2 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [166].
+[69]
+Considering f(x) = 1 + x + x^2 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [186].
+[70]
+Considering f(x) = 1 + x + x^2 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [177].
+[71]
+Considering f(x) = 1 + x + x^2 + x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [172].
+[72]
+Considering f(x) = 1 + x + x^2 + x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [164].
+[73]
+Considering f(x) = 1 + x + x^2 + 2x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [179].
+[74]
+Considering f(x) = 1 + x + x^2 + 2x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [173].
+[75]
+Considering f(x) = 1 + x + x^2 + 2x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [188].
+[76]
+Considering f(x) = 1 + x + 2x^2 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [169].
+[77]
+Considering f(x) = 1 + x + 2x^2 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [188].
+[78]
+Considering f(x) = 1 + x + 2x^2 + x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [3].
+[79]
+Considering f(x) = 1 + x + 2x^2 + x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [164].
+[80]
+Considering f(x) = 1 + x + 2x^2 + x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [215].
+[81]
+Considering f(x) = 1 + x + 2x^2 + 2x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [181].
+[82]
+Considering f(x) = 1 + 2x + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [164].
+[83]
+Considering f(x) = 1 + 2x + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [184].
+[84]
+Considering f(x) = 1 + 2x + x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [180].
+[85]
+Considering f(x) = 1 + 2x + x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [193].
+[86]
+Considering f(x) = 1 + 2x + 2x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [177].
+[87]
+Considering f(x) = 1 + 2x + 2x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [175].
+[88]
+Considering f(x) = 1 + 2x + x^2 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [167].
+[89]
+Considering f(x) = 1 + 2x + x^2 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [3].
+[90]
+Considering f(x) = 1 + 2x + x^2 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [176].
+[91]
+Considering f(x) = 1 + 2x + x^2 + x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [169].
+[92]
+Considering f(x) = 1 + 2x + x^2 + 2x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [180].
+[93]
+Considering f(x) = 1 + 2x + x^2 + 2x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [202].
+[94]
+Considering f(x) = 1 + 2x + x^2 + 2x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [197].
+[95]
+Considering f(x) = 1 + 2x + 2x^2 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [176].
+[96]
+Considering f(x) = 1 + 2x + 2x^2 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [209].
+[97]
+Considering f(x) = 1 + 2x + 2x^2 + x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [175].
+[98]
+Considering f(x) = 1 + 2x + 2x^2 + x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [197].
+[99]
+Considering f(x) = 1 + 2x + 2x^2 + x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [166].
+[100]
+Considering f(x) = 1 + 2x + 2x^2 + 2x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [182].
+[101]
+Considering f(x) = 1 + 2x + 2x^2 + 2x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [166].
+[102]
+Considering f(x) = 2 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [197].
+[103]
+Considering f(x) = 2 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [178].
+[104]
+Considering f(x) = 2 + x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [197].
+[105]
+Considering f(x) = 2 + x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [215].
+[106]
+Considering f(x) = 2 + x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [11].
+[107]
+Considering f(x) = 2 + 2x^3 + x^5
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[108]
+Considering f(x) = 2 + 2x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [173].
+[109]
+Considering f(x) = 2 + x^2 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [215].
+[110]
+Considering f(x) = 2 + x^2 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [22].
+[111]
+Considering f(x) = 2 + x^2 + x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [198].
+[112]
+Considering f(x) = 2 + x^2 + x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [22].
+[113]
+Considering f(x) = 2 + x^2 + x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [1].
+[114]
+Considering f(x) = 2 + x^2 + 2x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [175].
+[115]
+Considering f(x) = 2 + x^2 + 2x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[116]
+Considering f(x) = 2 + 2x^2 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [11].
+[117]
+Considering f(x) = 2 + 2x^2 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [184].
+[118]
+Considering f(x) = 2 + 2x^2 + x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [167].
+[119]
+Considering f(x) = 2 + 2x^2 + 2x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [186].
+[120]
+Considering f(x) = 2 + 2x^2 + 2x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [115].
+[121]
+Considering f(x) = 2 + 2x^2 + 2x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [25].
+[122]
+Considering f(x) = 2 + x + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [209].
+[123]
+Considering f(x) = 2 + x + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [28].
+[124]
+Considering f(x) = 2 + x + x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [115].
+[125]
+Considering f(x) = 2 + x + x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [2].
+[126]
+Considering f(x) = 2 + x + x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [169].
+[127]
+Considering f(x) = 2 + x + 2x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [172].
+[128]
+Considering f(x) = 2 + x + 2x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [5].
+[129]
+Considering f(x) = 2 + x + x^2 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [191].
+[130]
+Considering f(x) = 2 + x + x^2 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [188].
+[131]
+Considering f(x) = 2 + x + x^2 + x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [2].
+[132]
+Considering f(x) = 2 + x + x^2 + x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [168].
+[133]
+Considering f(x) = 2 + x + x^2 + x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[134]
+Considering f(x) = 2 + x + x^2 + 2x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [209].
+[135]
+Considering f(x) = 2 + x + 2x^2 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [5].
+[136]
+Considering f(x) = 2 + x + 2x^2 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [177].
+[137]
+Considering f(x) = 2 + x + 2x^2 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [178].
+[138]
+Considering f(x) = 2 + x + 2x^2 + x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [202].
+[139]
+Considering f(x) = 2 + x + 2x^2 + x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [133].
+[140]
+Considering f(x) = 2 + x + 2x^2 + 2x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [28].
+[141]
+Considering f(x) = 2 + x + 2x^2 + 2x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [188].
+[142]
+Considering f(x) = 2 + x + 2x^2 + 2x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [198].
+[143]
+Considering f(x) = 2 + 2x + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [133].
+[144]
+Considering f(x) = 2 + 2x + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [182].
+[145]
+Considering f(x) = 2 + 2x + x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [167].
+[146]
+Considering f(x) = 2 + 2x + x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [22].
+[147]
+Considering f(x) = 2 + 2x + 2x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [177].
+[148]
+Considering f(x) = 2 + 2x + 2x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [222].
+[149]
+Considering f(x) = 2 + 2x + x^2 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [181].
+[150]
+Considering f(x) = 2 + 2x + x^2 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [107].
+[151]
+Considering f(x) = 2 + 2x + x^2 + x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [222].
+[152]
+Considering f(x) = 2 + 2x + x^2 + x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [5].
+[153]
+Considering f(x) = 2 + 2x + x^2 + x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [163].
+[154]
+Considering f(x) = 2 + 2x + x^2 + 2x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [184].
+[155]
+Considering f(x) = 2 + 2x + x^2 + 2x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [5].
+[156]
+Considering f(x) = 2 + 2x + 2x^2 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [193].
+[157]
+Considering f(x) = 2 + 2x + 2x^2 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [107].
+[158]
+Considering f(x) = 2 + 2x + 2x^2 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [2].
+[159]
+Considering f(x) = 2 + 2x + 2x^2 + x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [191].
+[160]
+Considering f(x) = 2 + 2x + 2x^2 + 2x^3 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [22].
+[161]
+Considering f(x) = 2 + 2x + 2x^2 + 2x^3 + x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [163].
+[162]
+Considering f(x) = 2 + 2x + 2x^2 + 2x^3 + 2x^4 + x^5
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [172].
+[163]
+Considering f(x) = x + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Rejected: middle coefficient is zero.
+[164]
+Considering f(x) = x + 2x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[165]
+Considering f(x) = x + x^4 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[166]
+Considering f(x) = x + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[167]
+Considering f(x) = x + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[168]
+Considering f(x) = x + 2x^4 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[169]
+Considering f(x) = x + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[170]
+Considering f(x) = x + x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [163].
+[171]
+Considering f(x) = x + x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[172]
+Considering f(x) = x + x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[173]
+Considering f(x) = x + x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[174]
+Considering f(x) = x + x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [3].
+[175]
+Considering f(x) = x + x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[176]
+Considering f(x) = x + 2x^3 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[177]
+Considering f(x) = x + 2x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Saved presentation 3; a_2 = -2.
+[178]
+Considering f(x) = x + 2x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[179]
+Considering f(x) = x + 2x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[180]
+Considering f(x) = x + 2x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[181]
+Considering f(x) = x + 2x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[182]
+Considering f(x) = x + 2x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[183]
+Considering f(x) = x + x^2 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [179].
+[184]
+Considering f(x) = x + x^2 + 2x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[185]
+Considering f(x) = x + x^2 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [182].
+[186]
+Considering f(x) = x + x^2 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[187]
+Considering f(x) = x + x^2 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [3].
+[188]
+Considering f(x) = x + x^2 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Saved presentation 4; a_2 = 4.
+[189]
+Considering f(x) = x + x^2 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [176].
+[190]
+Considering f(x) = x + x^2 + x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [165].
+[191]
+Considering f(x) = x + x^2 + x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[192]
+Considering f(x) = x + x^2 + x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [180].
+[193]
+Considering f(x) = x + x^2 + x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[194]
+Considering f(x) = x + x^2 + x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [169].
+[195]
+Considering f(x) = x + x^2 + x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [1].
+[196]
+Considering f(x) = x + x^2 + x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [164].
+[197]
+Considering f(x) = x + x^2 + x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Rejected: middle coefficient is zero.
+[198]
+Considering f(x) = x + x^2 + 2x^3 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[199]
+Considering f(x) = x + x^2 + 2x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [166].
+[200]
+Considering f(x) = x + x^2 + 2x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[201]
+Considering f(x) = x + x^2 + 2x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [173].
+[202]
+Considering f(x) = x + x^2 + 2x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[203]
+Considering f(x) = x + x^2 + 2x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [171].
+[204]
+Considering f(x) = x + 2x^2 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [186].
+[205]
+Considering f(x) = x + 2x^2 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [181].
+[206]
+Considering f(x) = x + 2x^2 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [177].
+[207]
+Considering f(x) = x + 2x^2 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [176].
+[208]
+Considering f(x) = x + 2x^2 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [180].
+[209]
+Considering f(x) = x + 2x^2 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[210]
+Considering f(x) = x + 2x^2 + x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [168].
+[211]
+Considering f(x) = x + 2x^2 + x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [3].
+[212]
+Considering f(x) = x + 2x^2 + x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [193].
+[213]
+Considering f(x) = x + 2x^2 + x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [164].
+[214]
+Considering f(x) = x + 2x^2 + x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [180].
+[215]
+Considering f(x) = x + 2x^2 + x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[216]
+Considering f(x) = x + 2x^2 + x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [166].
+[217]
+Considering f(x) = x + 2x^2 + 2x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [202].
+[218]
+Considering f(x) = x + 2x^2 + 2x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [175].
+[219]
+Considering f(x) = x + 2x^2 + 2x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [171].
+[220]
+Considering f(x) = x + 2x^2 + 2x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [188].
+[221]
+Considering f(x) = x + 2x^2 + 2x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [197].
+[222]
+Considering f(x) = x + 2x^2 + 2x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[223]
+Considering f(x) = x + 2x^2 + 2x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [166].
+[224]
+Considering f(x) = 2x + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [163].
+[225]
+Considering f(x) = 2x + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [164].
+[226]
+Considering f(x) = 2x + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [165].
+[227]
+Considering f(x) = 2x + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [167].
+[228]
+Considering f(x) = 2x + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [166].
+[229]
+Considering f(x) = 2x + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [168].
+[230]
+Considering f(x) = 2x + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [169].
+[231]
+Considering f(x) = 2x + x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [176].
+[232]
+Considering f(x) = 2x + x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [177].
+[233]
+Considering f(x) = 2x + x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [178].
+[234]
+Considering f(x) = 2x + x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [180].
+[235]
+Considering f(x) = 2x + x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [179].
+[236]
+Considering f(x) = 2x + x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [182].
+[237]
+Considering f(x) = 2x + x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [181].
+[238]
+Considering f(x) = 2x + 2x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [163].
+[239]
+Considering f(x) = 2x + 2x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [171].
+[240]
+Considering f(x) = 2x + 2x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [172].
+[241]
+Considering f(x) = 2x + 2x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [173].
+[242]
+Considering f(x) = 2x + 2x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [175].
+[243]
+Considering f(x) = 2x + 2x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [3].
+[244]
+Considering f(x) = 2x + x^2 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [184].
+[245]
+Considering f(x) = 2x + x^2 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [179].
+[246]
+Considering f(x) = 2x + x^2 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [182].
+[247]
+Considering f(x) = 2x + x^2 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [3].
+[248]
+Considering f(x) = 2x + x^2 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [186].
+[249]
+Considering f(x) = 2x + x^2 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [176].
+[250]
+Considering f(x) = 2x + x^2 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [188].
+[251]
+Considering f(x) = 2x + x^2 + x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [198].
+[252]
+Considering f(x) = 2x + x^2 + x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [166].
+[253]
+Considering f(x) = 2x + x^2 + x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [200].
+[254]
+Considering f(x) = 2x + x^2 + x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [202].
+[255]
+Considering f(x) = 2x + x^2 + x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [173].
+[256]
+Considering f(x) = 2x + x^2 + x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [171].
+[257]
+Considering f(x) = 2x + x^2 + 2x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [165].
+[258]
+Considering f(x) = 2x + x^2 + 2x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [180].
+[259]
+Considering f(x) = 2x + x^2 + 2x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [191].
+[260]
+Considering f(x) = 2x + x^2 + 2x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [193].
+[261]
+Considering f(x) = 2x + x^2 + 2x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [169].
+[262]
+Considering f(x) = 2x + x^2 + 2x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [1].
+[263]
+Considering f(x) = 2x + x^2 + 2x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [197].
+[264]
+Considering f(x) = 2x + x^2 + 2x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [164].
+[265]
+Considering f(x) = 2x + 2x^2 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [186].
+[266]
+Considering f(x) = 2x + 2x^2 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [181].
+[267]
+Considering f(x) = 2x + 2x^2 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [176].
+[268]
+Considering f(x) = 2x + 2x^2 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [177].
+[269]
+Considering f(x) = 2x + 2x^2 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [180].
+[270]
+Considering f(x) = 2x + 2x^2 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [209].
+[271]
+Considering f(x) = 2x + 2x^2 + x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [175].
+[272]
+Considering f(x) = 2x + 2x^2 + x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [202].
+[273]
+Considering f(x) = 2x + 2x^2 + x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [171].
+[274]
+Considering f(x) = 2x + 2x^2 + x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [197].
+[275]
+Considering f(x) = 2x + 2x^2 + x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [188].
+[276]
+Considering f(x) = 2x + 2x^2 + x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [222].
+[277]
+Considering f(x) = 2x + 2x^2 + x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [166].
+[278]
+Considering f(x) = 2x + 2x^2 + 2x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [168].
+[279]
+Considering f(x) = 2x + 2x^2 + 2x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [193].
+[280]
+Considering f(x) = 2x + 2x^2 + 2x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [3].
+[281]
+Considering f(x) = 2x + 2x^2 + 2x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [164].
+[282]
+Considering f(x) = 2x + 2x^2 + 2x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [180].
+[283]
+Considering f(x) = 2x + 2x^2 + 2x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [166].
+[284]
+Considering f(x) = 2x + 2x^2 + 2x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [215].
+[285]
+Considering f(x) = 1 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [176].
+[286]
+Considering f(x) = 1 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [176].
+[287]
+Considering f(x) = 1 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [165].
+[288]
+Considering f(x) = 1 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[289]
+Considering f(x) = 1 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [288].
+[290]
+Considering f(x) = 1 + 2x^4 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[291]
+Considering f(x) = 1 + x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [176].
+[292]
+Considering f(x) = 1 + x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Saved presentation 5; a_2 = 3.
+[293]
+Considering f(x) = 1 + x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [288].
+[294]
+Considering f(x) = 1 + x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[295]
+Considering f(x) = 1 + x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [168].
+[296]
+Considering f(x) = 1 + x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [186].
+[297]
+Considering f(x) = 1 + x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [290].
+[298]
+Considering f(x) = 1 + 2x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [292].
+[299]
+Considering f(x) = 1 + 2x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [176].
+[300]
+Considering f(x) = 1 + 2x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [288].
+[301]
+Considering f(x) = 1 + 2x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [294].
+[302]
+Considering f(x) = 1 + 2x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [168].
+[303]
+Considering f(x) = 1 + 2x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [290].
+[304]
+Considering f(x) = 1 + 2x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [186].
+[305]
+Considering f(x) = 1 + x^2 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [165].
+[306]
+Considering f(x) = 1 + x^2 + x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[307]
+Considering f(x) = 1 + x^2 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [306].
+[308]
+Considering f(x) = 1 + x^2 + x^4 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[309]
+Considering f(x) = 1 + x^2 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [182].
+[310]
+Considering f(x) = 1 + x^2 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [182].
+[311]
+Considering f(x) = 1 + x^2 + 2x^4 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Saved presentation 6; a_2 = 5.
+[312]
+Considering f(x) = 1 + x^2 + x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [288].
+[313]
+Considering f(x) = 1 + x^2 + x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [288].
+[314]
+Considering f(x) = 1 + x^2 + x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [193].
+[315]
+Considering f(x) = 1 + x^2 + x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [171].
+[316]
+Considering f(x) = 1 + x^2 + x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [171].
+[317]
+Considering f(x) = 1 + x^2 + x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Saved presentation 7; a_2 = 2.
+[318]
+Considering f(x) = 1 + x^2 + 2x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [288].
+[319]
+Considering f(x) = 1 + x^2 + 2x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [288].
+[320]
+Considering f(x) = 1 + x^2 + 2x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [193].
+[321]
+Considering f(x) = 1 + x^2 + 2x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [171].
+[322]
+Considering f(x) = 1 + x^2 + 2x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [317].
+[323]
+Considering f(x) = 1 + x^2 + 2x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [171].
+[324]
+Considering f(x) = 1 + 2x^2 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [290].
+[325]
+Considering f(x) = 1 + 2x^2 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [173].
+[326]
+Considering f(x) = 1 + 2x^2 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [173].
+[327]
+Considering f(x) = 1 + 2x^2 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [311].
+[328]
+Considering f(x) = 1 + 2x^2 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [171].
+[329]
+Considering f(x) = 1 + 2x^2 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [171].
+[330]
+Considering f(x) = 1 + 2x^2 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[331]
+Considering f(x) = 1 + 2x^2 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [330].
+[332]
+Considering f(x) = 1 + 2x^2 + x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [168].
+[333]
+Considering f(x) = 1 + 2x^2 + x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [290].
+[334]
+Considering f(x) = 1 + 2x^2 + x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [171].
+[335]
+Considering f(x) = 1 + 2x^2 + x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Saved presentation 8; a_2 = -1.
+[336]
+Considering f(x) = 1 + 2x^2 + x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[337]
+Considering f(x) = 1 + 2x^2 + x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [330].
+[338]
+Considering f(x) = 1 + 2x^2 + x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [180].
+[339]
+Considering f(x) = 1 + 2x^2 + 2x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [168].
+[340]
+Considering f(x) = 1 + 2x^2 + 2x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [290].
+[341]
+Considering f(x) = 1 + 2x^2 + 2x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [171].
+[342]
+Considering f(x) = 1 + 2x^2 + 2x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [335].
+[343]
+Considering f(x) = 1 + 2x^2 + 2x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [336].
+[344]
+Considering f(x) = 1 + 2x^2 + 2x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [180].
+[345]
+Considering f(x) = 1 + 2x^2 + 2x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [330].
+[346]
+Considering f(x) = 1 + x + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [176].
+[347]
+Considering f(x) = 1 + x + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [306].
+[348]
+Considering f(x) = 1 + x + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[349]
+Considering f(x) = 1 + x + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [173].
+[350]
+Considering f(x) = 1 + x + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [169].
+[351]
+Considering f(x) = 1 + x + x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [176].
+[352]
+Considering f(x) = 1 + x + x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Saved presentation 9; a_2 = 5.
+[353]
+Considering f(x) = 1 + x + x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [164].
+[354]
+Considering f(x) = 1 + x + x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [288].
+[355]
+Considering f(x) = 1 + x + x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [166].
+[356]
+Considering f(x) = 1 + x + x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [330].
+[357]
+Considering f(x) = 1 + x + x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[358]
+Considering f(x) = 1 + x + 2x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [292].
+[359]
+Considering f(x) = 1 + x + 2x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [164].
+[360]
+Considering f(x) = 1 + x + 2x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [348].
+[361]
+Considering f(x) = 1 + x + 2x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[362]
+Considering f(x) = 1 + x + 2x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [290].
+[363]
+Considering f(x) = 1 + x + 2x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [202].
+[364]
+Considering f(x) = 1 + x + 2x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [175].
+[365]
+Considering f(x) = 1 + x + x^2 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [288].
+[366]
+Considering f(x) = 1 + x + x^2 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [348].
+[367]
+Considering f(x) = 1 + x + x^2 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [182].
+[368]
+Considering f(x) = 1 + x + x^2 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [357].
+[369]
+Considering f(x) = 1 + x + x^2 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [171].
+[370]
+Considering f(x) = 1 + x + x^2 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [164].
+[371]
+Considering f(x) = 1 + x + x^2 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Saved presentation 10; a_2 = 3.
+[372]
+Considering f(x) = 1 + x + x^2 + x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [294].
+[373]
+Considering f(x) = 1 + x + x^2 + x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [166].
+[374]
+Considering f(x) = 1 + x + x^2 + x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [361].
+[375]
+Considering f(x) = 1 + x + x^2 + x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [193].
+[376]
+Considering f(x) = 1 + x + x^2 + x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [290].
+[377]
+Considering f(x) = 1 + x + x^2 + x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [181].
+[378]
+Considering f(x) = 1 + x + x^2 + x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Saved presentation 11; a_2 = 1.
+[379]
+Considering f(x) = 1 + x + x^2 + 2x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [348].
+[380]
+Considering f(x) = 1 + x + x^2 + 2x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [330].
+[381]
+Considering f(x) = 1 + x + x^2 + 2x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [181].
+[382]
+Considering f(x) = 1 + x + x^2 + 2x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [335].
+[383]
+Considering f(x) = 1 + x + x^2 + 2x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [164].
+[384]
+Considering f(x) = 1 + x + x^2 + 2x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [176].
+[385]
+Considering f(x) = 1 + x + 2x^2 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [169].
+[386]
+Considering f(x) = 1 + x + 2x^2 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [164].
+[387]
+Considering f(x) = 1 + x + 2x^2 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [371].
+[388]
+Considering f(x) = 1 + x + 2x^2 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [330].
+[389]
+Considering f(x) = 1 + x + 2x^2 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [306].
+[390]
+Considering f(x) = 1 + x + 2x^2 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [179].
+[391]
+Considering f(x) = 1 + x + 2x^2 + x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [186].
+[392]
+Considering f(x) = 1 + x + 2x^2 + x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [357].
+[393]
+Considering f(x) = 1 + x + 2x^2 + x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [175].
+[394]
+Considering f(x) = 1 + x + 2x^2 + x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [171].
+[395]
+Considering f(x) = 1 + x + 2x^2 + x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [378].
+[396]
+Considering f(x) = 1 + x + 2x^2 + x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [176].
+[397]
+Considering f(x) = 1 + x + 2x^2 + x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [330].
+[398]
+Considering f(x) = 1 + x + 2x^2 + x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [348].
+[399]
+Considering f(x) = 1 + x + 2x^2 + 2x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [290].
+[400]
+Considering f(x) = 1 + x + 2x^2 + 2x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [202].
+[401]
+Considering f(x) = 1 + x + 2x^2 + 2x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [317].
+[402]
+Considering f(x) = 1 + x + 2x^2 + 2x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [164].
+[403]
+Considering f(x) = 1 + x + 2x^2 + 2x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [180].
+[404]
+Considering f(x) = 1 + x + 2x^2 + 2x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [294].
+[405]
+Considering f(x) = 1 + x + 2x^2 + 2x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [348].
+[406]
+Considering f(x) = 1 + 2x + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [176].
+[407]
+Considering f(x) = 1 + 2x + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [306].
+[408]
+Considering f(x) = 1 + 2x + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [348].
+[409]
+Considering f(x) = 1 + 2x + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [173].
+[410]
+Considering f(x) = 1 + 2x + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [169].
+[411]
+Considering f(x) = 1 + 2x + x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [292].
+[412]
+Considering f(x) = 1 + 2x + x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [164].
+[413]
+Considering f(x) = 1 + 2x + x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [361].
+[414]
+Considering f(x) = 1 + 2x + x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [348].
+[415]
+Considering f(x) = 1 + 2x + x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [290].
+[416]
+Considering f(x) = 1 + 2x + x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [175].
+[417]
+Considering f(x) = 1 + 2x + x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [202].
+[418]
+Considering f(x) = 1 + 2x + 2x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [176].
+[419]
+Considering f(x) = 1 + 2x + 2x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [164].
+[420]
+Considering f(x) = 1 + 2x + 2x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [352].
+[421]
+Considering f(x) = 1 + 2x + 2x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [288].
+[422]
+Considering f(x) = 1 + 2x + 2x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [330].
+[423]
+Considering f(x) = 1 + 2x + 2x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [166].
+[424]
+Considering f(x) = 1 + 2x + 2x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [357].
+[425]
+Considering f(x) = 1 + 2x + x^2 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [288].
+[426]
+Considering f(x) = 1 + 2x + x^2 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [348].
+[427]
+Considering f(x) = 1 + 2x + x^2 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [182].
+[428]
+Considering f(x) = 1 + 2x + x^2 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [357].
+[429]
+Considering f(x) = 1 + 2x + x^2 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [171].
+[430]
+Considering f(x) = 1 + 2x + x^2 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [371].
+[431]
+Considering f(x) = 1 + 2x + x^2 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [164].
+[432]
+Considering f(x) = 1 + 2x + x^2 + x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [330].
+[433]
+Considering f(x) = 1 + 2x + x^2 + x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [348].
+[434]
+Considering f(x) = 1 + 2x + x^2 + x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [181].
+[435]
+Considering f(x) = 1 + 2x + x^2 + x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [335].
+[436]
+Considering f(x) = 1 + 2x + x^2 + x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [176].
+[437]
+Considering f(x) = 1 + 2x + x^2 + x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [164].
+[438]
+Considering f(x) = 1 + 2x + x^2 + 2x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [294].
+[439]
+Considering f(x) = 1 + 2x + x^2 + 2x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [361].
+[440]
+Considering f(x) = 1 + 2x + x^2 + 2x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [166].
+[441]
+Considering f(x) = 1 + 2x + x^2 + 2x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [193].
+[442]
+Considering f(x) = 1 + 2x + x^2 + 2x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [181].
+[443]
+Considering f(x) = 1 + 2x + x^2 + 2x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [290].
+[444]
+Considering f(x) = 1 + 2x + x^2 + 2x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [378].
+[445]
+Considering f(x) = 1 + 2x + 2x^2 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [169].
+[446]
+Considering f(x) = 1 + 2x + 2x^2 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [371].
+[447]
+Considering f(x) = 1 + 2x + 2x^2 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [164].
+[448]
+Considering f(x) = 1 + 2x + 2x^2 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [330].
+[449]
+Considering f(x) = 1 + 2x + 2x^2 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [179].
+[450]
+Considering f(x) = 1 + 2x + 2x^2 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [306].
+[451]
+Considering f(x) = 1 + 2x + 2x^2 + x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [290].
+[452]
+Considering f(x) = 1 + 2x + 2x^2 + x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [202].
+[453]
+Considering f(x) = 1 + 2x + 2x^2 + x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [317].
+[454]
+Considering f(x) = 1 + 2x + 2x^2 + x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [164].
+[455]
+Considering f(x) = 1 + 2x + 2x^2 + x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [180].
+[456]
+Considering f(x) = 1 + 2x + 2x^2 + x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [348].
+[457]
+Considering f(x) = 1 + 2x + 2x^2 + x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [294].
+[458]
+Considering f(x) = 1 + 2x + 2x^2 + 2x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [186].
+[459]
+Considering f(x) = 1 + 2x + 2x^2 + 2x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [175].
+[460]
+Considering f(x) = 1 + 2x + 2x^2 + 2x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [357].
+[461]
+Considering f(x) = 1 + 2x + 2x^2 + 2x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [171].
+[462]
+Considering f(x) = 1 + 2x + 2x^2 + 2x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [176].
+[463]
+Considering f(x) = 1 + 2x + 2x^2 + 2x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [378].
+[464]
+Considering f(x) = 1 + 2x + 2x^2 + 2x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [330].
+[465]
+Considering f(x) = 1 + 2x + 2x^2 + 2x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [348].
+[466]
+Considering f(x) = 2 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [371].
+[467]
+Considering f(x) = 2 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [371].
+[468]
+Considering f(x) = 2 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [306].
+[469]
+Considering f(x) = 2 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [215].
+[470]
+Considering f(x) = 2 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [215].
+[471]
+Considering f(x) = 2 + 2x^4 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[472]
+Considering f(x) = 2 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [173].
+[473]
+Considering f(x) = 2 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [173].
+[474]
+Considering f(x) = 2 + x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [371].
+[475]
+Considering f(x) = 2 + x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [197].
+[476]
+Considering f(x) = 2 + x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [178].
+[477]
+Considering f(x) = 2 + x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [306].
+[478]
+Considering f(x) = 2 + x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [173].
+[479]
+Considering f(x) = 2 + x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[480]
+Considering f(x) = 2 + 2x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [197].
+[481]
+Considering f(x) = 2 + 2x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [371].
+[482]
+Considering f(x) = 2 + 2x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [178].
+[483]
+Considering f(x) = 2 + 2x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [306].
+[484]
+Considering f(x) = 2 + 2x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [173].
+[485]
+Considering f(x) = 2 + 2x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [479].
+[486]
+Considering f(x) = 2 + x^2 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [294].
+[487]
+Considering f(x) = 2 + x^2 + x^4 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[488]
+Considering f(x) = 2 + x^2 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [175].
+[489]
+Considering f(x) = 2 + x^2 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [175].
+[490]
+Considering f(x) = 2 + x^2 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [1].
+[491]
+Considering f(x) = 2 + x^2 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [335].
+[492]
+Considering f(x) = 2 + x^2 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [335].
+[493]
+Considering f(x) = 2 + x^2 + x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [198].
+[494]
+Considering f(x) = 2 + x^2 + x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [215].
+[495]
+Considering f(x) = 2 + x^2 + x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [294].
+[496]
+Considering f(x) = 2 + x^2 + x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [175].
+[497]
+Considering f(x) = 2 + x^2 + x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[498]
+Considering f(x) = 2 + x^2 + x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [335].
+[499]
+Considering f(x) = 2 + x^2 + x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [352].
+[500]
+Considering f(x) = 2 + x^2 + 2x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [198].
+[501]
+Considering f(x) = 2 + x^2 + 2x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [294].
+[502]
+Considering f(x) = 2 + x^2 + 2x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [215].
+[503]
+Considering f(x) = 2 + x^2 + 2x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [497].
+[504]
+Considering f(x) = 2 + x^2 + 2x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [175].
+[505]
+Considering f(x) = 2 + x^2 + 2x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [335].
+[506]
+Considering f(x) = 2 + x^2 + 2x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [352].
+[507]
+Considering f(x) = 2 + 2x^2 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[508]
+Considering f(x) = 2 + 2x^2 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [352].
+[509]
+Considering f(x) = 2 + 2x^2 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [352].
+[510]
+Considering f(x) = 2 + 2x^2 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [336].
+[511]
+Considering f(x) = 2 + 2x^2 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [184].
+[512]
+Considering f(x) = 2 + 2x^2 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [184].
+[513]
+Considering f(x) = 2 + 2x^2 + x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [186].
+[514]
+Considering f(x) = 2 + 2x^2 + x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [186].
+[515]
+Considering f(x) = 2 + 2x^2 + x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [479].
+[516]
+Considering f(x) = 2 + 2x^2 + x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [317].
+[517]
+Considering f(x) = 2 + 2x^2 + x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [317].
+[518]
+Considering f(x) = 2 + 2x^2 + x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [167].
+[519]
+Considering f(x) = 2 + 2x^2 + x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [361].
+[520]
+Considering f(x) = 2 + 2x^2 + 2x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [186].
+[521]
+Considering f(x) = 2 + 2x^2 + 2x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [479].
+[522]
+Considering f(x) = 2 + 2x^2 + 2x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [186].
+[523]
+Considering f(x) = 2 + 2x^2 + 2x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [317].
+[524]
+Considering f(x) = 2 + 2x^2 + 2x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [317].
+[525]
+Considering f(x) = 2 + 2x^2 + 2x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [361].
+[526]
+Considering f(x) = 2 + 2x^2 + 2x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [167].
+[527]
+Considering f(x) = 2 + x + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [292].
+[528]
+Considering f(x) = 2 + x + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [335].
+[529]
+Considering f(x) = 2 + x + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [188].
+[530]
+Considering f(x) = 2 + x + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [191].
+[531]
+Considering f(x) = 2 + x + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [330].
+[532]
+Considering f(x) = 2 + x + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [181].
+[533]
+Considering f(x) = 2 + x + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [497].
+[534]
+Considering f(x) = 2 + x + x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [292].
+[535]
+Considering f(x) = 2 + x + x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [378].
+[536]
+Considering f(x) = 2 + x + x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [178].
+[537]
+Considering f(x) = 2 + x + x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [348].
+[538]
+Considering f(x) = 2 + x + x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [184].
+[539]
+Considering f(x) = 2 + x + x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [168].
+[540]
+Considering f(x) = 2 + x + x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[541]
+Considering f(x) = 2 + x + x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [193].
+[542]
+Considering f(x) = 2 + x + 2x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [163].
+[543]
+Considering f(x) = 2 + x + 2x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [317].
+[544]
+Considering f(x) = 2 + x + 2x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [378].
+[545]
+Considering f(x) = 2 + x + 2x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [288].
+[546]
+Considering f(x) = 2 + x + 2x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [209].
+[547]
+Considering f(x) = 2 + x + 2x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [471].
+[548]
+Considering f(x) = 2 + x + 2x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [202].
+[549]
+Considering f(x) = 2 + x + x^2 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [198].
+[550]
+Considering f(x) = 2 + x + x^2 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [209].
+[551]
+Considering f(x) = 2 + x + x^2 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [330].
+[552]
+Considering f(x) = 2 + x + x^2 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [182].
+[553]
+Considering f(x) = 2 + x + x^2 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [540].
+[554]
+Considering f(x) = 2 + x + x^2 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [335].
+[555]
+Considering f(x) = 2 + x + x^2 + x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [348].
+[556]
+Considering f(x) = 2 + x + x^2 + x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [193].
+[557]
+Considering f(x) = 2 + x + x^2 + x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [479].
+[558]
+Considering f(x) = 2 + x + x^2 + x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [169].
+[559]
+Considering f(x) = 2 + x + x^2 + x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [311].
+[560]
+Considering f(x) = 2 + x + x^2 + x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [177].
+[561]
+Considering f(x) = 2 + x + x^2 + x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [292].
+[562]
+Considering f(x) = 2 + x + x^2 + 2x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [288].
+[563]
+Considering f(x) = 2 + x + x^2 + 2x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [172].
+[564]
+Considering f(x) = 2 + x + x^2 + 2x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [167].
+[565]
+Considering f(x) = 2 + x + x^2 + 2x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Canonical; checking L-polynomial coefficients.
+Early rejected: pre-middle coefficient is nonzero.
+[566]
+Considering f(x) = 2 + x + x^2 + 2x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [202].
+[567]
+Considering f(x) = 2 + x + x^2 + 2x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [378].
+[568]
+Considering f(x) = 2 + x + x^2 + 2x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [371].
+[569]
+Considering f(x) = 2 + x + 2x^2 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [168].
+[570]
+Considering f(x) = 2 + x + 2x^2 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [169].
+[571]
+Considering f(x) = 2 + x + 2x^2 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [497].
+[572]
+Considering f(x) = 2 + x + 2x^2 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [311].
+[573]
+Considering f(x) = 2 + x + 2x^2 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [378].
+[574]
+Considering f(x) = 2 + x + 2x^2 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [222].
+[575]
+Considering f(x) = 2 + x + 2x^2 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [348].
+[576]
+Considering f(x) = 2 + x + 2x^2 + x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [540].
+[577]
+Considering f(x) = 2 + x + 2x^2 + x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [317].
+[578]
+Considering f(x) = 2 + x + 2x^2 + x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [371].
+[579]
+Considering f(x) = 2 + x + 2x^2 + x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [222].
+[580]
+Considering f(x) = 2 + x + 2x^2 + x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [288].
+[581]
+Considering f(x) = 2 + x + 2x^2 + x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [172].
+[582]
+Considering f(x) = 2 + x + 2x^2 + 2x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [507].
+[583]
+Considering f(x) = 2 + x + 2x^2 + 2x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [181].
+[584]
+Considering f(x) = 2 + x + 2x^2 + 2x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [182].
+[585]
+Considering f(x) = 2 + x + 2x^2 + 2x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [292].
+[586]
+Considering f(x) = 2 + x + 2x^2 + 2x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [330].
+[587]
+Considering f(x) = 2 + x + 2x^2 + 2x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [191].
+[588]
+Considering f(x) = 2 + 2x + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [292].
+[589]
+Considering f(x) = 2 + 2x + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [188].
+[590]
+Considering f(x) = 2 + 2x + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [335].
+[591]
+Considering f(x) = 2 + 2x + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [330].
+[592]
+Considering f(x) = 2 + 2x + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [191].
+[593]
+Considering f(x) = 2 + 2x + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [497].
+[594]
+Considering f(x) = 2 + 2x + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [181].
+[595]
+Considering f(x) = 2 + 2x + x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [163].
+[596]
+Considering f(x) = 2 + 2x + x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [378].
+[597]
+Considering f(x) = 2 + 2x + x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [317].
+[598]
+Considering f(x) = 2 + 2x + x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [288].
+[599]
+Considering f(x) = 2 + 2x + x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [209].
+[600]
+Considering f(x) = 2 + 2x + x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [471].
+[601]
+Considering f(x) = 2 + 2x + x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [202].
+[602]
+Considering f(x) = 2 + 2x + 2x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [292].
+[603]
+Considering f(x) = 2 + 2x + 2x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [378].
+[604]
+Considering f(x) = 2 + 2x + 2x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [178].
+[605]
+Considering f(x) = 2 + 2x + 2x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [184].
+[606]
+Considering f(x) = 2 + 2x + 2x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [348].
+[607]
+Considering f(x) = 2 + 2x + 2x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [168].
+[608]
+Considering f(x) = 2 + 2x + 2x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [193].
+[609]
+Considering f(x) = 2 + 2x + 2x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [540].
+[610]
+Considering f(x) = 2 + 2x + x^2 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [198].
+[611]
+Considering f(x) = 2 + 2x + x^2 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [330].
+[612]
+Considering f(x) = 2 + 2x + x^2 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [209].
+[613]
+Considering f(x) = 2 + 2x + x^2 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [182].
+[614]
+Considering f(x) = 2 + 2x + x^2 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [540].
+[615]
+Considering f(x) = 2 + 2x + x^2 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [335].
+[616]
+Considering f(x) = 2 + 2x + x^2 + x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [288].
+[617]
+Considering f(x) = 2 + 2x + x^2 + x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [167].
+[618]
+Considering f(x) = 2 + 2x + x^2 + x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [172].
+[619]
+Considering f(x) = 2 + 2x + x^2 + x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [565].
+[620]
+Considering f(x) = 2 + 2x + x^2 + x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [202].
+[621]
+Considering f(x) = 2 + 2x + x^2 + x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [371].
+[622]
+Considering f(x) = 2 + 2x + x^2 + x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [378].
+[623]
+Considering f(x) = 2 + 2x + x^2 + 2x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [348].
+[624]
+Considering f(x) = 2 + 2x + x^2 + 2x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [193].
+[625]
+Considering f(x) = 2 + 2x + x^2 + 2x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [169].
+[626]
+Considering f(x) = 2 + 2x + x^2 + 2x^3 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [479].
+[627]
+Considering f(x) = 2 + 2x + x^2 + 2x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [311].
+[628]
+Considering f(x) = 2 + 2x + x^2 + 2x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [292].
+[629]
+Considering f(x) = 2 + 2x + x^2 + 2x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [177].
+[630]
+Considering f(x) = 2 + 2x + 2x^2 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [168].
+[631]
+Considering f(x) = 2 + 2x + 2x^2 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [497].
+[632]
+Considering f(x) = 2 + 2x + 2x^2 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [169].
+[633]
+Considering f(x) = 2 + 2x + 2x^2 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [311].
+[634]
+Considering f(x) = 2 + 2x + 2x^2 + x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [378].
+[635]
+Considering f(x) = 2 + 2x + 2x^2 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [222].
+[636]
+Considering f(x) = 2 + 2x + 2x^2 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [348].
+[637]
+Considering f(x) = 2 + 2x + 2x^2 + x^3 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [507].
+[638]
+Considering f(x) = 2 + 2x + 2x^2 + x^3 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [182].
+[639]
+Considering f(x) = 2 + 2x + 2x^2 + x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [181].
+[640]
+Considering f(x) = 2 + 2x + 2x^2 + x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [292].
+[641]
+Considering f(x) = 2 + 2x + 2x^2 + x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [330].
+[642]
+Considering f(x) = 2 + 2x + 2x^2 + x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [191].
+[643]
+Considering f(x) = 2 + 2x + 2x^2 + 2x^3 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [540].
+[644]
+Considering f(x) = 2 + 2x + 2x^2 + 2x^3 + x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [317].
+[645]
+Considering f(x) = 2 + 2x + 2x^2 + 2x^3 + x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [371].
+[646]
+Considering f(x) = 2 + 2x + 2x^2 + 2x^3 + 2x^4 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [222].
+[647]
+Considering f(x) = 2 + 2x + 2x^2 + 2x^3 + 2x^4 + x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [172].
+[648]
+Considering f(x) = 2 + 2x + 2x^2 + 2x^3 + 2x^4 + 2x^5 + x^6
+Checking pgl2 repeats.
+Skipped: pgl2-equivalent repeat of [288].
+
+SUMMARY
+Considered 648 squarefree monic presentations.
+Checked 66 canonical presentations after pgl2 reduction.
+Skipped 582 pgl2-equivalent presentations.
+Early-rejected 53 presentations.
+Rejected 2 presentations with zero middle coefficient.
+Done. Saved 11 presentations to /Users/yunhai/Home/Repositories/hyperelliptic/batch_results/p3_g2_pgl2.txt and /Users/yunhai/Home/Repositories/hyperelliptic/batch_results/p3_g2_pgl2.json.
