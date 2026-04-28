@@ -63,7 +63,7 @@ def run_case(
     verbose: bool,
     log: bool,
     monic_only: bool,
-    hasse_witt_prefilter: bool,
+    no_hasse_witt_prefilter: bool,
 ) -> dict[str, object]:
     mode_suffix = "_monic" if monic_only else ""
     output_base = outdir / f"p{p}_g{g}_{reduction}{mode_suffix}.txt"
@@ -87,8 +87,8 @@ def run_case(
         command.append("--log")
     if monic_only:
         command.append("--monic-only")
-    if hasse_witt_prefilter:
-        command.append("--hasse-witt-prefilter")
+    if no_hasse_witt_prefilter:
+        command.append("--no-hasse-witt-prefilter")
 
     case = {
         "p": p,
@@ -175,9 +175,9 @@ def main() -> int:
     parser.add_argument("--log", action="store_true", help="write batch.log.txt and per-case finder logs")
     parser.add_argument("--monic-only", action="store_true", help="enumerate only monic presentations")
     parser.add_argument(
-        "--hasse-witt-prefilter",
+        "--no-hasse-witt-prefilter",
         action="store_true",
-        help="experimental: pass --hasse-witt-prefilter to hyperelliptic_finder.py",
+        help="disable the default Hasse-Witt prefilter in hyperelliptic_finder.py",
     )
     args = parser.parse_args()
 
@@ -221,7 +221,7 @@ def main() -> int:
                     args.verbose,
                     args.log,
                     args.monic_only,
-                    args.hasse_witt_prefilter,
+                    args.no_hasse_witt_prefilter,
                 )
                 summary.append(case)
                 write_summary(summary_path, summary)

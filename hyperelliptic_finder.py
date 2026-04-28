@@ -894,11 +894,12 @@ def main() -> int:
         help="enumerate only monic presentations",
     )
     parser.add_argument(
-        "--hasse-witt-prefilter",
+        "--no-hasse-witt-prefilter",
         action="store_true",
-        help="experimental: use Hasse-Witt mod-p prefilter before point counting",
+        help="disable the Hasse-Witt mod-p prefilter before point counting",
     )
     args = parser.parse_args()
+    use_hasse_witt_prefilter = not args.no_hasse_witt_prefilter
 
     if not is_prime(args.p):
         print(f"Error: {args.p} is not prime", file=sys.stderr)
@@ -927,7 +928,7 @@ def main() -> int:
             "reduction": args.reduction,
             "allow_nonmonic": not args.monic_only,
             "leading_representatives": list(leading_representatives(args.p, not args.monic_only)),
-            "hasse_witt_prefilter": args.hasse_witt_prefilter,
+            "hasse_witt_prefilter": use_hasse_witt_prefilter,
             "search_status": "incomplete",
             "complete_list": False,
         }
@@ -954,7 +955,7 @@ def main() -> int:
             args.reduction,
             output_mode=output_mode,
             allow_nonmonic=not args.monic_only,
-            use_hasse_witt_prefilter=args.hasse_witt_prefilter,
+            use_hasse_witt_prefilter=use_hasse_witt_prefilter,
         )
         run_context["search_status"] = "complete" if args.max == 0 else "max_reached"
         run_context["complete_list"] = args.max == 0
