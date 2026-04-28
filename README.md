@@ -96,7 +96,9 @@ python3 test_c.py --outdir batch_results_c --resume
 It writes per-case files named like `p3_g7_pgl2save_c.json` and a summary file
 `batch_results_c/batch_summary_c.json`. If `hyperelliptic_finder_c` is missing,
 the script runs `make ARCH="-arch x86_64"` by default on this machine. Use
-`--no-build` if you want it to fail instead.
+`--no-build` if you want it to fail instead. The default per-case timeout is
+30 minutes. Use `--case-timeout SECONDS` to change it, or `--case-timeout 0` to
+disable it.
 
 ## Batch Runs
 
@@ -105,7 +107,7 @@ By default it runs prime `3`, genera `1` through `20`, and reduction mode
 `pgl2save`.
 
 ```bash
-python3 test.py --outdir batch_results --resume --timeout 600
+python3 test.py --outdir batch_results --resume
 ```
 
 Useful options:
@@ -113,7 +115,9 @@ Useful options:
 - `--outdir DIR`: directory for per-case `.txt`/`.json` output files.
 - `--reduction {pgl2,affine,pgl2save,affinesave}`: reduction mode passed to `hyperelliptic_finder.py`. Defaults to `pgl2save`.
 - `--max N`: maximum curves per case; `0` means complete search.
-- `--timeout SECONDS`: maximum runtime per case; `0` means no timeout.
+- `--case-timeout SECONDS` or `--timeout SECONDS`: maximum runtime per case
+  before stopping that run and moving to the next genus/prime. Defaults to
+  `1800` seconds, i.e. 30 minutes. Use `0` for no timeout.
 - `--min-genus G` and `--max-genus G`: restrict the genus range.
 - `--resume`: skip cases whose JSON output already exists.
 - Default output mode: stream accepted presentations only.

@@ -528,12 +528,10 @@ static void write_results(void) {
     for (size_t i = 0; i < result_count; i++) {
         char fbuf[4096], cbuf[4096];
         format_polynomial(results[i].f, config.key_len, fbuf, sizeof(fbuf));
-        format_polynomial(results[i].canonical_f, config.key_len, cbuf, sizeof(cbuf));
         fprintf(txt, "[%d]\n", results[i].index);
         fprintf(txt, "f(x) = %s\n", fbuf);
         fprintf(txt, "middle_coefficient_a_%d = %lld\n", config.g, results[i].middle_coefficient);
         fprintf(txt, "canonical_presentation_index = %d\n", results[i].canonical_index);
-        fprintf(txt, "canonical_f(x) = %s\n", cbuf);
         fprintf(txt, "\n");
     }
     fclose(txt);

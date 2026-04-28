@@ -13,8 +13,8 @@ from pathlib import Path
 
 
 PRIMES = (3,)
-DEFAULT_MIN_GENUS = 7
-DEFAULT_MAX_GENUS = 20
+DEFAULT_MIN_GENUS = 1
+DEFAULT_MAX_GENUS = 40
 SEPARATOR = "=" * 72
 
 
@@ -171,7 +171,14 @@ def main() -> int:
     parser.add_argument("--no-build", action="store_true", help="do not run make if the C binary is missing")
     parser.add_argument("--reduction", choices=("pgl2", "affine", "pgl2save", "affinesave"), default="pgl2save")
     parser.add_argument("--max", type=int, default=0, help="max curves per case; 0 means complete search")
-    parser.add_argument("--timeout", type=int, default=0, help="seconds per case; 0 means no timeout")
+    parser.add_argument(
+        "--timeout",
+        "--case-timeout",
+        dest="timeout",
+        type=int,
+        default=1800,
+        help="seconds per case before stopping that run and moving to the next case; default: 1800; 0 means no timeout",
+    )
     parser.add_argument("--min-genus", type=int, default=DEFAULT_MIN_GENUS)
     parser.add_argument("--max-genus", type=int, default=DEFAULT_MAX_GENUS)
     parser.add_argument("--resume", action="store_true", help="skip cases whose JSON output already exists")
