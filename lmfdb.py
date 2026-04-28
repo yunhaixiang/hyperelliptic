@@ -87,9 +87,20 @@ def local_l_polynomial_key(curve: dict[str, Any], p: int, g: int) -> tuple[int, 
     return (p, g, int(curve["middle_coefficient"]))
 
 
+def is_result_file(data: dict[str, Any]) -> bool:
+    return "p" in data and "g" in data and isinstance(data.get("curves"), list)
+
+
 def compare_file(path: Path, timeout: int, delay: float) -> dict[str, Any]:
     with open(path, "r", encoding="utf-8") as handle:
         local = json.load(handle)
+
+    if not is_result_file(local):
+        return {
+            "local_file": str(path),
+            "status": "skipped",
+            "reason": "not a hyperelliptic_finder result JSON file",
+        }
 
     p = int(local["p"])
     g = int(local["g"])
@@ -112,14 +123,26 @@ def compare_file(path: Path, timeout: int, delay: float) -> dict[str, Any]:
             curve_count = record.get("curve_count")
             jacobian_count = record.get("jacobian_count")
 
+        local_curves = [
+            item
+            for item in local.get("curves", [])
+            if int(item["middle_coefficient"]) == middle
+        ]
+        canonical_indices = sorted(
+            {
+                int(item.get("canonical_presentation_index", item["index"]))
+                for item in local_curves
+            }
+        )
         comparisons.append(
             {
                 "middle_coefficient": middle,
-                "local_curve_indices": [
-                    item["index"]
-                    for item in local.get("curves", [])
-                    if int(item["middle_coefficient"]) == middle
-                ],
+                "local_presentation_count": len(local_curves),
+                "local_curve_indices": [item["index"] for item in local_curves],
+                "local_canonical_presentation_indices": canonical_indices,
+                "local_reused_l_polynomial_count": sum(
+                    1 for item in local_curves if bool(item.get("reused_l_polynomial", False))
+                ),
                 "lmfdb_label": label,
                 "lmfdb_status": status,
                 "lmfdb_url": url,
@@ -134,15 +157,23 @@ def compare_file(path: Path, timeout: int, delay: float) -> dict[str, Any]:
     hyperelliptic_matches = [row for row in comparisons if row["matches_hyperelliptic_available"]]
     return {
         "local_file": str(path),
+        "status": "compared",
         "p": p,
         "g": g,
+        "presentation_reduction": local.get("presentation_reduction"),
+        "search_status": local.get("search_status"),
+        "complete_list": local.get("complete_list"),
+        "local_presentations": len(local.get("curves", [])),
         "local_unique_l_polynomials": len(comparisons),
         "lmfdb_records_found": len(available),
         "lmfdb_hyperelliptic_matches": len(hyperelliptic_matches),
         "accuracy_among_available": (
             len(hyperelliptic_matches) / len(available) if available else None
         ),
-        "note": "LMFDB comparison is by abelian-variety isogeny class, not by individual curve presentation.",
+        "note": (
+            "LMFDB comparison is by abelian-variety isogeny class. Saved equivalent "
+            "presentations are grouped by middle coefficient before querying LMFDB."
+        ),
         "comparisons": comparisons,
     }
 
@@ -161,13 +192,17 @@ def main() -> int:
         handle.write("\n")
 
     for report in reports:
+        if report.get("status") == "skipped":
+            print(f"{report['local_file']}: skipped ({report['reason']})")
+            continue
         total = report["local_unique_l_polynomials"]
         found = report["lmfdb_records_found"]
         matched = report["lmfdb_hyperelliptic_matches"]
+        presentations = report["local_presentations"]
         accuracy = report["accuracy_among_available"]
         accuracy_text = "n/a" if accuracy is None else f"{accuracy:.3f}"
         print(
-            f"{report['local_file']}: unique={total}, lmfdb_found={found}, "
+            f"{report['local_file']}: presentations={presentations}, unique={total}, lmfdb_found={found}, "
             f"hyperelliptic_matches={matched}, accuracy_among_available={accuracy_text}"
         )
     print(f"wrote {args.out}")

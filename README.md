@@ -14,7 +14,8 @@ L(t) = 1 + a_g t^g + p^g t^{2g}
 
 allowing the middle coefficient `a_g` to be zero.
 
-The program lists reduced presentations, not certified isomorphism classes.
+The program lists presentations according to the selected reduction mode, not
+certified isomorphism classes.
 
 ## Usage
 
@@ -47,7 +48,8 @@ python3 hyperelliptic_finder.py 3 2 --reduction affine --output affine-results.t
 ## Batch Runs
 
 Use `test.py` to run many searches and save each case to a separate file.
-By default it runs primes `3, 5, 7` and genera `1` through `5`.
+By default it runs prime `3`, genera `1` through `20`, and reduction mode
+`pgl2save`.
 
 ```bash
 python3 test.py --outdir batch_results --resume --timeout 600
@@ -56,7 +58,7 @@ python3 test.py --outdir batch_results --resume --timeout 600
 Useful options:
 
 - `--outdir DIR`: directory for per-case `.txt`/`.json` output files.
-- `--reduction {pgl2,affine,pgl2save,affinesave}`: reduction mode passed to `hyperelliptic_finder.py`.
+- `--reduction {pgl2,affine,pgl2save,affinesave}`: reduction mode passed to `hyperelliptic_finder.py`. Defaults to `pgl2save` in `test.py`.
 - `--max N`: maximum curves per case; `0` means complete search.
 - `--timeout SECONDS`: maximum runtime per case; `0` means no timeout.
 - `--min-genus G` and `--max-genus G`: restrict the genus range.
@@ -90,10 +92,10 @@ abelian-variety isogeny-class records over finite fields.
 python3 lmfdb.py p3_g2_results.json --out lmfdb_accuracy.json
 ```
 
-For batch results:
+For batch results, point it at the per-case result files:
 
 ```bash
-python3 lmfdb.py batch_results/*.json --out lmfdb_accuracy.json --delay 1.0 --timeout 30
+python3 lmfdb.py batch_results/p*_g*.json --out lmfdb_accuracy.json --delay 1.0 --timeout 30
 ```
 
 Useful options:
@@ -103,8 +105,16 @@ Useful options:
 - `--timeout SECONDS`: HTTP timeout per request.
 
 The comparison is by L-polynomial/isogeny class, not by individual curve
-presentation. LMFDB may not have records for every genus and prime searched.
-The reported `accuracy_among_available` only uses LMFDB records that were found.
+presentation. This matters for `pgl2save` and `affinesave`, where many saved
+presentations can share the same middle coefficient and therefore the same LMFDB
+query. The report includes both `local_presentations` and
+`local_unique_l_polynomials`, and for each middle coefficient it lists the saved
+presentation indices and canonical presentation indices. LMFDB may not have
+records for every genus and prime searched. The reported
+`accuracy_among_available` only uses LMFDB records that were found.
+
+If a non-result JSON file such as `batch_summary.json` is passed by accident,
+`lmfdb.py` marks it as skipped in the report instead of failing.
 
 ## Output
 
