@@ -4,7 +4,7 @@ Find hyperelliptic curves y^2 = f(x) over F_p whose L-polynomial is trinomial:
 
     L(t) = 1 + a_g t^g + p^g t^{2g},
 
-with a_g nonzero.
+allowing a_g to be zero.
 """
 
 from __future__ import annotations
@@ -34,6 +34,10 @@ class CurveResult:
     f_coeffs: list[int]
     f_polynomial: str
     middle_coefficient: int
+    canonical_presentation_index: int
+    canonical_f_coeffs: list[int]
+    canonical_f_polynomial: str
+    reused_l_polynomial: bool
 
 
 @dataclass
@@ -42,7 +46,6 @@ class SearchStats:
     skipped_by_reduction: int = 0
     checked: int = 0
     rejected_by_early_l_coefficient: int = 0
-    rejected_by_zero_middle_coefficient: int = 0
     saved: int = 0
 
 
@@ -320,8 +323,6 @@ def trinomial_middle_coefficient(p: int, g: int, f_coeffs: Sequence[int]) -> tup
             return "early_l_coefficient", None
         coeffs.append(coeff)
 
-    if coeffs[g] == 0:
-        return "zero_middle_coefficient", None
     return "valid", coeffs[g]
 
 
@@ -407,22 +408,36 @@ def binary_form_pgl2_transform(
     return tuple((coeff * inv_leading) % p for coeff in transformed)
 
 
-def canonical_key(poly: Sequence[int], p: int, genus: int, reduction: str) -> tuple[int, ...]:
-    transforms = []
-    if reduction == "affine":
+def orbit_reduction_mode(reduction: str) -> str:
+    if reduction == "pgl2save":
+        return "pgl2"
+    if reduction == "affinesave":
+        return "affine"
+    return reduction
+
+
+def orbit_members(poly: Sequence[int], p: int, genus: int, reduction: str) -> set[tuple[int, ...]]:
+    return set(cached_orbit_members(tuple(poly), p, genus, orbit_reduction_mode(reduction)))
+
+
+@lru_cache(maxsize=None)
+def cached_orbit_members(poly: tuple[int, ...], p: int, genus: int, reduction: str) -> tuple[tuple[int, ...], ...]:
+    transforms = set()
+    mode = orbit_reduction_mode(reduction)
+    if mode == "affine":
         for scale in range(1, p):
             for shift in range(p):
                 transformed = affine_normalized_transform(poly, scale, shift, p)
                 if transformed is not None:
-                    transforms.append(transformed)
-    elif reduction == "pgl2":
+                    transforms.add(transformed)
+    elif mode == "pgl2":
         for matrix in pgl2_matrices(p):
             transformed = binary_form_pgl2_transform(poly, genus, matrix, p)
             if transformed is not None:
-                transforms.append(transformed)
+                transforms.add(transformed)
     else:
         raise ValueError(f"unknown reduction mode: {reduction}")
-    return min(transforms)
+    return tuple(sorted(transforms))
 
 
 def generate_polynomials(p: int, g: int) -> Iterable[list[int]]:
@@ -431,14 +446,6 @@ def generate_polynomials(p: int, g: int) -> Iterable[list[int]]:
             poly = list(lower_coeffs) + [1]
             if poly_squarefree(poly, p):
                 yield poly
-
-
-@lru_cache(maxsize=None)
-def presentation_number(target: tuple[int, ...], p: int, g: int) -> int | None:
-    for number, poly in enumerate(generate_polynomials(p, g), 1):
-        if tuple(poly) == target:
-            return number
-    return None
 
 
 def format_polynomial(coeffs: Sequence[int], var: str = "x") -> str:
@@ -484,7 +491,11 @@ def write_results() -> None:
             handle.write(f"[{result.index}]\n")
             handle.write(f"f(x) = {result.f_polynomial}\n")
             handle.write(f"f_coeffs = {result.f_coeffs}\n")
-            handle.write(f"middle_coefficient_a_{g} = {result.middle_coefficient}\n\n")
+            handle.write(f"middle_coefficient_a_{g} = {result.middle_coefficient}\n")
+            handle.write(f"canonical_presentation_index = {result.canonical_presentation_index}\n")
+            handle.write(f"canonical_f(x) = {result.canonical_f_polynomial}\n")
+            handle.write(f"canonical_f_coeffs = {result.canonical_f_coeffs}\n")
+            handle.write(f"reused_l_polynomial = {result.reused_l_polynomial}\n\n")
 
     data = {
         "p": p,
@@ -504,42 +515,72 @@ def write_results() -> None:
 
 def find_curves(p: int, g: int, max_curves: int, reduction: str, verbose: bool) -> list[CurveResult]:
     stats = SearchStats()
-    canonical_owner: dict[tuple[int, ...], int] = {}
+    save_accepted_repeats = reduction in ("pgl2save", "affinesave")
+    accepted_orbit_owner: dict[tuple[int, ...], int] = {}
+    seen_orbit_owner: dict[tuple[int, ...], int] = {}
     for f_coeffs in generate_polynomials(p, g):
         stats.considered += 1
+        f_key = tuple(f_coeffs)
         if verbose:
             emit(f"[{stats.considered}]")
             emit(f"Considering f(x) = {format_polynomial(f_coeffs)}")
             emit(f"Checking {reduction} repeats.")
 
-        key = canonical_key(f_coeffs, p, g, reduction)
-        owner = canonical_owner.get(key)
-        if tuple(f_coeffs) != key:
+        accepted_owner = accepted_orbit_owner.get(f_key)
+        if accepted_owner is not None:
+            owner_result = results[accepted_owner - 1]
+            if save_accepted_repeats:
+                result = CurveResult(
+                    index=len(results) + 1,
+                    f_coeffs=f_coeffs,
+                    f_polynomial=format_polynomial(f_coeffs),
+                    middle_coefficient=owner_result.middle_coefficient,
+                    canonical_presentation_index=owner_result.canonical_presentation_index,
+                    canonical_f_coeffs=owner_result.canonical_f_coeffs,
+                    canonical_f_polynomial=owner_result.canonical_f_polynomial,
+                    reused_l_polynomial=True,
+                )
+                results.append(result)
+                stats.saved += 1
+                write_results()
+                if verbose:
+                    emit(
+                        f"Saved presentation {result.index}; reused L-polynomial from accepted "
+                        f"[{accepted_owner}], canonical [{result.canonical_presentation_index}], "
+                        f"a_{g} = {result.middle_coefficient}."
+                    )
+                else:
+                    emit(
+                        f"Saved presentation {result.index}; reused L-polynomial from accepted "
+                        f"[{accepted_owner}], a_{g} = {result.middle_coefficient}."
+                    )
+                if max_curves > 0 and len(results) >= max_curves:
+                    break
+            else:
+                stats.skipped_by_reduction += 1
+                if verbose:
+                    emit(f"Skipped: {reduction}-equivalent repeat of accepted [{accepted_owner}].")
+            continue
+
+        seen_owner = seen_orbit_owner.get(f_key)
+        if seen_owner is not None:
             stats.skipped_by_reduction += 1
             if verbose:
-                if owner is None:
-                    owner = presentation_number(key, p, g)
-                    canonical_owner[key] = owner if owner is not None else stats.considered
-                if owner is None:
-                    emit(f"Skipped: {reduction}-equivalent repeat.")
-                else:
-                    emit(f"Skipped: {reduction}-equivalent repeat of [{owner}].")
+                emit(f"Skipped: {reduction}-equivalent repeat of [{seen_owner}].")
             continue
-        canonical_owner.setdefault(key, stats.considered)
+
+        orbit = orbit_members(f_coeffs, p, g, reduction)
+        for member in orbit:
+            seen_orbit_owner.setdefault(member, stats.considered)
 
         stats.checked += 1
         if verbose:
-            emit("Canonical; checking L-polynomial coefficients.")
+            emit("New reduction orbit; checking L-polynomial coefficients.")
         status, middle_coefficient = trinomial_middle_coefficient(p, g, f_coeffs)
         if status == "early_l_coefficient":
             stats.rejected_by_early_l_coefficient += 1
             if verbose:
                 emit("Early rejected: pre-middle coefficient is nonzero.")
-            continue
-        if status == "zero_middle_coefficient":
-            stats.rejected_by_zero_middle_coefficient += 1
-            if verbose:
-                emit("Rejected: middle coefficient is zero.")
             continue
         if middle_coefficient is None:
             raise AssertionError("valid trinomial candidate is missing its middle coefficient")
@@ -549,9 +590,15 @@ def find_curves(p: int, g: int, max_curves: int, reduction: str, verbose: bool) 
             f_coeffs=f_coeffs,
             f_polynomial=format_polynomial(f_coeffs),
             middle_coefficient=middle_coefficient,
+            canonical_presentation_index=len(results) + 1,
+            canonical_f_coeffs=f_coeffs,
+            canonical_f_polynomial=format_polynomial(f_coeffs),
+            reused_l_polynomial=False,
         )
         results.append(result)
         stats.saved += 1
+        for member in orbit:
+            accepted_orbit_owner.setdefault(member, result.index)
         write_results()
         if verbose:
             emit(f"Saved presentation {result.index}; a_{g} = {result.middle_coefficient}.")
@@ -564,10 +611,9 @@ def find_curves(p: int, g: int, max_curves: int, reduction: str, verbose: bool) 
     emit("")
     emit("SUMMARY")
     emit(f"Considered {stats.considered} squarefree monic presentations.")
-    emit(f"Checked {stats.checked} canonical presentations after {reduction} reduction.")
+    emit(f"Checked {stats.checked} new reduction-orbit representatives after {reduction} reduction.")
     emit(f"Skipped {stats.skipped_by_reduction} {reduction}-equivalent presentations.")
     emit(f"Early-rejected {stats.rejected_by_early_l_coefficient} presentations.")
-    emit(f"Rejected {stats.rejected_by_zero_middle_coefficient} presentations with zero middle coefficient.")
     return results
 
 
@@ -593,7 +639,7 @@ def main() -> int:
     parser.add_argument("--output", type=str, default=DEFAULT_OUTPUT, help="text or JSON output path")
     parser.add_argument(
         "--reduction",
-        choices=("pgl2", "affine"),
+        choices=("pgl2", "affine", "pgl2save", "affinesave"),
         default="pgl2",
         help="presentation reduction to use before point counting; default: pgl2",
     )

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Batch-run hyperelliptic_finder.py for primes <= 11 and genera <= 20."""
+"""Batch-run hyperelliptic_finder.py for p=3 and genera <= 20."""
 
 from __future__ import annotations
 
@@ -12,8 +12,8 @@ import time
 from pathlib import Path
 
 
-PRIMES = (3, 5, 7)
-DEFAULT_MAX_GENUS = 5
+PRIMES = (3,)
+DEFAULT_MAX_GENUS = 20
 SEPARATOR = "=" * 72
 
 
@@ -150,7 +150,7 @@ def run_case(
 def main() -> int:
     parser = argparse.ArgumentParser(description="Batch-run trinomial hyperelliptic searches.")
     parser.add_argument("--outdir", default="batch_results", help="directory for output files")
-    parser.add_argument("--reduction", choices=("pgl2", "affine"), default="pgl2")
+    parser.add_argument("--reduction", choices=("pgl2", "affine", "pgl2save", "affinesave"), default="pgl2save")
     parser.add_argument("--max", type=int, default=0, help="max curves per case; 0 means complete search")
     parser.add_argument("--timeout", type=int, default=0, help="seconds per case; 0 means no timeout")
     parser.add_argument("--min-genus", type=int, default=1)

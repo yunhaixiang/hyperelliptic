@@ -12,14 +12,14 @@ over odd prime fields `F_p` whose L-polynomial is a trinomial
 L(t) = 1 + a_g t^g + p^g t^{2g}
 ```
 
-with nonzero middle coefficient `a_g`.
+allowing the middle coefficient `a_g` to be zero.
 
 The program lists reduced presentations, not certified isomorphism classes.
 
 ## Usage
 
 ```bash
-python3 hyperelliptic_finder.py p g [--max N] [--output FILE] [--reduction {pgl2,affine}] [--quiet]
+python3 hyperelliptic_finder.py p g [--max N] [--output FILE] [--reduction {pgl2,affine,pgl2save,affinesave}] [--quiet]
 ```
 
 Arguments:
@@ -28,7 +28,7 @@ Arguments:
 - `g`: genus.
 - `--max N`: maximum number of presentations to save. Use `0` for the complete search.
 - `--output FILE`: output path. Defaults to `hyperelliptic_results.txt`.
-- `--reduction {pgl2,affine}`: presentation reduction before point counting. Defaults to `pgl2`.
+- `--reduction {pgl2,affine,pgl2save,affinesave}`: presentation reduction before point counting. Defaults to `pgl2`.
 - `--quiet`: suppress per-presentation progress messages.
 
 If `--output` ends in `.txt`, a matching `.json` file is also written. If it
@@ -56,7 +56,7 @@ python3 test.py --outdir batch_results --resume --timeout 600
 Useful options:
 
 - `--outdir DIR`: directory for per-case `.txt`/`.json` output files.
-- `--reduction {pgl2,affine}`: reduction mode passed to `hyperelliptic_finder.py`.
+- `--reduction {pgl2,affine,pgl2save,affinesave}`: reduction mode passed to `hyperelliptic_finder.py`.
 - `--max N`: maximum curves per case; `0` means complete search.
 - `--timeout SECONDS`: maximum runtime per case; `0` means no timeout.
 - `--min-genus G` and `--max-genus G`: restrict the genus range.
@@ -118,6 +118,8 @@ Each saved curve presentation is indexed and includes:
 - `f(x)` for the presentation `y^2 = f(x)`.
 - The coefficient list for `f(x)`, in ascending order `[c_0, c_1, ...]`.
 - The middle L-polynomial coefficient `a_g`.
+- The accepted canonical presentation index and polynomial used for reduction.
+- Whether the L-polynomial was reused from an accepted equivalent presentation.
 
 Only the middle coefficient of the L-polynomial is shown because the other
 nonzero coefficients in the trinomial form are fixed as `1` and `p^g`.
@@ -130,6 +132,13 @@ output files.
 
 The `--reduction` option controls which repeated presentations are skipped
 before point counting.
+
+For speed, the search keeps orbit-member caches. When a new presentation is
+first encountered, the program computes all presentations reached by the chosen
+reduction mode and stores them in dictionaries. Later equivalent presentations
+are rejected by direct dictionary lookup before point counting. Matches whose
+orbit already contains an accepted curve are checked first, so common repeats
+usually take the shortest path.
 
 ### `--reduction pgl2`
 
@@ -144,6 +153,16 @@ transformations such as inversion `x -> 1/x`. It can identify more equivalent
 presentations, including some cases where a degree `2g + 1` presentation and a
 degree `2g + 2` presentation are related.
 
+Equivalent presentations of an already accepted curve are skipped.
+
+### `--reduction pgl2save`
+
+This uses the same PGL2 orbit computation as `pgl2`, but it saves presentations
+that are equivalent to already accepted presentations. In that case the program
+does not recompute point counts or the L-polynomial; it reuses the known middle
+coefficient and records which accepted canonical presentation the saved
+presentation is equivalent to.
+
 ### `--reduction affine`
 
 This uses only transformations
@@ -154,6 +173,15 @@ x -> ax + b
 
 with `a != 0` over `F_p`. It is cheaper than `pgl2`, but removes fewer repeated
 presentations.
+
+Equivalent presentations of an already accepted curve are skipped.
+
+### `--reduction affinesave`
+
+This uses the same affine orbit computation as `affine`, but it saves
+presentations that are equivalent to already accepted presentations. As with
+`pgl2save`, it reuses the known middle coefficient and records the accepted
+canonical presentation.
 
 Both modes normalize transformed equations back to monic form only when the
 corresponding `y`-scaling exists over `F_p`.
