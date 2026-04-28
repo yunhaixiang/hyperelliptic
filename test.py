@@ -60,9 +60,12 @@ def run_case(
     max_curves: int,
     timeout: int | None,
     quiet: bool,
+    verbose: bool,
     log: bool,
+    monic_only: bool,
 ) -> dict[str, object]:
-    output_base = outdir / f"p{p}_g{g}_{reduction}.txt"
+    mode_suffix = "_monic" if monic_only else ""
+    output_base = outdir / f"p{p}_g{g}_{reduction}{mode_suffix}.txt"
     command = [
         sys.executable,
         str(script),
@@ -77,8 +80,12 @@ def run_case(
         command.extend(["--max", str(max_curves)])
     if quiet:
         command.append("--quiet")
+    if verbose:
+        command.append("--verbose")
     if log:
         command.append("--log")
+    if monic_only:
+        command.append("--monic-only")
 
     case = {
         "p": p,
@@ -159,8 +166,11 @@ def main() -> int:
     parser.add_argument("--min-genus", type=int, default=1)
     parser.add_argument("--max-genus", type=int, default=DEFAULT_MAX_GENUS)
     parser.add_argument("--resume", action="store_true", help="skip cases whose JSON output already exists")
-    parser.add_argument("--quiet", action="store_true", help="pass --quiet to hyperelliptic_finder.py")
+    output_group = parser.add_mutually_exclusive_group()
+    output_group.add_argument("--quiet", action="store_true", help="pass --quiet to hyperelliptic_finder.py")
+    output_group.add_argument("--verbose", action="store_true", help="pass --verbose to hyperelliptic_finder.py")
     parser.add_argument("--log", action="store_true", help="write batch.log.txt and per-case finder logs")
+    parser.add_argument("--monic-only", action="store_true", help="enumerate only monic presentations")
     args = parser.parse_args()
 
     root = Path(__file__).resolve().parent
@@ -182,7 +192,8 @@ def main() -> int:
             print(f"Writing batch log to {log_path}.", flush=True)
         for p in PRIMES:
             for g in range(args.min_genus, args.max_genus + 1):
-                output_json = outdir / f"p{p}_g{g}_{args.reduction}.json"
+                mode_suffix = "_monic" if args.monic_only else ""
+                output_json = outdir / f"p{p}_g{g}_{args.reduction}{mode_suffix}.json"
                 if args.resume and output_json.exists():
                     summary.append({"p": p, "g": g, "status": "skipped", "output_json": str(output_json)})
                     write_summary(summary_path, summary)
@@ -190,7 +201,19 @@ def main() -> int:
                     print(f"SKIPPED p={p}, g={g}: existing {output_json}", flush=True)
                     continue
                 print_case_header(p, g, args.reduction, output_json)
-                case = run_case(script, outdir, p, g, args.reduction, args.max, timeout, args.quiet, args.log)
+                case = run_case(
+                    script,
+                    outdir,
+                    p,
+                    g,
+                    args.reduction,
+                    args.max,
+                    timeout,
+                    args.quiet,
+                    args.verbose,
+                    args.log,
+                    args.monic_only,
+                )
                 summary.append(case)
                 write_summary(summary_path, summary)
                 print_case_footer(case)

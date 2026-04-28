@@ -20,7 +20,7 @@ certified isomorphism classes.
 ## Usage
 
 ```bash
-python3 hyperelliptic_finder.py p g [--max N] [--output FILE] [--reduction {pgl2,affine,pgl2save,affinesave}] [--quiet] [--log]
+python3 hyperelliptic_finder.py p g [--max N] [--output FILE] [--reduction {pgl2,affine,pgl2save,affinesave}] [--monic-only] [--quiet|--verbose] [--log]
 ```
 
 Arguments:
@@ -30,7 +30,11 @@ Arguments:
 - `--max N`: maximum number of presentations to save. Use `0` for the complete search.
 - `--output FILE`: output path. Defaults to `hyperelliptic_results.txt`.
 - `--reduction {pgl2,affine,pgl2save,affinesave}`: presentation reduction before point counting. Defaults to `pgl2save`.
-- `--quiet`: suppress per-presentation progress messages.
+- `--monic-only`: enumerate only monic presentations. By default, the nonsquare leading-coefficient class is included too.
+- Default output mode: print only accepted presentations, their index, the
+  middle coefficient, and presentation/class counts so far.
+- `--quiet`: suppress accepted-presentation progress; summaries still print.
+- `--verbose`: print every considered presentation and rejection.
 - `--log`: also write terminal progress to a matching `.log.txt` file.
 
 If `--output` ends in `.txt`, a matching `.json` file is also written. If it
@@ -44,6 +48,7 @@ python3 hyperelliptic_finder.py 3 1 --max 10
 python3 hyperelliptic_finder.py 3 2 --output genus2.txt
 python3 hyperelliptic_finder.py 5 2 --max 0 --output complete-results.txt
 python3 hyperelliptic_finder.py 3 2 --reduction affine --output affine-results.txt
+python3 hyperelliptic_finder.py 3 2 --monic-only --output genus2-monic-only.txt
 ```
 
 ## Batch Runs
@@ -64,13 +69,21 @@ Useful options:
 - `--timeout SECONDS`: maximum runtime per case; `0` means no timeout.
 - `--min-genus G` and `--max-genus G`: restrict the genus range.
 - `--resume`: skip cases whose JSON output already exists.
+- Default output mode: stream accepted presentations only.
 - `--quiet`: pass `--quiet` to `hyperelliptic_finder.py`.
+- `--verbose`: pass `--verbose` to `hyperelliptic_finder.py`.
 - `--log`: write `batch.log.txt` and pass `--log` to each finder run.
+- `--monic-only`: pass `--monic-only` to each finder run. Output filenames include `_monic`.
+
+The script always writes:
+
+```text
+batch_results/batch_summary.json
+```
 
 When `--log` is passed, the script also writes:
 
 ```text
-batch_results/batch_summary.json
 batch_results/batch.log.txt
 ```
 
@@ -120,11 +133,24 @@ If a non-result JSON file such as `batch_summary.json` is passed by accident,
 
 ## Output
 
-Detailed results are saved to the text and JSON output files. The terminal only
-prints run status, per-presentation progress, reduction skips, early rejections,
-and saved matches. Use `--quiet` to print only saved matches and the final
-summary. By default no progress log file is written; use `--log` to write the
-same terminal progress to a `.log.txt` file.
+Detailed results are saved to the text and JSON output files. By default, the
+terminal prints run status, accepted presentations, their indices, middle
+coefficients, and presentation/class counts so far. Use `--verbose` to print
+every considered presentation, reduction skip, and rejection. Use `--quiet` to
+suppress accepted-presentation progress. By default no progress log file is
+written; use `--log` to write the same terminal progress to a `.log.txt` file.
+
+The output metadata includes:
+
+- `monic_enforced`: `false` by default; `true` when `--monic-only` is used.
+- `leading_representatives`: `[1, smallest nonsquare]` by default, or `[1]`
+  with `--monic-only`.
+- `hasse_witt_prefilter`: whether the Cartier-Manin/Hasse-Witt prefilter was used.
+- `reduction_class_count`: the number of distinct saved canonical presentation
+  indices after the selected reduction.
+- `isomorphism_class_count`: the same count for `pgl2` and `pgl2save`; for
+  affine modes this is `null` because affine reduction is not full PGL2
+  reduction.
 
 Each saved curve presentation is indexed and includes:
 
@@ -152,6 +178,18 @@ reduction mode and stores them in dictionaries. Later equivalent presentations
 are rejected by direct dictionary lookup before point counting. Matches whose
 orbit already contains an accepted curve are checked first, so common repeats
 usually take the shortest path.
+
+For PGL2 modes, powers of the linear factors used in fractional linear
+transformations are precomputed once for each `(p, g)` and reused across orbit
+computations.
+
+The search also applies a Cartier-Manin/Hasse-Witt prefilter before point
+counting. It computes `det(I - tM) mod p` from the Hasse-Witt matrix and
+rejects a presentation when one of the required zero coefficients
+`a_1, ..., a_{g-1}` is already nonzero modulo `p`. This is only a necessary
+condition, so passing the filter still requires point counting. For `p = 3`,
+the matrix is especially cheap because it is read directly from coefficients of
+`f(x)`.
 
 ### `--reduction pgl2`
 
@@ -196,15 +234,21 @@ presentations that are equivalent to already accepted presentations. As with
 `pgl2save`, it reuses the known middle coefficient and records the accepted
 canonical presentation.
 
-Both modes normalize transformed equations back to monic form only when the
-corresponding `y`-scaling exists over `F_p`.
+By default, transformed equations are normalized to one of two leading
+coefficient representatives: `1` for the square class and the smallest
+nonsquare in `F_p` for the nonsquare class. With `--monic-only`, transformed
+equations are normalized back to monic form only when the corresponding
+`y`-scaling exists over `F_p`.
 
 ## Notes
 
-The search enumerates monic squarefree polynomials of degree `2g + 1` and
-`2g + 2` over `F_p`. Before point counting, it applies presentation reduction.
-This skips many repeated presentations, but it is not a full isomorphism-class
-computation.
+The search enumerates squarefree polynomials of degree `2g + 1` and `2g + 2`
+over `F_p`. By default it uses two leading coefficient representatives: `1`
+and the smallest nonsquare in `F_p`. This includes the quadratic twist square
+class without enumerating every nonzero scalar multiple. With `--monic-only`,
+only leading coefficient `1` is used. Before point counting, the search applies
+presentation reduction. This skips many repeated presentations, but it is not a
+full isomorphism-class computation.
 
 Point counts are computed over `F_{p^k}` for `k = 1, ..., g`, and the
 L-polynomial coefficients are recovered from Newton identities before checking

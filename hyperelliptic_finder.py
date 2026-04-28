@@ -45,6 +45,7 @@ class SearchStats:
     considered: int = 0
     skipped_by_reduction: int = 0
     checked: int = 0
+    rejected_by_hasse_witt: int = 0
     rejected_by_early_l_coefficient: int = 0
     saved: int = 0
 
@@ -181,6 +182,17 @@ def poly_pow_mod(base: Sequence[int], exponent: int, modulus: Sequence[int], p: 
         if exponent & 1:
             result = poly_mod(poly_mul(result, power, p), modulus, p)
         power = poly_mod(poly_mul(power, power, p), modulus, p)
+        exponent >>= 1
+    return result
+
+
+def poly_pow_plain(base: Sequence[int], exponent: int, p: int) -> list[int]:
+    result = [1]
+    power = [c % p for c in base]
+    while exponent:
+        if exponent & 1:
+            result = poly_mul(result, power, p)
+        power = poly_mul(power, power, p)
         exponent >>= 1
     return result
 
@@ -326,6 +338,104 @@ def trinomial_middle_coefficient(p: int, g: int, f_coeffs: Sequence[int]) -> tup
     return "valid", coeffs[g]
 
 
+def poly_exact_div(a: Sequence[int], b: Sequence[int], p: int) -> list[int]:
+    quotient, remainder = poly_divmod(a, b, p)
+    if remainder:
+        raise ArithmeticError("expected exact polynomial division")
+    return quotient
+
+
+def polynomial_matrix_determinant(matrix: Sequence[Sequence[Sequence[int]]], p: int) -> list[int]:
+    n = len(matrix)
+    if n == 0:
+        return [1]
+
+    work = [[trim([coeff % p for coeff in entry]) for entry in row] for row in matrix]
+    previous_pivot = [1]
+    sign = 1
+
+    for k in range(n - 1):
+        pivot_position = None
+        for row in range(k, n):
+            for col in range(k, n):
+                if work[row][col]:
+                    pivot_position = (row, col)
+                    break
+            if pivot_position is not None:
+                break
+
+        if pivot_position is None:
+            return []
+
+        pivot_row, pivot_col = pivot_position
+        if pivot_row != k:
+            work[k], work[pivot_row] = work[pivot_row], work[k]
+            sign = -sign
+        if pivot_col != k:
+            for row in range(n):
+                work[row][k], work[row][pivot_col] = work[row][pivot_col], work[row][k]
+            sign = -sign
+
+        pivot = work[k][k]
+        for row in range(k + 1, n):
+            for col in range(k + 1, n):
+                numerator = poly_sub(
+                    poly_mul(work[row][col], pivot, p),
+                    poly_mul(work[row][k], work[k][col], p),
+                    p,
+                )
+                if k > 0:
+                    numerator = poly_exact_div(numerator, previous_pivot, p)
+                work[row][col] = numerator
+        previous_pivot = pivot
+
+        for row in range(k + 1, n):
+            work[row][k] = []
+        for col in range(k + 1, n):
+            work[k][col] = []
+
+    determinant = work[n - 1][n - 1]
+    if sign < 0:
+        determinant = [(-coeff) % p for coeff in determinant]
+    return trim(determinant)
+
+
+def hasse_witt_matrix(p: int, g: int, f_coeffs: Sequence[int]) -> list[list[int]]:
+    exponent = (p - 1) // 2
+    powered = poly_pow_plain(f_coeffs, exponent, p)
+    matrix = []
+    for row in range(g):
+        matrix_row = []
+        for col in range(g):
+            coeff_index = p * (row + 1) - (col + 1)
+            matrix_row.append(powered[coeff_index] % p if coeff_index < len(powered) else 0)
+        matrix.append(matrix_row)
+    return matrix
+
+
+def hasse_witt_l_polynomial_mod_p(p: int, g: int, f_coeffs: Sequence[int]) -> list[int]:
+    matrix = hasse_witt_matrix(p, g, f_coeffs)
+    polynomial_matrix = []
+    for row in range(g):
+        polynomial_row = []
+        for col in range(g):
+            entry = (-matrix[row][col]) % p
+            if row == col:
+                polynomial_row.append(trim([1, entry]))
+            else:
+                polynomial_row.append(trim([0, entry]))
+        polynomial_matrix.append(polynomial_row)
+    return polynomial_matrix_determinant(polynomial_matrix, p)
+
+
+def passes_hasse_witt_prefilter(p: int, g: int, f_coeffs: Sequence[int]) -> bool:
+    l_mod_p = hasse_witt_l_polynomial_mod_p(p, g, f_coeffs)
+    for k in range(1, g):
+        if k < len(l_mod_p) and l_mod_p[k] % p != 0:
+            return False
+    return True
+
+
 def poly_compose_linear(poly: Sequence[int], scale: int, shift: int, p: int) -> list[int]:
     result: list[int] = []
     linear = [shift % p, scale % p]
@@ -341,17 +451,53 @@ def has_square_root(value: int, p: int) -> bool:
     return pow(value, (p - 1) // 2, p) == 1
 
 
-def affine_normalized_transform(poly: Sequence[int], scale: int, shift: int, p: int) -> tuple[int, ...] | None:
+@lru_cache(maxsize=None)
+def nonsquare_representative(p: int) -> int:
+    for value in range(2, p):
+        if not has_square_root(value, p):
+            return value
+    raise ValueError(f"could not find a nonsquare in F_{p}")
+
+
+def leading_representatives(p: int, allow_nonmonic: bool) -> tuple[int, ...]:
+    return (1, nonsquare_representative(p)) if allow_nonmonic else (1,)
+
+
+def normalize_leading_square_class(
+    poly: Sequence[int],
+    p: int,
+    allow_nonmonic: bool,
+) -> tuple[int, ...] | None:
+    transformed = trim(poly)
+    if not transformed:
+        return None
+
+    leading = transformed[-1] % p
+    if leading == 0:
+        return None
+    if has_square_root(leading, p):
+        target = 1
+    elif allow_nonmonic:
+        target = nonsquare_representative(p)
+    else:
+        return None
+
+    factor = target * mod_inv(leading, p) % p
+    return tuple((coeff * factor) % p for coeff in transformed)
+
+
+def affine_normalized_transform(
+    poly: Sequence[int],
+    scale: int,
+    shift: int,
+    p: int,
+    allow_nonmonic: bool,
+) -> tuple[int, ...] | None:
     transformed = trim(poly_compose_linear(poly, scale, shift, p))
     if len(transformed) != len(poly):
         return None
 
-    leading = transformed[-1] % p
-    if not has_square_root(leading, p):
-        return None
-
-    inv_leading = mod_inv(leading, p)
-    return tuple((coeff * inv_leading) % p for coeff in transformed)
+    return normalize_leading_square_class(transformed, p, allow_nonmonic)
 
 
 @lru_cache(maxsize=None)
@@ -368,24 +514,50 @@ def pgl2_matrices(p: int) -> tuple[tuple[int, int, int, int], ...]:
     return tuple(sorted(matrices))
 
 
+@lru_cache(maxsize=None)
+def pgl2_transform_data(
+    p: int,
+    genus: int,
+) -> tuple[
+    tuple[
+        tuple[int, int, int, int],
+        tuple[tuple[int, ...], ...],
+        tuple[tuple[int, ...], ...],
+    ],
+    ...,
+]:
+    binary_degree = 2 * genus + 2
+    data = []
+    for matrix in pgl2_matrices(p):
+        a, b, c, d = matrix
+        first_linear = [b % p, a % p]
+        second_linear = [d % p, c % p]
+        first_powers = [[1]]
+        second_powers = [[1]]
+        for _ in range(binary_degree):
+            first_powers.append(poly_mul(first_powers[-1], first_linear, p))
+            second_powers.append(poly_mul(second_powers[-1], second_linear, p))
+        data.append(
+            (
+                matrix,
+                tuple(tuple(power) for power in first_powers),
+                tuple(tuple(power) for power in second_powers),
+            )
+        )
+    return tuple(data)
+
+
 def binary_form_pgl2_transform(
     poly: Sequence[int],
     genus: int,
-    matrix: tuple[int, int, int, int],
+    first_powers: Sequence[Sequence[int]],
+    second_powers: Sequence[Sequence[int]],
     p: int,
+    allow_nonmonic: bool,
 ) -> tuple[int, ...] | None:
-    a, b, c, d = matrix
     binary_degree = 2 * genus + 2
     if len(poly) > binary_degree + 1:
         return None
-
-    first_linear = [b % p, a % p]
-    second_linear = [d % p, c % p]
-    first_powers = [[1]]
-    second_powers = [[1]]
-    for _ in range(binary_degree):
-        first_powers.append(poly_mul(first_powers[-1], first_linear, p))
-        second_powers.append(poly_mul(second_powers[-1], second_linear, p))
 
     transformed: list[int] = []
     for i, coeff in enumerate(poly):
@@ -400,12 +572,7 @@ def binary_form_pgl2_transform(
     if degree not in (2 * genus + 1, 2 * genus + 2):
         return None
 
-    leading = transformed[-1] % p
-    if not has_square_root(leading, p):
-        return None
-
-    inv_leading = mod_inv(leading, p)
-    return tuple((coeff * inv_leading) % p for coeff in transformed)
+    return normalize_leading_square_class(transformed, p, allow_nonmonic)
 
 
 def orbit_reduction_mode(reduction: str) -> str:
@@ -416,23 +583,42 @@ def orbit_reduction_mode(reduction: str) -> str:
     return reduction
 
 
-def orbit_members(poly: Sequence[int], p: int, genus: int, reduction: str) -> set[tuple[int, ...]]:
-    return set(cached_orbit_members(tuple(poly), p, genus, orbit_reduction_mode(reduction)))
+def orbit_members(
+    poly: Sequence[int],
+    p: int,
+    genus: int,
+    reduction: str,
+    allow_nonmonic: bool,
+) -> set[tuple[int, ...]]:
+    return set(cached_orbit_members(tuple(poly), p, genus, orbit_reduction_mode(reduction), allow_nonmonic))
 
 
 @lru_cache(maxsize=None)
-def cached_orbit_members(poly: tuple[int, ...], p: int, genus: int, reduction: str) -> tuple[tuple[int, ...], ...]:
+def cached_orbit_members(
+    poly: tuple[int, ...],
+    p: int,
+    genus: int,
+    reduction: str,
+    allow_nonmonic: bool,
+) -> tuple[tuple[int, ...], ...]:
     transforms = set()
     mode = orbit_reduction_mode(reduction)
     if mode == "affine":
         for scale in range(1, p):
             for shift in range(p):
-                transformed = affine_normalized_transform(poly, scale, shift, p)
+                transformed = affine_normalized_transform(poly, scale, shift, p, allow_nonmonic)
                 if transformed is not None:
                     transforms.add(transformed)
     elif mode == "pgl2":
-        for matrix in pgl2_matrices(p):
-            transformed = binary_form_pgl2_transform(poly, genus, matrix, p)
+        for _matrix, first_powers, second_powers in pgl2_transform_data(p, genus):
+            transformed = binary_form_pgl2_transform(
+                poly,
+                genus,
+                first_powers,
+                second_powers,
+                p,
+                allow_nonmonic,
+            )
             if transformed is not None:
                 transforms.add(transformed)
     else:
@@ -440,12 +626,13 @@ def cached_orbit_members(poly: tuple[int, ...], p: int, genus: int, reduction: s
     return tuple(sorted(transforms))
 
 
-def generate_polynomials(p: int, g: int) -> Iterable[list[int]]:
+def generate_polynomials(p: int, g: int, allow_nonmonic: bool) -> Iterable[list[int]]:
     for degree in (2 * g + 1, 2 * g + 2):
-        for lower_coeffs in product(range(p), repeat=degree):
-            poly = list(lower_coeffs) + [1]
-            if poly_squarefree(poly, p):
-                yield poly
+        for leading in leading_representatives(p, allow_nonmonic):
+            for lower_coeffs in product(range(p), repeat=degree):
+                poly = list(lower_coeffs) + [leading]
+                if poly_squarefree(poly, p):
+                    yield poly
 
 
 def format_polynomial(coeffs: Sequence[int], var: str = "x") -> str:
@@ -462,6 +649,28 @@ def format_polynomial(coeffs: Sequence[int], var: str = "x") -> str:
     return " + ".join(terms) if terms else "0"
 
 
+def reduction_class_count() -> int:
+    return len({result.canonical_presentation_index for result in results})
+
+
+def emit_saved_result(
+    result: CurveResult,
+    g: int,
+    reduction: str,
+    reused_from: int | None = None,
+) -> None:
+    class_count = reduction_class_count()
+    class_label = "isomorphism classes" if orbit_reduction_mode(reduction) == "pgl2" else "reduction classes"
+    emit(f"Accepted [{result.index}]")
+    emit(f"f(x) = {result.f_polynomial}")
+    emit(f"middle_coefficient_a_{g} = {result.middle_coefficient}")
+    if reused_from is not None:
+        emit(f"reused_l_polynomial_from = [{reused_from}]")
+    emit(f"canonical_presentation_index = {result.canonical_presentation_index}")
+    emit(f"presentations so far = {len(results)}")
+    emit(f"{class_label} so far = {class_count}")
+
+
 def write_results() -> None:
     if not run_context:
         return
@@ -473,6 +682,9 @@ def write_results() -> None:
 
     p = int(run_context["p"])
     g = int(run_context["g"])
+    reduction = str(run_context["reduction"])
+    class_count = reduction_class_count()
+    is_pgl2_reduction = orbit_reduction_mode(reduction) == "pgl2"
 
     with open(output_path, "w", encoding="utf-8") as handle:
         handle.write("Hyperelliptic curves with trinomial L-polynomial\n")
@@ -480,7 +692,16 @@ def write_results() -> None:
         handle.write(f"p = {p}\n")
         handle.write(f"g = {g}\n")
         handle.write(f"base field: F_{p}\n")
-        handle.write(f"presentation reduction: {run_context['reduction']}\n")
+        handle.write(f"presentation reduction: {reduction}\n")
+        handle.write(f"monic enforced: {not bool(run_context.get('allow_nonmonic', False))}\n")
+        handle.write(f"nonmonic leading square class included: {run_context.get('allow_nonmonic', False)}\n")
+        handle.write(f"leading coefficient representatives: {run_context.get('leading_representatives', [1])}\n")
+        handle.write("hasse-witt prefilter: enabled\n")
+        handle.write(f"reduction class count: {class_count}\n")
+        if is_pgl2_reduction:
+            handle.write(f"isomorphism class count: {class_count}\n")
+        else:
+            handle.write("isomorphism class count: not computed for affine reduction\n")
         handle.write(f"log file: {run_context.get('log_file', '')}\n")
         handle.write(f"search status: {run_context.get('search_status', 'incomplete')}\n")
         handle.write(f"complete list: {run_context.get('complete_list', False)}\n")
@@ -501,7 +722,18 @@ def write_results() -> None:
         "p": p,
         "g": g,
         "field": f"F_{p}",
-        "presentation_reduction": str(run_context["reduction"]),
+        "presentation_reduction": reduction,
+        "monic_enforced": not bool(run_context.get("allow_nonmonic", False)),
+        "allow_nonmonic": bool(run_context.get("allow_nonmonic", False)),
+        "leading_representatives": list(run_context.get("leading_representatives", [1])),
+        "hasse_witt_prefilter": True,
+        "reduction_class_count": class_count,
+        "isomorphism_class_count": class_count if is_pgl2_reduction else None,
+        "isomorphism_class_count_note": (
+            "Counted by PGL2 reduction orbits over F_p."
+            if is_pgl2_reduction
+            else "Not computed for affine reduction; use pgl2 or pgl2save for this count."
+        ),
         "log_file": str(run_context.get("log_file", "")),
         "search_status": str(run_context.get("search_status", "incomplete")),
         "complete_list": bool(run_context.get("complete_list", False)),
@@ -513,12 +745,21 @@ def write_results() -> None:
         handle.write("\n")
 
 
-def find_curves(p: int, g: int, max_curves: int, reduction: str, verbose: bool) -> list[CurveResult]:
+def find_curves(
+    p: int,
+    g: int,
+    max_curves: int,
+    reduction: str,
+    output_mode: str,
+    allow_nonmonic: bool,
+) -> list[CurveResult]:
     stats = SearchStats()
+    verbose = output_mode == "verbose"
+    show_accepted = output_mode != "quiet"
     save_accepted_repeats = reduction in ("pgl2save", "affinesave")
     accepted_orbit_owner: dict[tuple[int, ...], int] = {}
     seen_orbit_owner: dict[tuple[int, ...], int] = {}
-    for f_coeffs in generate_polynomials(p, g):
+    for f_coeffs in generate_polynomials(p, g, allow_nonmonic):
         stats.considered += 1
         f_key = tuple(f_coeffs)
         if verbose:
@@ -543,17 +784,8 @@ def find_curves(p: int, g: int, max_curves: int, reduction: str, verbose: bool) 
                 results.append(result)
                 stats.saved += 1
                 write_results()
-                if verbose:
-                    emit(
-                        f"Saved presentation {result.index}; reused L-polynomial from accepted "
-                        f"[{accepted_owner}], canonical [{result.canonical_presentation_index}], "
-                        f"a_{g} = {result.middle_coefficient}."
-                    )
-                else:
-                    emit(
-                        f"Saved presentation {result.index}; reused L-polynomial from accepted "
-                        f"[{accepted_owner}], a_{g} = {result.middle_coefficient}."
-                    )
+                if show_accepted:
+                    emit_saved_result(result, g, reduction, reused_from=accepted_owner)
                 if max_curves > 0 and len(results) >= max_curves:
                     break
             else:
@@ -569,13 +801,20 @@ def find_curves(p: int, g: int, max_curves: int, reduction: str, verbose: bool) 
                 emit(f"Skipped: {reduction}-equivalent repeat of [{seen_owner}].")
             continue
 
-        orbit = orbit_members(f_coeffs, p, g, reduction)
+        orbit = orbit_members(f_coeffs, p, g, reduction, allow_nonmonic)
         for member in orbit:
             seen_orbit_owner.setdefault(member, stats.considered)
 
         stats.checked += 1
         if verbose:
-            emit("New reduction orbit; checking L-polynomial coefficients.")
+            emit("New reduction orbit; applying Hasse-Witt prefilter.")
+        if not passes_hasse_witt_prefilter(p, g, f_coeffs):
+            stats.rejected_by_hasse_witt += 1
+            if verbose:
+                emit("Hasse-Witt rejected: a pre-middle coefficient is nonzero modulo p.")
+            continue
+        if verbose:
+            emit("Hasse-Witt passed; checking L-polynomial coefficients.")
         status, middle_coefficient = trinomial_middle_coefficient(p, g, f_coeffs)
         if status == "early_l_coefficient":
             stats.rejected_by_early_l_coefficient += 1
@@ -600,19 +839,19 @@ def find_curves(p: int, g: int, max_curves: int, reduction: str, verbose: bool) 
         for member in orbit:
             accepted_orbit_owner.setdefault(member, result.index)
         write_results()
-        if verbose:
-            emit(f"Saved presentation {result.index}; a_{g} = {result.middle_coefficient}.")
-        else:
-            emit(f"Saved presentation {result.index}; a_{g} = {result.middle_coefficient}.")
+        if show_accepted:
+            emit_saved_result(result, g, reduction)
 
         if max_curves > 0 and len(results) >= max_curves:
             break
 
     emit("")
     emit("SUMMARY")
-    emit(f"Considered {stats.considered} squarefree monic presentations.")
+    presentation_kind = "square-class-normalized" if allow_nonmonic else "monic"
+    emit(f"Considered {stats.considered} squarefree {presentation_kind} presentations.")
     emit(f"Checked {stats.checked} new reduction-orbit representatives after {reduction} reduction.")
     emit(f"Skipped {stats.skipped_by_reduction} {reduction}-equivalent presentations.")
+    emit(f"Hasse-Witt rejected {stats.rejected_by_hasse_witt} presentations.")
     emit(f"Early-rejected {stats.rejected_by_early_l_coefficient} presentations.")
     return results
 
@@ -643,8 +882,15 @@ def main() -> int:
         default="pgl2save",
         help="presentation reduction to use before point counting; default: pgl2save",
     )
-    parser.add_argument("--quiet", action="store_true", help="only print saved matches and final summary")
+    output_group = parser.add_mutually_exclusive_group()
+    output_group.add_argument("--quiet", action="store_true", help="suppress accepted-presentation progress")
+    output_group.add_argument("--verbose", action="store_true", help="print every considered presentation and rejection")
     parser.add_argument("--log", action="store_true", help="write a progress .log.txt file")
+    parser.add_argument(
+        "--monic-only",
+        action="store_true",
+        help="enumerate only monic presentations",
+    )
     args = parser.parse_args()
 
     if not is_prime(args.p):
@@ -672,6 +918,8 @@ def main() -> int:
             "json_file": json_path,
             "log_file": log_path,
             "reduction": args.reduction,
+            "allow_nonmonic": not args.monic_only,
+            "leading_representatives": list(leading_representatives(args.p, not args.monic_only)),
             "search_status": "incomplete",
             "complete_list": False,
         }
@@ -684,11 +932,21 @@ def main() -> int:
     write_results()
     emit(f"Searching over F_{args.p}.")
     emit(f"Using {args.reduction} presentation reduction.")
+    if not args.monic_only:
+        emit(f"Including leading coefficient representatives {list(leading_representatives(args.p, True))}.")
     emit(f"Saving detailed results to {text_path} and {json_path}.")
     if log_path:
         emit(f"Writing progress log to {log_path}.")
     try:
-        find_curves(args.p, args.g, args.max, args.reduction, verbose=not args.quiet)
+        output_mode = "quiet" if args.quiet else "verbose" if args.verbose else "accepted"
+        find_curves(
+            args.p,
+            args.g,
+            args.max,
+            args.reduction,
+            output_mode=output_mode,
+            allow_nonmonic=not args.monic_only,
+        )
         run_context["search_status"] = "complete" if args.max == 0 else "max_reached"
         run_context["complete_list"] = args.max == 0
         return_code = 0
