@@ -60,6 +60,7 @@ def run_case(
     max_curves: int,
     timeout: int | None,
     quiet: bool,
+    log: bool,
 ) -> dict[str, object]:
     output_base = outdir / f"p{p}_g{g}_{reduction}.txt"
     command = [
@@ -76,6 +77,8 @@ def run_case(
         command.extend(["--max", str(max_curves)])
     if quiet:
         command.append("--quiet")
+    if log:
+        command.append("--log")
 
     case = {
         "p": p,
@@ -157,6 +160,7 @@ def main() -> int:
     parser.add_argument("--max-genus", type=int, default=DEFAULT_MAX_GENUS)
     parser.add_argument("--resume", action="store_true", help="skip cases whose JSON output already exists")
     parser.add_argument("--quiet", action="store_true", help="pass --quiet to hyperelliptic_finder.py")
+    parser.add_argument("--log", action="store_true", help="write batch.log.txt and per-case finder logs")
     args = parser.parse_args()
 
     root = Path(__file__).resolve().parent
@@ -164,15 +168,18 @@ def main() -> int:
     outdir = (root / args.outdir).resolve()
     outdir.mkdir(parents=True, exist_ok=True)
     summary_path = outdir / "batch_summary.json"
-    log_path = outdir / "batch.log.txt"
-    log_handle = open(log_path, "w", encoding="utf-8", buffering=1)
     original_stdout = sys.stdout
-    sys.stdout = Tee(sys.stdout, log_handle)
+    log_handle = None
+    if args.log:
+        log_path = outdir / "batch.log.txt"
+        log_handle = open(log_path, "w", encoding="utf-8", buffering=1)
+        sys.stdout = Tee(sys.stdout, log_handle)
 
     timeout = args.timeout if args.timeout > 0 else None
     summary = []
     try:
-        print(f"Writing batch log to {log_path}.", flush=True)
+        if log_handle is not None:
+            print(f"Writing batch log to {log_path}.", flush=True)
         for p in PRIMES:
             for g in range(args.min_genus, args.max_genus + 1):
                 output_json = outdir / f"p{p}_g{g}_{args.reduction}.json"
@@ -183,7 +190,7 @@ def main() -> int:
                     print(f"SKIPPED p={p}, g={g}: existing {output_json}", flush=True)
                     continue
                 print_case_header(p, g, args.reduction, output_json)
-                case = run_case(script, outdir, p, g, args.reduction, args.max, timeout, args.quiet)
+                case = run_case(script, outdir, p, g, args.reduction, args.max, timeout, args.quiet, args.log)
                 summary.append(case)
                 write_summary(summary_path, summary)
                 print_case_footer(case)
@@ -192,12 +199,14 @@ def main() -> int:
         write_summary(summary_path, summary)
         print(f"\nInterrupted; wrote partial summary to {summary_path}.")
         sys.stdout = original_stdout
-        log_handle.close()
+        if log_handle is not None:
+            log_handle.close()
         return 130
 
     print(f"Wrote {summary_path}.")
     sys.stdout = original_stdout
-    log_handle.close()
+    if log_handle is not None:
+        log_handle.close()
     return 0
 
 

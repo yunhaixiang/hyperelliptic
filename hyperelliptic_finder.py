@@ -640,10 +640,11 @@ def main() -> int:
     parser.add_argument(
         "--reduction",
         choices=("pgl2", "affine", "pgl2save", "affinesave"),
-        default="pgl2",
-        help="presentation reduction to use before point counting; default: pgl2",
+        default="pgl2save",
+        help="presentation reduction to use before point counting; default: pgl2save",
     )
     parser.add_argument("--quiet", action="store_true", help="only print saved matches and final summary")
+    parser.add_argument("--log", action="store_true", help="write a progress .log.txt file")
     args = parser.parse_args()
 
     if not is_prime(args.p):
@@ -660,8 +661,9 @@ def main() -> int:
         return 1
 
     text_path, json_path = output_paths(args.output)
-    log_path = log_path_for_output(text_path)
-    open_log(log_path)
+    log_path = log_path_for_output(text_path) if args.log else ""
+    if log_path:
+        open_log(log_path)
     run_context.update(
         {
             "p": args.p,
@@ -683,7 +685,8 @@ def main() -> int:
     emit(f"Searching over F_{args.p}.")
     emit(f"Using {args.reduction} presentation reduction.")
     emit(f"Saving detailed results to {text_path} and {json_path}.")
-    emit(f"Writing progress log to {log_path}.")
+    if log_path:
+        emit(f"Writing progress log to {log_path}.")
     try:
         find_curves(args.p, args.g, args.max, args.reduction, verbose=not args.quiet)
         run_context["search_status"] = "complete" if args.max == 0 else "max_reached"

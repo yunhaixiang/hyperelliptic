@@ -20,7 +20,7 @@ certified isomorphism classes.
 ## Usage
 
 ```bash
-python3 hyperelliptic_finder.py p g [--max N] [--output FILE] [--reduction {pgl2,affine,pgl2save,affinesave}] [--quiet]
+python3 hyperelliptic_finder.py p g [--max N] [--output FILE] [--reduction {pgl2,affine,pgl2save,affinesave}] [--quiet] [--log]
 ```
 
 Arguments:
@@ -29,12 +29,13 @@ Arguments:
 - `g`: genus.
 - `--max N`: maximum number of presentations to save. Use `0` for the complete search.
 - `--output FILE`: output path. Defaults to `hyperelliptic_results.txt`.
-- `--reduction {pgl2,affine,pgl2save,affinesave}`: presentation reduction before point counting. Defaults to `pgl2`.
+- `--reduction {pgl2,affine,pgl2save,affinesave}`: presentation reduction before point counting. Defaults to `pgl2save`.
 - `--quiet`: suppress per-presentation progress messages.
+- `--log`: also write terminal progress to a matching `.log.txt` file.
 
 If `--output` ends in `.txt`, a matching `.json` file is also written. If it
 ends in `.json`, a matching `.txt` file is also written.
-Progress printed to the terminal is also saved to a matching `.log.txt` file.
+By default no progress log file is written.
 
 ## Examples
 
@@ -58,24 +59,25 @@ python3 test.py --outdir batch_results --resume --timeout 600
 Useful options:
 
 - `--outdir DIR`: directory for per-case `.txt`/`.json` output files.
-- `--reduction {pgl2,affine,pgl2save,affinesave}`: reduction mode passed to `hyperelliptic_finder.py`. Defaults to `pgl2save` in `test.py`.
+- `--reduction {pgl2,affine,pgl2save,affinesave}`: reduction mode passed to `hyperelliptic_finder.py`. Defaults to `pgl2save`.
 - `--max N`: maximum curves per case; `0` means complete search.
 - `--timeout SECONDS`: maximum runtime per case; `0` means no timeout.
 - `--min-genus G` and `--max-genus G`: restrict the genus range.
 - `--resume`: skip cases whose JSON output already exists.
 - `--quiet`: pass `--quiet` to `hyperelliptic_finder.py`.
+- `--log`: write `batch.log.txt` and pass `--log` to each finder run.
 
-The script also writes:
+When `--log` is passed, the script also writes:
 
 ```text
 batch_results/batch_summary.json
 batch_results/batch.log.txt
 ```
 
-`batch_summary.json` is updated after each completed case, so partial progress
-is preserved if the batch is interrupted with Ctrl+C. Each individual
-`hyperelliptic_finder.py` run also saves its own results and progress log
-incrementally.
+`batch_summary.json` is always updated after each completed case, so partial
+progress is preserved if the batch is interrupted with Ctrl+C. Each individual
+`hyperelliptic_finder.py` run also saves its own results incrementally. Per-case
+progress logs are written only when `--log` is used.
 
 The full grid can be expensive. For a quick test, use:
 
@@ -121,7 +123,8 @@ If a non-result JSON file such as `batch_summary.json` is passed by accident,
 Detailed results are saved to the text and JSON output files. The terminal only
 prints run status, per-presentation progress, reduction skips, early rejections,
 and saved matches. Use `--quiet` to print only saved matches and the final
-summary. The same terminal progress is written to the `.log.txt` file.
+summary. By default no progress log file is written; use `--log` to write the
+same terminal progress to a `.log.txt` file.
 
 Each saved curve presentation is indexed and includes:
 
@@ -152,7 +155,7 @@ usually take the shortest path.
 
 ### `--reduction pgl2`
 
-This is the default. It uses fractional linear transformations
+This uses fractional linear transformations
 
 ```text
 x -> (ax + b)/(cx + d)
@@ -167,7 +170,7 @@ Equivalent presentations of an already accepted curve are skipped.
 
 ### `--reduction pgl2save`
 
-This uses the same PGL2 orbit computation as `pgl2`, but it saves presentations
+This is the default. It uses the same PGL2 orbit computation as `pgl2`, but it saves presentations
 that are equivalent to already accepted presentations. In that case the program
 does not recompute point counts or the L-polynomial; it reuses the known middle
 coefficient and records which accepted canonical presentation the saved
