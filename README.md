@@ -53,6 +53,39 @@ python3 hyperelliptic_finder.py 3 2 --reduction affine --output affine-results.t
 python3 hyperelliptic_finder.py 3 2 --monic-only --output genus2-monic-only.txt
 ```
 
+## C Version
+
+The repository also includes `hyperelliptic_finder.c`, a standalone C port that
+uses FLINT for finite-field irreducible polynomial construction and C
+implementations of the search, reduction, Hasse-Witt filtering, and point
+counting loops.
+
+Build it with:
+
+```bash
+make
+```
+
+On this machine the installed Homebrew FLINT library is `x86_64`, so the needed
+build command is:
+
+```bash
+make ARCH="-arch x86_64"
+```
+
+Run it similarly to the Python version:
+
+```bash
+./hyperelliptic_finder_c 3 2 --max 10 --output c-results.txt
+```
+
+Supported options are `--max`, `--output`, `--reduction
+{pgl2,pgl2save,affine,affinesave}`, `--monic-only`,
+`--no-hasse-witt-prefilter`, `--quiet`, and `--verbose`. The C enumerator may
+find presentations in a different order than the Python program, so `--max N`
+does not necessarily return the same first `N` presentations. Complete runs
+should agree on totals and middle-coefficient distributions.
+
 ## Batch Runs
 
 Use `test.py` to run many searches and save each case to a separate file.

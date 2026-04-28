@@ -1,0 +1,1316 @@
+Hyperelliptic curves with trinomial L-polynomial
+========================================================
+p = 3
+g = 1
+base field: F_3
+presentation reduction: pgl2save
+monic enforced: False
+nonmonic leading square class included: True
+leading coefficient representatives: [1, 2]
+hasse-witt prefilter: True
+reduction class count: 12
+isomorphism class count: 12
+log file: 
+search status: complete
+complete list: True
+total presentations found: 144
+
+Only the middle L-polynomial coefficient a_g is listed.
+Each entry is a presentation y^2 = f(x).
+
+[1]
+f(x) = x + x^3
+f_coeffs = [0, 1, 0, 1]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 1
+canonical_f(x) = x + x^3
+canonical_f_coeffs = [0, 1, 0, 1]
+reused_l_polynomial = False
+
+[2]
+f(x) = 2x + x^3
+f_coeffs = [0, 2, 0, 1]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 2
+canonical_f(x) = 2x + x^3
+canonical_f_coeffs = [0, 2, 0, 1]
+reused_l_polynomial = False
+
+[3]
+f(x) = 2x + x^2 + x^3
+f_coeffs = [0, 2, 1, 1]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 3
+canonical_f(x) = 2x + x^2 + x^3
+canonical_f_coeffs = [0, 2, 1, 1]
+reused_l_polynomial = False
+
+[4]
+f(x) = 2x + 2x^2 + x^3
+f_coeffs = [0, 2, 2, 1]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 4
+canonical_f(x) = 2x + 2x^2 + x^3
+canonical_f_coeffs = [0, 2, 2, 1]
+reused_l_polynomial = False
+
+[5]
+f(x) = 1 + x^2 + x^3
+f_coeffs = [1, 0, 1, 1]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 3
+canonical_f(x) = 2x + x^2 + x^3
+canonical_f_coeffs = [0, 2, 1, 1]
+reused_l_polynomial = True
+
+[6]
+f(x) = 1 + 2x^2 + x^3
+f_coeffs = [1, 0, 2, 1]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = False
+
+[7]
+f(x) = 1 + x + x^3
+f_coeffs = [1, 1, 0, 1]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 1
+canonical_f(x) = x + x^3
+canonical_f_coeffs = [0, 1, 0, 1]
+reused_l_polynomial = True
+
+[8]
+f(x) = 1 + x + x^2 + x^3
+f_coeffs = [1, 1, 1, 1]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 3
+canonical_f(x) = 2x + x^2 + x^3
+canonical_f_coeffs = [0, 2, 1, 1]
+reused_l_polynomial = True
+
+[9]
+f(x) = 1 + x + 2x^2 + x^3
+f_coeffs = [1, 1, 2, 1]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[10]
+f(x) = 1 + 2x + x^3
+f_coeffs = [1, 2, 0, 1]
+middle_coefficient_a_1 = 3
+canonical_presentation_index = 10
+canonical_f(x) = 1 + 2x + x^3
+canonical_f_coeffs = [1, 2, 0, 1]
+reused_l_polynomial = False
+
+[11]
+f(x) = 1 + 2x + x^2 + x^3
+f_coeffs = [1, 2, 1, 1]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = False
+
+[12]
+f(x) = 2 + x^2 + x^3
+f_coeffs = [2, 0, 1, 1]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[13]
+f(x) = 2 + 2x^2 + x^3
+f_coeffs = [2, 0, 2, 1]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 4
+canonical_f(x) = 2x + 2x^2 + x^3
+canonical_f_coeffs = [0, 2, 2, 1]
+reused_l_polynomial = True
+
+[14]
+f(x) = 2 + x + x^3
+f_coeffs = [2, 1, 0, 1]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 1
+canonical_f(x) = x + x^3
+canonical_f_coeffs = [0, 1, 0, 1]
+reused_l_polynomial = True
+
+[15]
+f(x) = 2 + x + x^2 + x^3
+f_coeffs = [2, 1, 1, 1]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[16]
+f(x) = 2 + x + 2x^2 + x^3
+f_coeffs = [2, 1, 2, 1]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 4
+canonical_f(x) = 2x + 2x^2 + x^3
+canonical_f_coeffs = [0, 2, 2, 1]
+reused_l_polynomial = True
+
+[17]
+f(x) = 2 + 2x + x^3
+f_coeffs = [2, 2, 0, 1]
+middle_coefficient_a_1 = -3
+canonical_presentation_index = 17
+canonical_f(x) = 2 + 2x + x^3
+canonical_f_coeffs = [2, 2, 0, 1]
+reused_l_polynomial = False
+
+[18]
+f(x) = 2 + 2x + 2x^2 + x^3
+f_coeffs = [2, 2, 2, 1]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[19]
+f(x) = x + 2x^3
+f_coeffs = [0, 1, 0, 2]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 2
+canonical_f(x) = 2x + x^3
+canonical_f_coeffs = [0, 2, 0, 1]
+reused_l_polynomial = True
+
+[20]
+f(x) = x + x^2 + 2x^3
+f_coeffs = [0, 1, 1, 2]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 3
+canonical_f(x) = 2x + x^2 + x^3
+canonical_f_coeffs = [0, 2, 1, 1]
+reused_l_polynomial = True
+
+[21]
+f(x) = x + 2x^2 + 2x^3
+f_coeffs = [0, 1, 2, 2]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 4
+canonical_f(x) = 2x + 2x^2 + x^3
+canonical_f_coeffs = [0, 2, 2, 1]
+reused_l_polynomial = True
+
+[22]
+f(x) = 2x + 2x^3
+f_coeffs = [0, 2, 0, 2]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 1
+canonical_f(x) = x + x^3
+canonical_f_coeffs = [0, 1, 0, 1]
+reused_l_polynomial = True
+
+[23]
+f(x) = 1 + x^2 + 2x^3
+f_coeffs = [1, 0, 1, 2]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 3
+canonical_f(x) = 2x + x^2 + x^3
+canonical_f_coeffs = [0, 2, 1, 1]
+reused_l_polynomial = True
+
+[24]
+f(x) = 1 + 2x^2 + 2x^3
+f_coeffs = [1, 0, 2, 2]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[25]
+f(x) = 1 + x + 2x^3
+f_coeffs = [1, 1, 0, 2]
+middle_coefficient_a_1 = 3
+canonical_presentation_index = 10
+canonical_f(x) = 1 + 2x + x^3
+canonical_f_coeffs = [1, 2, 0, 1]
+reused_l_polynomial = True
+
+[26]
+f(x) = 1 + x + x^2 + 2x^3
+f_coeffs = [1, 1, 1, 2]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[27]
+f(x) = 1 + 2x + 2x^3
+f_coeffs = [1, 2, 0, 2]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 1
+canonical_f(x) = x + x^3
+canonical_f_coeffs = [0, 1, 0, 1]
+reused_l_polynomial = True
+
+[28]
+f(x) = 1 + 2x + x^2 + 2x^3
+f_coeffs = [1, 2, 1, 2]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 3
+canonical_f(x) = 2x + x^2 + x^3
+canonical_f_coeffs = [0, 2, 1, 1]
+reused_l_polynomial = True
+
+[29]
+f(x) = 1 + 2x + 2x^2 + 2x^3
+f_coeffs = [1, 2, 2, 2]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[30]
+f(x) = 2 + x^2 + 2x^3
+f_coeffs = [2, 0, 1, 2]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[31]
+f(x) = 2 + 2x^2 + 2x^3
+f_coeffs = [2, 0, 2, 2]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 4
+canonical_f(x) = 2x + 2x^2 + x^3
+canonical_f_coeffs = [0, 2, 2, 1]
+reused_l_polynomial = True
+
+[32]
+f(x) = 2 + x + 2x^3
+f_coeffs = [2, 1, 0, 2]
+middle_coefficient_a_1 = -3
+canonical_presentation_index = 17
+canonical_f(x) = 2 + 2x + x^3
+canonical_f_coeffs = [2, 2, 0, 1]
+reused_l_polynomial = True
+
+[33]
+f(x) = 2 + x + 2x^2 + 2x^3
+f_coeffs = [2, 1, 2, 2]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[34]
+f(x) = 2 + 2x + 2x^3
+f_coeffs = [2, 2, 0, 2]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 1
+canonical_f(x) = x + x^3
+canonical_f_coeffs = [0, 1, 0, 1]
+reused_l_polynomial = True
+
+[35]
+f(x) = 2 + 2x + x^2 + 2x^3
+f_coeffs = [2, 2, 1, 2]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[36]
+f(x) = 2 + 2x + 2x^2 + 2x^3
+f_coeffs = [2, 2, 2, 2]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 4
+canonical_f(x) = 2x + 2x^2 + x^3
+canonical_f_coeffs = [0, 2, 2, 1]
+reused_l_polynomial = True
+
+[37]
+f(x) = x + x^3 + x^4
+f_coeffs = [0, 1, 0, 1, 1]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 1
+canonical_f(x) = x + x^3
+canonical_f_coeffs = [0, 1, 0, 1]
+reused_l_polynomial = True
+
+[38]
+f(x) = x + 2x^3 + x^4
+f_coeffs = [0, 1, 0, 2, 1]
+middle_coefficient_a_1 = 3
+canonical_presentation_index = 10
+canonical_f(x) = 1 + 2x + x^3
+canonical_f_coeffs = [1, 2, 0, 1]
+reused_l_polynomial = True
+
+[39]
+f(x) = x + x^2 + x^4
+f_coeffs = [0, 1, 1, 0, 1]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 3
+canonical_f(x) = 2x + x^2 + x^3
+canonical_f_coeffs = [0, 2, 1, 1]
+reused_l_polynomial = True
+
+[40]
+f(x) = x + x^2 + x^3 + x^4
+f_coeffs = [0, 1, 1, 1, 1]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 3
+canonical_f(x) = 2x + x^2 + x^3
+canonical_f_coeffs = [0, 2, 1, 1]
+reused_l_polynomial = True
+
+[41]
+f(x) = x + x^2 + 2x^3 + x^4
+f_coeffs = [0, 1, 1, 2, 1]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[42]
+f(x) = x + 2x^2 + x^4
+f_coeffs = [0, 1, 2, 0, 1]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[43]
+f(x) = x + 2x^2 + x^3 + x^4
+f_coeffs = [0, 1, 2, 1, 1]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[44]
+f(x) = 2x + x^3 + x^4
+f_coeffs = [0, 2, 0, 1, 1]
+middle_coefficient_a_1 = 3
+canonical_presentation_index = 10
+canonical_f(x) = 1 + 2x + x^3
+canonical_f_coeffs = [1, 2, 0, 1]
+reused_l_polynomial = True
+
+[45]
+f(x) = 2x + 2x^3 + x^4
+f_coeffs = [0, 2, 0, 2, 1]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 1
+canonical_f(x) = x + x^3
+canonical_f_coeffs = [0, 1, 0, 1]
+reused_l_polynomial = True
+
+[46]
+f(x) = 2x + x^2 + x^4
+f_coeffs = [0, 2, 1, 0, 1]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 3
+canonical_f(x) = 2x + x^2 + x^3
+canonical_f_coeffs = [0, 2, 1, 1]
+reused_l_polynomial = True
+
+[47]
+f(x) = 2x + x^2 + x^3 + x^4
+f_coeffs = [0, 2, 1, 1, 1]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[48]
+f(x) = 2x + x^2 + 2x^3 + x^4
+f_coeffs = [0, 2, 1, 2, 1]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 3
+canonical_f(x) = 2x + x^2 + x^3
+canonical_f_coeffs = [0, 2, 1, 1]
+reused_l_polynomial = True
+
+[49]
+f(x) = 2x + 2x^2 + x^4
+f_coeffs = [0, 2, 2, 0, 1]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[50]
+f(x) = 2x + 2x^2 + 2x^3 + x^4
+f_coeffs = [0, 2, 2, 2, 1]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[51]
+f(x) = 1 + x^4
+f_coeffs = [1, 0, 0, 0, 1]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 51
+canonical_f(x) = 1 + x^4
+canonical_f_coeffs = [1, 0, 0, 0, 1]
+reused_l_polynomial = False
+
+[52]
+f(x) = 1 + x^3 + x^4
+f_coeffs = [1, 0, 0, 1, 1]
+middle_coefficient_a_1 = 3
+canonical_presentation_index = 10
+canonical_f(x) = 1 + 2x + x^3
+canonical_f_coeffs = [1, 2, 0, 1]
+reused_l_polynomial = True
+
+[53]
+f(x) = 1 + 2x^3 + x^4
+f_coeffs = [1, 0, 0, 2, 1]
+middle_coefficient_a_1 = 3
+canonical_presentation_index = 10
+canonical_f(x) = 1 + 2x + x^3
+canonical_f_coeffs = [1, 2, 0, 1]
+reused_l_polynomial = True
+
+[54]
+f(x) = 1 + x^2 + x^3 + x^4
+f_coeffs = [1, 0, 1, 1, 1]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 54
+canonical_f(x) = 1 + x^2 + x^3 + x^4
+canonical_f_coeffs = [1, 0, 1, 1, 1]
+reused_l_polynomial = False
+
+[55]
+f(x) = 1 + x^2 + 2x^3 + x^4
+f_coeffs = [1, 0, 1, 2, 1]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 54
+canonical_f(x) = 1 + x^2 + x^3 + x^4
+canonical_f_coeffs = [1, 0, 1, 1, 1]
+reused_l_polynomial = True
+
+[56]
+f(x) = 1 + 2x^2 + x^3 + x^4
+f_coeffs = [1, 0, 2, 1, 1]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[57]
+f(x) = 1 + 2x^2 + 2x^3 + x^4
+f_coeffs = [1, 0, 2, 2, 1]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[58]
+f(x) = 1 + x + x^4
+f_coeffs = [1, 1, 0, 0, 1]
+middle_coefficient_a_1 = 3
+canonical_presentation_index = 10
+canonical_f(x) = 1 + 2x + x^3
+canonical_f_coeffs = [1, 2, 0, 1]
+reused_l_polynomial = True
+
+[59]
+f(x) = 1 + x + 2x^3 + x^4
+f_coeffs = [1, 1, 0, 2, 1]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 59
+canonical_f(x) = 1 + x + 2x^3 + x^4
+canonical_f_coeffs = [1, 1, 0, 2, 1]
+reused_l_polynomial = False
+
+[60]
+f(x) = 1 + x + x^2 + x^4
+f_coeffs = [1, 1, 1, 0, 1]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 54
+canonical_f(x) = 1 + x^2 + x^3 + x^4
+canonical_f_coeffs = [1, 0, 1, 1, 1]
+reused_l_polynomial = True
+
+[61]
+f(x) = 1 + x + x^2 + x^3 + x^4
+f_coeffs = [1, 1, 1, 1, 1]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 54
+canonical_f(x) = 1 + x^2 + x^3 + x^4
+canonical_f_coeffs = [1, 0, 1, 1, 1]
+reused_l_polynomial = True
+
+[62]
+f(x) = 1 + x + x^2 + 2x^3 + x^4
+f_coeffs = [1, 1, 1, 2, 1]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 3
+canonical_f(x) = 2x + x^2 + x^3
+canonical_f_coeffs = [0, 2, 1, 1]
+reused_l_polynomial = True
+
+[63]
+f(x) = 1 + x + 2x^2 + x^4
+f_coeffs = [1, 1, 2, 0, 1]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[64]
+f(x) = 1 + 2x + x^4
+f_coeffs = [1, 2, 0, 0, 1]
+middle_coefficient_a_1 = 3
+canonical_presentation_index = 10
+canonical_f(x) = 1 + 2x + x^3
+canonical_f_coeffs = [1, 2, 0, 1]
+reused_l_polynomial = True
+
+[65]
+f(x) = 1 + 2x + x^3 + x^4
+f_coeffs = [1, 2, 0, 1, 1]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 59
+canonical_f(x) = 1 + x + 2x^3 + x^4
+canonical_f_coeffs = [1, 1, 0, 2, 1]
+reused_l_polynomial = True
+
+[66]
+f(x) = 1 + 2x + x^2 + x^4
+f_coeffs = [1, 2, 1, 0, 1]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 54
+canonical_f(x) = 1 + x^2 + x^3 + x^4
+canonical_f_coeffs = [1, 0, 1, 1, 1]
+reused_l_polynomial = True
+
+[67]
+f(x) = 1 + 2x + x^2 + x^3 + x^4
+f_coeffs = [1, 2, 1, 1, 1]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 3
+canonical_f(x) = 2x + x^2 + x^3
+canonical_f_coeffs = [0, 2, 1, 1]
+reused_l_polynomial = True
+
+[68]
+f(x) = 1 + 2x + x^2 + 2x^3 + x^4
+f_coeffs = [1, 2, 1, 2, 1]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 54
+canonical_f(x) = 1 + x^2 + x^3 + x^4
+canonical_f_coeffs = [1, 0, 1, 1, 1]
+reused_l_polynomial = True
+
+[69]
+f(x) = 1 + 2x + 2x^2 + x^4
+f_coeffs = [1, 2, 2, 0, 1]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[70]
+f(x) = 2 + x^4
+f_coeffs = [2, 0, 0, 0, 1]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 1
+canonical_f(x) = x + x^3
+canonical_f_coeffs = [0, 1, 0, 1]
+reused_l_polynomial = True
+
+[71]
+f(x) = 2 + x^3 + x^4
+f_coeffs = [2, 0, 0, 1, 1]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 59
+canonical_f(x) = 1 + x + 2x^3 + x^4
+canonical_f_coeffs = [1, 1, 0, 2, 1]
+reused_l_polynomial = True
+
+[72]
+f(x) = 2 + 2x^3 + x^4
+f_coeffs = [2, 0, 0, 2, 1]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 59
+canonical_f(x) = 1 + x + 2x^3 + x^4
+canonical_f_coeffs = [1, 1, 0, 2, 1]
+reused_l_polynomial = True
+
+[73]
+f(x) = 2 + x^2 + x^4
+f_coeffs = [2, 0, 1, 0, 1]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 54
+canonical_f(x) = 1 + x^2 + x^3 + x^4
+canonical_f_coeffs = [1, 0, 1, 1, 1]
+reused_l_polynomial = True
+
+[74]
+f(x) = 2 + 2x^2 + x^4
+f_coeffs = [2, 0, 2, 0, 1]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 74
+canonical_f(x) = 2 + 2x^2 + x^4
+canonical_f_coeffs = [2, 0, 2, 0, 1]
+reused_l_polynomial = False
+
+[75]
+f(x) = 2 + 2x^2 + x^3 + x^4
+f_coeffs = [2, 0, 2, 1, 1]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[76]
+f(x) = 2 + 2x^2 + 2x^3 + x^4
+f_coeffs = [2, 0, 2, 2, 1]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[77]
+f(x) = 2 + x + x^4
+f_coeffs = [2, 1, 0, 0, 1]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 59
+canonical_f(x) = 1 + x + 2x^3 + x^4
+canonical_f_coeffs = [1, 1, 0, 2, 1]
+reused_l_polynomial = True
+
+[78]
+f(x) = 2 + x + x^3 + x^4
+f_coeffs = [2, 1, 0, 1, 1]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 51
+canonical_f(x) = 1 + x^4
+canonical_f_coeffs = [1, 0, 0, 0, 1]
+reused_l_polynomial = True
+
+[79]
+f(x) = 2 + x + x^2 + x^4
+f_coeffs = [2, 1, 1, 0, 1]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[80]
+f(x) = 2 + x + x^2 + x^3 + x^4
+f_coeffs = [2, 1, 1, 1, 1]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[81]
+f(x) = 2 + x + x^2 + 2x^3 + x^4
+f_coeffs = [2, 1, 1, 2, 1]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 54
+canonical_f(x) = 1 + x^2 + x^3 + x^4
+canonical_f_coeffs = [1, 0, 1, 1, 1]
+reused_l_polynomial = True
+
+[82]
+f(x) = 2 + x + 2x^2 + x^3 + x^4
+f_coeffs = [2, 1, 2, 1, 1]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[83]
+f(x) = 2 + x + 2x^2 + 2x^3 + x^4
+f_coeffs = [2, 1, 2, 2, 1]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 74
+canonical_f(x) = 2 + 2x^2 + x^4
+canonical_f_coeffs = [2, 0, 2, 0, 1]
+reused_l_polynomial = True
+
+[84]
+f(x) = 2 + 2x + x^4
+f_coeffs = [2, 2, 0, 0, 1]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 59
+canonical_f(x) = 1 + x + 2x^3 + x^4
+canonical_f_coeffs = [1, 1, 0, 2, 1]
+reused_l_polynomial = True
+
+[85]
+f(x) = 2 + 2x + 2x^3 + x^4
+f_coeffs = [2, 2, 0, 2, 1]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 51
+canonical_f(x) = 1 + x^4
+canonical_f_coeffs = [1, 0, 0, 0, 1]
+reused_l_polynomial = True
+
+[86]
+f(x) = 2 + 2x + x^2 + x^4
+f_coeffs = [2, 2, 1, 0, 1]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[87]
+f(x) = 2 + 2x + x^2 + x^3 + x^4
+f_coeffs = [2, 2, 1, 1, 1]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 54
+canonical_f(x) = 1 + x^2 + x^3 + x^4
+canonical_f_coeffs = [1, 0, 1, 1, 1]
+reused_l_polynomial = True
+
+[88]
+f(x) = 2 + 2x + x^2 + 2x^3 + x^4
+f_coeffs = [2, 2, 1, 2, 1]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[89]
+f(x) = 2 + 2x + 2x^2 + x^3 + x^4
+f_coeffs = [2, 2, 2, 1, 1]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 74
+canonical_f(x) = 2 + 2x^2 + x^4
+canonical_f_coeffs = [2, 0, 2, 0, 1]
+reused_l_polynomial = True
+
+[90]
+f(x) = 2 + 2x + 2x^2 + 2x^3 + x^4
+f_coeffs = [2, 2, 2, 2, 1]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[91]
+f(x) = x + x^3 + 2x^4
+f_coeffs = [0, 1, 0, 1, 2]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 1
+canonical_f(x) = x + x^3
+canonical_f_coeffs = [0, 1, 0, 1]
+reused_l_polynomial = True
+
+[92]
+f(x) = x + 2x^3 + 2x^4
+f_coeffs = [0, 1, 0, 2, 2]
+middle_coefficient_a_1 = -3
+canonical_presentation_index = 17
+canonical_f(x) = 2 + 2x + x^3
+canonical_f_coeffs = [2, 2, 0, 1]
+reused_l_polynomial = True
+
+[93]
+f(x) = x + x^2 + 2x^4
+f_coeffs = [0, 1, 1, 0, 2]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[94]
+f(x) = x + x^2 + x^3 + 2x^4
+f_coeffs = [0, 1, 1, 1, 2]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[95]
+f(x) = x + 2x^2 + 2x^4
+f_coeffs = [0, 1, 2, 0, 2]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 4
+canonical_f(x) = 2x + 2x^2 + x^3
+canonical_f_coeffs = [0, 2, 2, 1]
+reused_l_polynomial = True
+
+[96]
+f(x) = x + 2x^2 + x^3 + 2x^4
+f_coeffs = [0, 1, 2, 1, 2]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 4
+canonical_f(x) = 2x + 2x^2 + x^3
+canonical_f_coeffs = [0, 2, 2, 1]
+reused_l_polynomial = True
+
+[97]
+f(x) = x + 2x^2 + 2x^3 + 2x^4
+f_coeffs = [0, 1, 2, 2, 2]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[98]
+f(x) = 2x + x^3 + 2x^4
+f_coeffs = [0, 2, 0, 1, 2]
+middle_coefficient_a_1 = -3
+canonical_presentation_index = 17
+canonical_f(x) = 2 + 2x + x^3
+canonical_f_coeffs = [2, 2, 0, 1]
+reused_l_polynomial = True
+
+[99]
+f(x) = 2x + 2x^3 + 2x^4
+f_coeffs = [0, 2, 0, 2, 2]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 1
+canonical_f(x) = x + x^3
+canonical_f_coeffs = [0, 1, 0, 1]
+reused_l_polynomial = True
+
+[100]
+f(x) = 2x + x^2 + 2x^4
+f_coeffs = [0, 2, 1, 0, 2]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[101]
+f(x) = 2x + x^2 + 2x^3 + 2x^4
+f_coeffs = [0, 2, 1, 2, 2]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[102]
+f(x) = 2x + 2x^2 + 2x^4
+f_coeffs = [0, 2, 2, 0, 2]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 4
+canonical_f(x) = 2x + 2x^2 + x^3
+canonical_f_coeffs = [0, 2, 2, 1]
+reused_l_polynomial = True
+
+[103]
+f(x) = 2x + 2x^2 + x^3 + 2x^4
+f_coeffs = [0, 2, 2, 1, 2]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[104]
+f(x) = 2x + 2x^2 + 2x^3 + 2x^4
+f_coeffs = [0, 2, 2, 2, 2]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 4
+canonical_f(x) = 2x + 2x^2 + x^3
+canonical_f_coeffs = [0, 2, 2, 1]
+reused_l_polynomial = True
+
+[105]
+f(x) = 1 + 2x^4
+f_coeffs = [1, 0, 0, 0, 2]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 1
+canonical_f(x) = x + x^3
+canonical_f_coeffs = [0, 1, 0, 1]
+reused_l_polynomial = True
+
+[106]
+f(x) = 1 + x^3 + 2x^4
+f_coeffs = [1, 0, 0, 1, 2]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 59
+canonical_f(x) = 1 + x + 2x^3 + x^4
+canonical_f_coeffs = [1, 1, 0, 2, 1]
+reused_l_polynomial = True
+
+[107]
+f(x) = 1 + 2x^3 + 2x^4
+f_coeffs = [1, 0, 0, 2, 2]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 59
+canonical_f(x) = 1 + x + 2x^3 + x^4
+canonical_f_coeffs = [1, 1, 0, 2, 1]
+reused_l_polynomial = True
+
+[108]
+f(x) = 1 + x^2 + 2x^4
+f_coeffs = [1, 0, 1, 0, 2]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 54
+canonical_f(x) = 1 + x^2 + x^3 + x^4
+canonical_f_coeffs = [1, 0, 1, 1, 1]
+reused_l_polynomial = True
+
+[109]
+f(x) = 1 + x^2 + x^3 + 2x^4
+f_coeffs = [1, 0, 1, 1, 2]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[110]
+f(x) = 1 + x^2 + 2x^3 + 2x^4
+f_coeffs = [1, 0, 1, 2, 2]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[111]
+f(x) = 1 + 2x^2 + 2x^4
+f_coeffs = [1, 0, 2, 0, 2]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 74
+canonical_f(x) = 2 + 2x^2 + x^4
+canonical_f_coeffs = [2, 0, 2, 0, 1]
+reused_l_polynomial = True
+
+[112]
+f(x) = 1 + x + 2x^4
+f_coeffs = [1, 1, 0, 0, 2]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 59
+canonical_f(x) = 1 + x + 2x^3 + x^4
+canonical_f_coeffs = [1, 1, 0, 2, 1]
+reused_l_polynomial = True
+
+[113]
+f(x) = 1 + x + x^3 + 2x^4
+f_coeffs = [1, 1, 0, 1, 2]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 51
+canonical_f(x) = 1 + x^4
+canonical_f_coeffs = [1, 0, 0, 0, 1]
+reused_l_polynomial = True
+
+[114]
+f(x) = 1 + x + x^2 + x^3 + 2x^4
+f_coeffs = [1, 1, 1, 1, 2]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[115]
+f(x) = 1 + x + x^2 + 2x^3 + 2x^4
+f_coeffs = [1, 1, 1, 2, 2]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 54
+canonical_f(x) = 1 + x^2 + x^3 + x^4
+canonical_f_coeffs = [1, 0, 1, 1, 1]
+reused_l_polynomial = True
+
+[116]
+f(x) = 1 + x + 2x^2 + 2x^4
+f_coeffs = [1, 1, 2, 0, 2]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[117]
+f(x) = 1 + x + 2x^2 + x^3 + 2x^4
+f_coeffs = [1, 1, 2, 1, 2]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[118]
+f(x) = 1 + x + 2x^2 + 2x^3 + 2x^4
+f_coeffs = [1, 1, 2, 2, 2]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 74
+canonical_f(x) = 2 + 2x^2 + x^4
+canonical_f_coeffs = [2, 0, 2, 0, 1]
+reused_l_polynomial = True
+
+[119]
+f(x) = 1 + 2x + 2x^4
+f_coeffs = [1, 2, 0, 0, 2]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 59
+canonical_f(x) = 1 + x + 2x^3 + x^4
+canonical_f_coeffs = [1, 1, 0, 2, 1]
+reused_l_polynomial = True
+
+[120]
+f(x) = 1 + 2x + 2x^3 + 2x^4
+f_coeffs = [1, 2, 0, 2, 2]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 51
+canonical_f(x) = 1 + x^4
+canonical_f_coeffs = [1, 0, 0, 0, 1]
+reused_l_polynomial = True
+
+[121]
+f(x) = 1 + 2x + x^2 + x^3 + 2x^4
+f_coeffs = [1, 2, 1, 1, 2]
+middle_coefficient_a_1 = 2
+canonical_presentation_index = 54
+canonical_f(x) = 1 + x^2 + x^3 + x^4
+canonical_f_coeffs = [1, 0, 1, 1, 1]
+reused_l_polynomial = True
+
+[122]
+f(x) = 1 + 2x + x^2 + 2x^3 + 2x^4
+f_coeffs = [1, 2, 1, 2, 2]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[123]
+f(x) = 1 + 2x + 2x^2 + 2x^4
+f_coeffs = [1, 2, 2, 0, 2]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[124]
+f(x) = 1 + 2x + 2x^2 + x^3 + 2x^4
+f_coeffs = [1, 2, 2, 1, 2]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 74
+canonical_f(x) = 2 + 2x^2 + x^4
+canonical_f_coeffs = [2, 0, 2, 0, 1]
+reused_l_polynomial = True
+
+[125]
+f(x) = 1 + 2x + 2x^2 + 2x^3 + 2x^4
+f_coeffs = [1, 2, 2, 2, 2]
+middle_coefficient_a_1 = 1
+canonical_presentation_index = 6
+canonical_f(x) = 1 + 2x^2 + x^3
+canonical_f_coeffs = [1, 0, 2, 1]
+reused_l_polynomial = True
+
+[126]
+f(x) = 2 + 2x^4
+f_coeffs = [2, 0, 0, 0, 2]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 51
+canonical_f(x) = 1 + x^4
+canonical_f_coeffs = [1, 0, 0, 0, 1]
+reused_l_polynomial = True
+
+[127]
+f(x) = 2 + x^3 + 2x^4
+f_coeffs = [2, 0, 0, 1, 2]
+middle_coefficient_a_1 = -3
+canonical_presentation_index = 17
+canonical_f(x) = 2 + 2x + x^3
+canonical_f_coeffs = [2, 2, 0, 1]
+reused_l_polynomial = True
+
+[128]
+f(x) = 2 + 2x^3 + 2x^4
+f_coeffs = [2, 0, 0, 2, 2]
+middle_coefficient_a_1 = -3
+canonical_presentation_index = 17
+canonical_f(x) = 2 + 2x + x^3
+canonical_f_coeffs = [2, 2, 0, 1]
+reused_l_polynomial = True
+
+[129]
+f(x) = 2 + x^2 + x^3 + 2x^4
+f_coeffs = [2, 0, 1, 1, 2]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[130]
+f(x) = 2 + x^2 + 2x^3 + 2x^4
+f_coeffs = [2, 0, 1, 2, 2]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[131]
+f(x) = 2 + 2x^2 + x^3 + 2x^4
+f_coeffs = [2, 0, 2, 1, 2]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 74
+canonical_f(x) = 2 + 2x^2 + x^4
+canonical_f_coeffs = [2, 0, 2, 0, 1]
+reused_l_polynomial = True
+
+[132]
+f(x) = 2 + 2x^2 + 2x^3 + 2x^4
+f_coeffs = [2, 0, 2, 2, 2]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 74
+canonical_f(x) = 2 + 2x^2 + x^4
+canonical_f_coeffs = [2, 0, 2, 0, 1]
+reused_l_polynomial = True
+
+[133]
+f(x) = 2 + x + 2x^4
+f_coeffs = [2, 1, 0, 0, 2]
+middle_coefficient_a_1 = -3
+canonical_presentation_index = 17
+canonical_f(x) = 2 + 2x + x^3
+canonical_f_coeffs = [2, 2, 0, 1]
+reused_l_polynomial = True
+
+[134]
+f(x) = 2 + x + 2x^3 + 2x^4
+f_coeffs = [2, 1, 0, 2, 2]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 59
+canonical_f(x) = 1 + x + 2x^3 + x^4
+canonical_f_coeffs = [1, 1, 0, 2, 1]
+reused_l_polynomial = True
+
+[135]
+f(x) = 2 + x + x^2 + 2x^4
+f_coeffs = [2, 1, 1, 0, 2]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[136]
+f(x) = 2 + x + 2x^2 + 2x^4
+f_coeffs = [2, 1, 2, 0, 2]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 74
+canonical_f(x) = 2 + 2x^2 + x^4
+canonical_f_coeffs = [2, 0, 2, 0, 1]
+reused_l_polynomial = True
+
+[137]
+f(x) = 2 + x + 2x^2 + x^3 + 2x^4
+f_coeffs = [2, 1, 2, 1, 2]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 74
+canonical_f(x) = 2 + 2x^2 + x^4
+canonical_f_coeffs = [2, 0, 2, 0, 1]
+reused_l_polynomial = True
+
+[138]
+f(x) = 2 + x + 2x^2 + 2x^3 + 2x^4
+f_coeffs = [2, 1, 2, 2, 2]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 4
+canonical_f(x) = 2x + 2x^2 + x^3
+canonical_f_coeffs = [0, 2, 2, 1]
+reused_l_polynomial = True
+
+[139]
+f(x) = 2 + 2x + 2x^4
+f_coeffs = [2, 2, 0, 0, 2]
+middle_coefficient_a_1 = -3
+canonical_presentation_index = 17
+canonical_f(x) = 2 + 2x + x^3
+canonical_f_coeffs = [2, 2, 0, 1]
+reused_l_polynomial = True
+
+[140]
+f(x) = 2 + 2x + x^3 + 2x^4
+f_coeffs = [2, 2, 0, 1, 2]
+middle_coefficient_a_1 = 0
+canonical_presentation_index = 59
+canonical_f(x) = 1 + x + 2x^3 + x^4
+canonical_f_coeffs = [1, 1, 0, 2, 1]
+reused_l_polynomial = True
+
+[141]
+f(x) = 2 + 2x + x^2 + 2x^4
+f_coeffs = [2, 2, 1, 0, 2]
+middle_coefficient_a_1 = -1
+canonical_presentation_index = 11
+canonical_f(x) = 1 + 2x + x^2 + x^3
+canonical_f_coeffs = [1, 2, 1, 1]
+reused_l_polynomial = True
+
+[142]
+f(x) = 2 + 2x + 2x^2 + 2x^4
+f_coeffs = [2, 2, 2, 0, 2]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 74
+canonical_f(x) = 2 + 2x^2 + x^4
+canonical_f_coeffs = [2, 0, 2, 0, 1]
+reused_l_polynomial = True
+
+[143]
+f(x) = 2 + 2x + 2x^2 + x^3 + 2x^4
+f_coeffs = [2, 2, 2, 1, 2]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 4
+canonical_f(x) = 2x + 2x^2 + x^3
+canonical_f_coeffs = [0, 2, 2, 1]
+reused_l_polynomial = True
+
+[144]
+f(x) = 2 + 2x + 2x^2 + 2x^3 + 2x^4
+f_coeffs = [2, 2, 2, 2, 2]
+middle_coefficient_a_1 = -2
+canonical_presentation_index = 74
+canonical_f(x) = 2 + 2x^2 + x^4
+canonical_f_coeffs = [2, 0, 2, 0, 1]
+reused_l_polynomial = True
+
