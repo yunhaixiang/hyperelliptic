@@ -86,6 +86,18 @@ find presentations in a different order than the Python program, so `--max N`
 does not necessarily return the same first `N` presentations. Complete runs
 should agree on totals and middle-coefficient distributions.
 
+For C batch runs, use `test_c.py`. By default it runs prime `3`, genera `7`
+through `20`, and reduction mode `pgl2save`:
+
+```bash
+python3 test_c.py --outdir batch_results_c --resume
+```
+
+It writes per-case files named like `p3_g7_pgl2save_c.json` and a summary file
+`batch_results_c/batch_summary_c.json`. If `hyperelliptic_finder_c` is missing,
+the script runs `make ARCH="-arch x86_64"` by default on this machine. Use
+`--no-build` if you want it to fail instead.
+
 ## Batch Runs
 
 Use `test.py` to run many searches and save each case to a separate file.
@@ -191,10 +203,12 @@ The output metadata includes:
 Each saved curve presentation is indexed and includes:
 
 - `f(x)` for the presentation `y^2 = f(x)`.
-- The coefficient list for `f(x)`, in ascending order `[c_0, c_1, ...]`.
 - The middle L-polynomial coefficient `a_g`.
 - The accepted canonical presentation index and polynomial used for reduction.
-- Whether the L-polynomial was reused from an accepted equivalent presentation.
+
+The JSON output keeps the full coefficient lists and `reused_l_polynomial`
+field for scripts that need machine-readable data. The text output omits those
+fields to keep the result list shorter.
 
 Only the middle coefficient of the L-polynomial is shown because the other
 nonzero coefficients in the trinomial form are fixed as `1` and `p^g`.

@@ -1,4 +1,5 @@
 batch_results/
+batch_results_c/
 batch_results_*/
 __pycache__/
 .DS_Store

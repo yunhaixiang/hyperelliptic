@@ -708,12 +708,10 @@ def write_results() -> None:
         for result in results:
             handle.write(f"[{result.index}]\n")
             handle.write(f"f(x) = {result.f_polynomial}\n")
-            handle.write(f"f_coeffs = {result.f_coeffs}\n")
             handle.write(f"middle_coefficient_a_{g} = {result.middle_coefficient}\n")
             handle.write(f"canonical_presentation_index = {result.canonical_presentation_index}\n")
             handle.write(f"canonical_f(x) = {result.canonical_f_polynomial}\n")
-            handle.write(f"canonical_f_coeffs = {result.canonical_f_coeffs}\n")
-            handle.write(f"reused_l_polynomial = {result.reused_l_polynomial}\n\n")
+            handle.write("\n")
 
     data = {
         "p": p,

@@ -531,16 +531,10 @@ static void write_results(void) {
         format_polynomial(results[i].canonical_f, config.key_len, cbuf, sizeof(cbuf));
         fprintf(txt, "[%d]\n", results[i].index);
         fprintf(txt, "f(x) = %s\n", fbuf);
-        fprintf(txt, "f_coeffs = ");
-        write_key_array(txt, results[i].f, config.key_len);
-        fprintf(txt, "\n");
         fprintf(txt, "middle_coefficient_a_%d = %lld\n", config.g, results[i].middle_coefficient);
         fprintf(txt, "canonical_presentation_index = %d\n", results[i].canonical_index);
         fprintf(txt, "canonical_f(x) = %s\n", cbuf);
-        fprintf(txt, "canonical_f_coeffs = ");
-        write_key_array(txt, results[i].canonical_f, config.key_len);
         fprintf(txt, "\n");
-        fprintf(txt, "reused_l_polynomial = %s\n\n", results[i].reused_l_polynomial ? "True" : "False");
     }
     fclose(txt);
 
