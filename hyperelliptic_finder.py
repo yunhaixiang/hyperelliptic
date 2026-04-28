@@ -10,6 +10,7 @@ with a_g nonzero.
 from __future__ import annotations
 
 import argparse
+import atexit
 import json
 import math
 import os
@@ -453,21 +454,32 @@ def write_results() -> None:
         handle.write("\n")
 
 
-def find_curves(p: int, g: int, max_curves: int, reduction: str) -> list[CurveResult]:
+def find_curves(p: int, g: int, max_curves: int, reduction: str, verbose: bool) -> list[CurveResult]:
     stats = SearchStats()
     for f_coeffs in generate_polynomials(p, g):
         stats.considered += 1
+        if verbose:
+            print(f"[{stats.considered}] Considering f(x) = {format_polynomial(f_coeffs)}", flush=True)
+            print(f"Checking {reduction} repeats.", flush=True)
         if tuple(f_coeffs) != canonical_key(f_coeffs, p, g, reduction):
             stats.skipped_by_reduction += 1
+            if verbose:
+                print(f"Skipped: {reduction}-equivalent repeat.", flush=True)
             continue
 
         stats.checked += 1
+        if verbose:
+            print("Canonical; checking L-polynomial coefficients.", flush=True)
         status, middle_coefficient = trinomial_middle_coefficient(p, g, f_coeffs)
         if status == "early_l_coefficient":
             stats.rejected_by_early_l_coefficient += 1
+            if verbose:
+                print("Early rejected: pre-middle coefficient is nonzero.", flush=True)
             continue
         if status == "zero_middle_coefficient":
             stats.rejected_by_zero_middle_coefficient += 1
+            if verbose:
+                print("Rejected: middle coefficient is zero.", flush=True)
             continue
         if middle_coefficient is None:
             raise AssertionError("valid trinomial candidate is missing its middle coefficient")
@@ -481,16 +493,21 @@ def find_curves(p: int, g: int, max_curves: int, reduction: str) -> list[CurveRe
         results.append(result)
         stats.saved += 1
         write_results()
-        print(f"saved presentation {result.index}", flush=True)
+        if verbose:
+            print(f"Saved presentation {result.index}; a_{g} = {result.middle_coefficient}.", flush=True)
+        else:
+            print(f"Saved presentation {result.index}; a_{g} = {result.middle_coefficient}.", flush=True)
 
         if max_curves > 0 and len(results) >= max_curves:
             break
 
-    print(f"considered {stats.considered} squarefree monic presentations", flush=True)
-    print(f"checked {stats.checked} canonical presentations after {reduction} reduction", flush=True)
-    print(f"skipped {stats.skipped_by_reduction} {reduction}-equivalent presentations", flush=True)
-    print(f"early-rejected {stats.rejected_by_early_l_coefficient} presentations", flush=True)
-    print(f"rejected {stats.rejected_by_zero_middle_coefficient} presentations with zero middle coefficient", flush=True)
+    print("", flush=True)
+    print("SUMMARY", flush=True)
+    print(f"Considered {stats.considered} squarefree monic presentations.", flush=True)
+    print(f"Checked {stats.checked} canonical presentations after {reduction} reduction.", flush=True)
+    print(f"Skipped {stats.skipped_by_reduction} {reduction}-equivalent presentations.", flush=True)
+    print(f"Early-rejected {stats.rejected_by_early_l_coefficient} presentations.", flush=True)
+    print(f"Rejected {stats.rejected_by_zero_middle_coefficient} presentations with zero middle coefficient.", flush=True)
     return results
 
 
@@ -499,6 +516,10 @@ def handle_interrupt(_sig, _frame) -> None:
     output_file = run_context.get("output_file", DEFAULT_OUTPUT)
     print(f"\nInterrupted. Saved {len(results)} presentations to {output_file}.", flush=True)
     raise SystemExit(130)
+
+
+def save_on_exit() -> None:
+    write_results()
 
 
 def output_paths(path: str) -> tuple[str, str]:
@@ -521,10 +542,14 @@ def main() -> int:
         default="pgl2",
         help="presentation reduction to use before point counting; default: pgl2",
     )
+    parser.add_argument("--quiet", action="store_true", help="only print saved matches and final summary")
     args = parser.parse_args()
 
     if not is_prime(args.p):
         print(f"Error: {args.p} is not prime", file=sys.stderr)
+        return 1
+    if args.p == 2:
+        print("Error: characteristic 2 is not supported for models y^2 = f(x); use an odd prime p", file=sys.stderr)
         return 1
     if args.g < 1:
         print("Error: g must be at least 1", file=sys.stderr)
@@ -543,16 +568,22 @@ def main() -> int:
             "reduction": args.reduction,
         }
     )
+    atexit.register(save_on_exit)
     signal.signal(signal.SIGINT, handle_interrupt)
+    signal.signal(signal.SIGTERM, handle_interrupt)
 
     write_results()
-    print(f"searching over F_{args.p}", flush=True)
-    print(f"using {args.reduction} presentation reduction", flush=True)
-    print(f"saving detailed results to {text_path} and {json_path}", flush=True)
-    find_curves(args.p, args.g, args.max, args.reduction)
-    write_results()
-    print(f"done. saved {len(results)} presentations to {text_path} and {json_path}", flush=True)
-    return 0
+    print(f"Searching over F_{args.p}.", flush=True)
+    print(f"Using {args.reduction} presentation reduction.", flush=True)
+    print(f"Saving detailed results to {text_path} and {json_path}.", flush=True)
+    try:
+        find_curves(args.p, args.g, args.max, args.reduction, verbose=not args.quiet)
+        return_code = 0
+    finally:
+        write_results()
+
+    print(f"Done. Saved {len(results)} presentations to {text_path} and {json_path}.", flush=True)
+    return return_code
 
 
 if __name__ == "__main__":

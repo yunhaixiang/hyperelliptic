@@ -6,7 +6,7 @@ Find presentations of hyperelliptic curves
 y^2 = f(x)
 ```
 
-over prime fields `F_p` whose L-polynomial is a trinomial
+over odd prime fields `F_p` whose L-polynomial is a trinomial
 
 ```text
 L(t) = 1 + a_g t^g + p^g t^{2g}
@@ -19,16 +19,17 @@ The program lists reduced presentations, not certified isomorphism classes.
 ## Usage
 
 ```bash
-python3 hyperelliptic_finder.py p g [--max N] [--output FILE] [--reduction {pgl2,affine}]
+python3 hyperelliptic_finder.py p g [--max N] [--output FILE] [--reduction {pgl2,affine}] [--quiet]
 ```
 
 Arguments:
 
-- `p`: prime characteristic.
+- `p`: odd prime characteristic. Characteristic `2` is not supported for models `y^2 = f(x)`.
 - `g`: genus.
 - `--max N`: maximum number of presentations to save. Use `0` for the complete search.
 - `--output FILE`: output path. Defaults to `hyperelliptic_results.txt`.
 - `--reduction {pgl2,affine}`: presentation reduction before point counting. Defaults to `pgl2`.
+- `--quiet`: suppress per-presentation progress messages.
 
 If `--output` ends in `.txt`, a matching `.json` file is also written. If it
 ends in `.json`, a matching `.txt` file is also written.
@@ -42,10 +43,72 @@ python3 hyperelliptic_finder.py 5 2 --max 0 --output complete-results.txt
 python3 hyperelliptic_finder.py 3 2 --reduction affine --output affine-results.txt
 ```
 
+## Batch Runs
+
+Use `test.py` to run many searches and save each case to a separate file.
+By default it runs primes `3, 5, 7` and genera `1` through `5`.
+
+```bash
+python3 test.py --outdir batch_results --resume --timeout 600
+```
+
+Useful options:
+
+- `--outdir DIR`: directory for per-case `.txt`/`.json` output files.
+- `--reduction {pgl2,affine}`: reduction mode passed to `hyperelliptic_finder.py`.
+- `--max N`: maximum curves per case; `0` means complete search.
+- `--timeout SECONDS`: maximum runtime per case; `0` means no timeout.
+- `--min-genus G` and `--max-genus G`: restrict the genus range.
+- `--resume`: skip cases whose JSON output already exists.
+- `--quiet`: pass `--quiet` to `hyperelliptic_finder.py`.
+
+The script also writes:
+
+```text
+batch_results/batch_summary.json
+```
+
+`batch_summary.json` is updated after each completed case, so partial progress
+is preserved if the batch is interrupted with Ctrl+C. Each individual
+`hyperelliptic_finder.py` run also saves its own results incrementally.
+
+The full grid can be expensive. For a quick test, use:
+
+```bash
+python3 test.py --min-genus 1 --max-genus 3 --max 10 --outdir batch_results
+```
+
+## LMFDB Comparison
+
+Use `lmfdb.py` to compare local result JSON files with available LMFDB
+abelian-variety isogeny-class records over finite fields.
+
+```bash
+python3 lmfdb.py p3_g2_results.json --out lmfdb_accuracy.json
+```
+
+For batch results:
+
+```bash
+python3 lmfdb.py batch_results/*.json --out lmfdb_accuracy.json --delay 1.0 --timeout 30
+```
+
+Useful options:
+
+- `--out FILE`: output JSON report.
+- `--delay SECONDS`: wait between LMFDB requests.
+- `--timeout SECONDS`: HTTP timeout per request.
+
+The comparison is by L-polynomial/isogeny class, not by individual curve
+presentation. LMFDB may not have records for every genus and prime searched.
+The reported `accuracy_among_available` only uses LMFDB records that were found.
+
 ## Output
 
 Detailed results are saved to the text and JSON output files. The terminal only
-prints run status and file locations.
+prints run status, per-presentation progress, reduction skips, early rejections,
+and saved matches. Use `--quiet` to print only saved matches and the final
+summary.
 
 Each saved curve presentation is indexed and includes:
 
