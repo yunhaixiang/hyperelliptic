@@ -657,15 +657,12 @@ def emit_saved_result(
     result: CurveResult,
     g: int,
     reduction: str,
-    reused_from: int | None = None,
 ) -> None:
     class_count = reduction_class_count()
     class_label = "isomorphism classes" if orbit_reduction_mode(reduction) == "pgl2" else "reduction classes"
     emit(f"Accepted [{result.index}]")
     emit(f"f(x) = {result.f_polynomial}")
     emit(f"middle_coefficient_a_{g} = {result.middle_coefficient}")
-    if reused_from is not None:
-        emit(f"reused_l_polynomial_from = [{reused_from}]")
     emit(f"canonical_presentation_index = {result.canonical_presentation_index}")
     emit(f"presentations so far = {len(results)}")
     emit(f"{class_label} so far = {class_count}")
@@ -786,7 +783,7 @@ def find_curves(
                 stats.saved += 1
                 write_results()
                 if show_accepted:
-                    emit_saved_result(result, g, reduction, reused_from=accepted_owner)
+                    emit_saved_result(result, g, reduction)
                 if max_curves > 0 and len(results) >= max_curves:
                     break
             else:
