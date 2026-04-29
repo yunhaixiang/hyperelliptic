@@ -95,7 +95,7 @@ through `20`, and reduction mode `pgl2save`:
 python3 test_c.py --outdir batch_results_c --resume
 ```
 
-It writes per-case files named like `p3_g7_pgl2save_c.json` and a summary file
+It writes per-case files named like `p3_g07_pgl2save_c.json` and a summary file
 `batch_results_c/batch_summary_c.json`. If `hyperelliptic_finder_c` is missing,
 the script runs `make ARCH="-arch x86_64"` by default on this machine. Use
 `--no-build` if you want it to fail instead. The default per-case timeout is

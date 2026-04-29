@@ -90,7 +90,7 @@ def run_case(
     no_hasse_witt_prefilter: bool,
 ) -> dict[str, object]:
     mode_suffix = "_monic" if monic_only else ""
-    output_base = outdir / f"p{p}_g{g}_{reduction}_c{mode_suffix}.txt"
+    output_base = outdir / f"p{p}_g{g:02d}_{reduction}_c{mode_suffix}.txt"
     command = [
         str(binary),
         str(p),
@@ -233,7 +233,7 @@ def main() -> int:
         for p in PRIMES:
             for g in range(args.min_genus, args.max_genus + 1):
                 mode_suffix = "_monic" if args.monic_only else ""
-                output_json = outdir / f"p{p}_g{g}_{args.reduction}_c{mode_suffix}.json"
+                output_json = outdir / f"p{p}_g{g:02d}_{args.reduction}_c{mode_suffix}.json"
                 if args.resume and output_json.exists():
                     summary.append({"p": p, "g": g, "runner": "c", "status": "skipped", "output_json": str(output_json)})
                     write_summary(summary_path, summary)
