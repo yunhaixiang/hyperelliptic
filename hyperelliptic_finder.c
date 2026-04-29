@@ -39,6 +39,7 @@ typedef struct {
     long long middle_coefficient;
     int canonical_index;
     ulong *canonical_f;
+    ulong *reduction_key;
     bool reused_l_polynomial;
 } CurveResult;
 
@@ -51,6 +52,8 @@ typedef struct {
     bool use_hasse_witt;
     bool quiet;
     bool verbose;
+    int workers;
+    int worker_index;
     char reduction[16];
     char output_txt[PATH_MAX];
     char output_json[PATH_MAX];
@@ -71,6 +74,28 @@ typedef struct {
     Poly modulus;
 } Field;
 
+typedef struct {
+    bool initialized;
+    Field field;
+    int *square_counts;
+    long long *powers;
+} PointCountCache;
+
+typedef struct {
+    int a;
+    int b;
+    int c;
+    int d;
+    Poly *first_powers;
+    Poly *second_powers;
+} PGL2TransformData;
+
+typedef struct {
+    PGL2TransformData *items;
+    int count;
+    int binary_degree;
+} PGL2Cache;
+
 static Config config;
 static CurveResult *results = NULL;
 static size_t result_count = 0;
@@ -78,6 +103,9 @@ static size_t result_capacity = 0;
 static volatile sig_atomic_t interrupted = 0;
 static char search_status[32] = "incomplete";
 static bool complete_list = false;
+static PGL2Cache pgl2_cache = {0};
+static PointCountCache point_count_caches[MAX_GENUS + 1] = {0};
+static unsigned long long generated_candidate_count = 0;
 
 static ulong mod_add(ulong a, ulong b, ulong p) { return (a + b) % p; }
 static ulong mod_sub(ulong a, ulong b, ulong p) { return (a + p - (b % p)) % p; }
@@ -335,13 +363,59 @@ static bool normalize_leading_square_class(ulong *key, int key_len, ulong p, boo
     return true;
 }
 
+static void poly_to_nmod_poly(nmod_poly_t out, const Poly *poly) {
+    for (int i = 0; i < poly->len; i++) {
+        if (poly->c[i]) nmod_poly_set_coeff_ui(out, i, poly->c[i]);
+    }
+}
+
+static void key_to_nmod_poly(nmod_poly_t out, const ulong *key, int key_len) {
+    for (int i = 0; i < key_len; i++) {
+        if (key[i]) nmod_poly_set_coeff_ui(out, i, key[i]);
+    }
+}
+
+static void nmod_poly_to_poly(Poly *out, const nmod_poly_t input, ulong p) {
+    poly_zero(out);
+    slong len = nmod_poly_length(input);
+    if (len > MAX_DEGREE + 1) {
+        fprintf(stderr, "FLINT polynomial degree exceeds C limit %d\n", MAX_DEGREE);
+        exit(1);
+    }
+    out->len = (int)len;
+    for (int i = 0; i < out->len; i++) out->c[i] = nmod_poly_get_coeff_ui(input, i) % p;
+    poly_normalize(out);
+}
+
+static void poly_pow_plain_flint_to(Poly *out, const Poly *base, ulong exponent, ulong p) {
+    nmod_poly_t f, powered;
+    nmod_poly_init(f, p);
+    nmod_poly_init(powered, p);
+    poly_to_nmod_poly(f, base);
+    nmod_poly_pow(powered, f, exponent);
+    nmod_poly_to_poly(out, powered, p);
+    nmod_poly_clear(powered);
+    nmod_poly_clear(f);
+}
+
 static bool poly_squarefree_key(const ulong *key, int key_len, ulong p) {
-    Poly f, derivative, gcd;
-    poly_from_coeffs(&f, key, key_len, p);
-    poly_derivative_to(&derivative, &f, p);
-    if (derivative.len == 0) return false;
-    poly_gcd_to(&gcd, &f, &derivative, p);
-    return gcd.len == 1 && gcd.c[0] == 1;
+    nmod_poly_t f, derivative, gcd;
+    nmod_poly_init(f, p);
+    nmod_poly_init(derivative, p);
+    nmod_poly_init(gcd, p);
+
+    key_to_nmod_poly(f, key, key_len);
+    nmod_poly_derivative(derivative, f);
+    bool squarefree = false;
+    if (!nmod_poly_is_zero(derivative)) {
+        nmod_poly_gcd(gcd, f, derivative);
+        squarefree = nmod_poly_degree(gcd) == 0;
+    }
+
+    nmod_poly_clear(gcd);
+    nmod_poly_clear(derivative);
+    nmod_poly_clear(f);
+    return squarefree;
 }
 
 static uint64_t hash_key(const ulong *key, int len) {
@@ -424,7 +498,14 @@ static void map_setdefault(HashMap *map, const ulong *key, int value) {
     }
 }
 
-static void append_result(const ulong *f, long long middle, int canonical_index, const ulong *canonical_f, bool reused) {
+static void append_result(
+    const ulong *f,
+    long long middle,
+    int canonical_index,
+    const ulong *canonical_f,
+    const ulong *reduction_key,
+    bool reused
+) {
     if (result_count == result_capacity) {
         result_capacity = result_capacity ? result_capacity * 2 : 64;
         results = realloc(results, result_capacity * sizeof(CurveResult));
@@ -437,12 +518,14 @@ static void append_result(const ulong *f, long long middle, int canonical_index,
     r->index = (int)result_count + 1;
     r->f = malloc(sizeof(ulong) * (size_t)config.key_len);
     r->canonical_f = malloc(sizeof(ulong) * (size_t)config.key_len);
-    if (!r->f || !r->canonical_f) {
+    r->reduction_key = malloc(sizeof(ulong) * (size_t)config.key_len);
+    if (!r->f || !r->canonical_f || !r->reduction_key) {
         perror("malloc");
         exit(1);
     }
     memcpy(r->f, f, sizeof(ulong) * (size_t)config.key_len);
     memcpy(r->canonical_f, canonical_f, sizeof(ulong) * (size_t)config.key_len);
+    memcpy(r->reduction_key, reduction_key, sizeof(ulong) * (size_t)config.key_len);
     r->middle_coefficient = middle;
     r->canonical_index = canonical_index;
     r->reused_l_polynomial = reused;
@@ -547,6 +630,8 @@ static void write_results(void) {
     fprintf(json, "  \"monic_enforced\": %s,\n", config.allow_nonmonic ? "false" : "true");
     fprintf(json, "  \"allow_nonmonic\": %s,\n", config.allow_nonmonic ? "true" : "false");
     fprintf(json, "  \"hasse_witt_prefilter\": %s,\n", config.use_hasse_witt ? "true" : "false");
+    fprintf(json, "  \"workers\": %d,\n", config.workers);
+    fprintf(json, "  \"worker_index\": %d,\n", config.worker_index);
     fprintf(json, "  \"reduction_class_count\": %d,\n", classes);
     fprintf(json, "  \"isomorphism_class_count\": %d,\n", classes);
     fprintf(json, "  \"search_status\": \"%s\",\n", search_status);
@@ -567,6 +652,9 @@ static void write_results(void) {
         fprintf(json, "      \"canonical_f_coeffs\": ");
         write_key_array(json, results[i].canonical_f, config.key_len);
         fprintf(json, ",\n      \"canonical_f_polynomial\": \"%s\",\n", cbuf);
+        fprintf(json, "      \"reduction_key\": ");
+        write_key_array(json, results[i].reduction_key, config.key_len);
+        fprintf(json, ",\n");
         fprintf(json, "      \"reused_l_polynomial\": %s\n", results[i].reused_l_polynomial ? "true" : "false");
         fprintf(json, "    }%s\n", i + 1 == result_count ? "" : ",");
     }
@@ -652,7 +740,9 @@ static bool passes_hasse_witt_prefilter(const ulong *f) {
     int p = config.p, g = config.g;
     Poly fp, powered;
     poly_from_coeffs(&fp, f, config.key_len, (ulong)p);
-    poly_pow_plain_to(&powered, &fp, (p - 1) / 2, (ulong)p);
+    int exponent = (p - 1) / 2;
+    if (exponent <= 1) powered = fp;
+    else poly_pow_plain_flint_to(&powered, &fp, (ulong)exponent, (ulong)p);
 
     Poly mat[MAX_GENUS][MAX_GENUS];
     for (int r = 0; r < g; r++) {
@@ -735,6 +825,39 @@ static long long field_add(const Field *field, long long a, long long b) {
     return field_element(field, &sum);
 }
 
+static long long field_add_fast(const Field *field, long long a, long long b) {
+    if (field->degree == 1) return (a + b) % field->p;
+
+    long long value = 0;
+    long long multiplier = 1;
+    for (int i = 0; i < field->degree; i++) {
+        int digit = (int)((a % field->p) + (b % field->p));
+        digit %= field->p;
+        value += (long long)digit * multiplier;
+        multiplier *= field->p;
+        a /= field->p;
+        b /= field->p;
+    }
+    return value;
+}
+
+static long long field_scalar_mul_fast(const Field *field, ulong scalar, long long a) {
+    scalar %= (ulong)field->p;
+    if (scalar == 0 || a == 0) return 0;
+    if (scalar == 1) return a;
+    if (field->degree == 1) return (long long)((scalar * (ulong)a) % (ulong)field->p);
+
+    long long value = 0;
+    long long multiplier = 1;
+    for (int i = 0; i < field->degree; i++) {
+        ulong digit = (ulong)(a % field->p);
+        value += (long long)((scalar * digit) % (ulong)field->p) * multiplier;
+        multiplier *= field->p;
+        a /= field->p;
+    }
+    return value;
+}
+
 static long long field_mul(const Field *field, long long a, long long b) {
     if (field->degree == 1) return (a * b) % field->p;
     Poly pa, pb, prod, reduced;
@@ -745,45 +868,70 @@ static long long field_mul(const Field *field, long long a, long long b) {
     return field_element(field, &reduced);
 }
 
-static long long eval_poly_field(const Field *field, const ulong *f) {
-    (void)field;
-    (void)f;
-    return 0;
+static PointCountCache *get_point_count_cache(int k) {
+    PointCountCache *cache = &point_count_caches[k];
+    if (cache->initialized) return cache;
+
+    cache->field = make_field(config.p, k);
+    Field *field = &cache->field;
+    cache->square_counts = calloc((size_t)field->order, sizeof(int));
+    cache->powers = calloc((size_t)field->order * (size_t)config.key_len, sizeof(long long));
+    if (!cache->square_counts || !cache->powers) {
+        perror("calloc");
+        exit(1);
+    }
+
+    for (long long y = 0; y < field->order; y++) {
+        long long square = field_mul(field, y, y);
+        cache->square_counts[square]++;
+    }
+
+    for (long long x = 0; x < field->order; x++) {
+        long long *row = &cache->powers[(size_t)x * (size_t)config.key_len];
+        row[0] = 1 % field->p;
+        for (int e = 1; e < config.key_len; e++) row[e] = field_mul(field, row[e - 1], x);
+    }
+
+    cache->initialized = true;
+    return cache;
 }
 
-static long long eval_at_field_element(const Field *field, const ulong *f, long long x) {
+static void free_point_count_caches(void) {
+    for (int k = 0; k <= MAX_GENUS; k++) {
+        if (!point_count_caches[k].initialized) continue;
+        free(point_count_caches[k].square_counts);
+        free(point_count_caches[k].powers);
+        point_count_caches[k].square_counts = NULL;
+        point_count_caches[k].powers = NULL;
+        point_count_caches[k].initialized = false;
+    }
+}
+
+static long long eval_sparse_from_power_table(const PointCountCache *cache, const ulong *f, long long x) {
+    const Field *field = &cache->field;
+    const long long *row = &cache->powers[(size_t)x * (size_t)config.key_len];
     long long result = 0;
-    for (int i = config.key_len - 1; i >= 0; i--) {
-        result = field_add(field, field_mul(field, result, x), (long long)(f[i] % (ulong)field->p));
+    for (int e = 0; e < config.key_len; e++) {
+        ulong coeff = f[e] % (ulong)field->p;
+        if (coeff == 0) continue;
+        result = field_add_fast(field, result, field_scalar_mul_fast(field, coeff, row[e]));
     }
     return result;
 }
 
 static long long count_points(int k, const ulong *f) {
-    Field field = make_field(config.p, k);
-    int *square_counts = calloc((size_t)field.order, sizeof(int));
-    if (!square_counts) {
-        perror("calloc");
-        exit(1);
-    }
-    for (long long y = 0; y < field.order; y++) {
-        long long square = field_mul(&field, y, y);
-        square_counts[square]++;
-    }
+    PointCountCache *cache = get_point_count_cache(k);
+    Field *field = &cache->field;
     long long finite = 0;
-    for (long long x = 0; x < field.order; x++) {
-        long long value = eval_at_field_element(&field, f, x);
-        finite += square_counts[value];
+    for (long long x = 0; x < field->order; x++) {
+        long long value = eval_sparse_from_power_table(cache, f, x);
+        finite += cache->square_counts[value];
     }
-    free(square_counts);
     int degree = key_degree(f, config.key_len);
     ulong leading = f[degree] % (ulong)config.p;
     long long infinity = 1;
     if (degree % 2 == 0) {
-        infinity = 0;
-        for (long long y = 0; y < field.order; y++) {
-            if (field_mul(&field, y, y) == (long long)leading) infinity++;
-        }
+        infinity = cache->square_counts[leading];
     }
     return finite + infinity;
 }
@@ -844,52 +992,25 @@ static void key_poly_mul_accum(ulong *acc, const Poly *a, const Poly *b, ulong c
     }
 }
 
-static bool pgl2_transform(const ulong *poly, int a, int b, int c, int d, ulong *out) {
-    int binary_degree = 2 * config.g + 2;
-    Poly *first = calloc((size_t)binary_degree + 1, sizeof(Poly));
-    Poly *second = calloc((size_t)binary_degree + 1, sizeof(Poly));
-    Poly l1, l2;
-    if (!first || !second) {
+static bool pgl2_cache_has_matrix(int a, int b, int c, int d) {
+    for (int i = 0; i < pgl2_cache.count; i++) {
+        PGL2TransformData *item = &pgl2_cache.items[i];
+        if (item->a == a && item->b == b && item->c == c && item->d == d) return true;
+    }
+    return false;
+}
+
+static void init_pgl2_cache(void) {
+    if (pgl2_cache.items != NULL) return;
+
+    int capacity = config.p * config.p * config.p * config.p;
+    pgl2_cache.items = calloc((size_t)capacity, sizeof(PGL2TransformData));
+    if (!pgl2_cache.items) {
         perror("calloc");
         exit(1);
     }
-    poly_one(&first[0], (ulong)config.p);
-    poly_one(&second[0], (ulong)config.p);
-    poly_zero(&l1);
-    poly_zero(&l2);
-    l1.len = 2;
-    l1.c[0] = (ulong)b % (ulong)config.p;
-    l1.c[1] = (ulong)a % (ulong)config.p;
-    l2.len = 2;
-    l2.c[0] = (ulong)d % (ulong)config.p;
-    l2.c[1] = (ulong)c % (ulong)config.p;
-    for (int i = 1; i <= binary_degree; i++) {
-        poly_mul_to(&first[i], &first[i - 1], &l1, (ulong)config.p);
-        poly_mul_to(&second[i], &second[i - 1], &l2, (ulong)config.p);
-    }
-    memset(out, 0, sizeof(ulong) * (size_t)config.key_len);
-    for (int i = 0; i < config.key_len && i <= binary_degree; i++) {
-        if (poly[i]) key_poly_mul_accum(out, &first[i], &second[binary_degree - i], poly[i]);
-    }
-    int degree = key_degree(out, config.key_len);
-    bool ok = degree == 2 * config.g + 1 || degree == 2 * config.g + 2;
-    if (ok) ok = normalize_leading_square_class(out, config.key_len, (ulong)config.p, config.allow_nonmonic);
-    free(first);
-    free(second);
-    return ok;
-}
+    pgl2_cache.binary_degree = 2 * config.g + 2;
 
-static void insert_orbit_members(HashMap *map, const ulong *poly, int owner) {
-    ulong transformed[MAX_DEGREE + 1];
-    bool pgl2 = strcmp(config.reduction, "pgl2") == 0 || strcmp(config.reduction, "pgl2save") == 0;
-    if (!pgl2) {
-        for (int scale = 1; scale < config.p; scale++) {
-            for (int shift = 0; shift < config.p; shift++) {
-                if (affine_transform(poly, scale, shift, transformed)) map_setdefault(map, transformed, owner);
-            }
-        }
-        return;
-    }
     for (int a = 0; a < config.p; a++) {
         for (int b = 0; b < config.p; b++) {
             for (int c = 0; c < config.p; c++) {
@@ -897,16 +1018,45 @@ static void insert_orbit_members(HashMap *map, const ulong *poly, int owner) {
                     int det = (a * d - b * c) % config.p;
                     if (det < 0) det += config.p;
                     if (det == 0) continue;
+
                     int entries[4] = {a, b, c, d};
-                    int first = 0;
-                    while (first < 4 && entries[first] == 0) first++;
-                    ulong inv = mod_inv((ulong)entries[first], (ulong)config.p);
+                    int first_nonzero = 0;
+                    while (first_nonzero < 4 && entries[first_nonzero] == 0) first_nonzero++;
+                    ulong inv = mod_inv((ulong)entries[first_nonzero], (ulong)config.p);
+
                     int na = (int)mod_mul((ulong)a, inv, (ulong)config.p);
                     int nb = (int)mod_mul((ulong)b, inv, (ulong)config.p);
                     int nc = (int)mod_mul((ulong)c, inv, (ulong)config.p);
                     int nd = (int)mod_mul((ulong)d, inv, (ulong)config.p);
-                    if (pgl2_transform(poly, na, nb, nc, nd, transformed)) {
-                        map_setdefault(map, transformed, owner);
+                    if (pgl2_cache_has_matrix(na, nb, nc, nd)) continue;
+
+                    PGL2TransformData *item = &pgl2_cache.items[pgl2_cache.count++];
+                    item->a = na;
+                    item->b = nb;
+                    item->c = nc;
+                    item->d = nd;
+                    item->first_powers = calloc((size_t)pgl2_cache.binary_degree + 1, sizeof(Poly));
+                    item->second_powers = calloc((size_t)pgl2_cache.binary_degree + 1, sizeof(Poly));
+                    if (!item->first_powers || !item->second_powers) {
+                        perror("calloc");
+                        exit(1);
+                    }
+
+                    Poly l1, l2;
+                    poly_zero(&l1);
+                    poly_zero(&l2);
+                    l1.len = 2;
+                    l1.c[0] = (ulong)item->b % (ulong)config.p;
+                    l1.c[1] = (ulong)item->a % (ulong)config.p;
+                    l2.len = 2;
+                    l2.c[0] = (ulong)item->d % (ulong)config.p;
+                    l2.c[1] = (ulong)item->c % (ulong)config.p;
+
+                    poly_one(&item->first_powers[0], (ulong)config.p);
+                    poly_one(&item->second_powers[0], (ulong)config.p);
+                    for (int i = 1; i <= pgl2_cache.binary_degree; i++) {
+                        poly_mul_to(&item->first_powers[i], &item->first_powers[i - 1], &l1, (ulong)config.p);
+                        poly_mul_to(&item->second_powers[i], &item->second_powers[i - 1], &l2, (ulong)config.p);
                     }
                 }
             }
@@ -914,18 +1064,187 @@ static void insert_orbit_members(HashMap *map, const ulong *poly, int owner) {
     }
 }
 
-static bool next_lower_coeffs(ulong *f, int degree) {
-    for (int i = 0; i < degree; i++) {
-        f[i]++;
-        if (f[i] < (ulong)config.p) return true;
-        f[i] = 0;
+static void free_pgl2_cache(void) {
+    if (pgl2_cache.items == NULL) return;
+    for (int i = 0; i < pgl2_cache.count; i++) {
+        free(pgl2_cache.items[i].first_powers);
+        free(pgl2_cache.items[i].second_powers);
     }
-    return false;
+    free(pgl2_cache.items);
+    pgl2_cache.items = NULL;
+    pgl2_cache.count = 0;
+    pgl2_cache.binary_degree = 0;
+}
+
+static bool pgl2_transform_cached(const ulong *poly, const PGL2TransformData *data, ulong *out) {
+    int binary_degree = pgl2_cache.binary_degree;
+    memset(out, 0, sizeof(ulong) * (size_t)config.key_len);
+    for (int i = 0; i < config.key_len && i <= binary_degree; i++) {
+        if (poly[i]) key_poly_mul_accum(out, &data->first_powers[i], &data->second_powers[binary_degree - i], poly[i]);
+    }
+    int degree = key_degree(out, config.key_len);
+    bool ok = degree == 2 * config.g + 1 || degree == 2 * config.g + 2;
+    if (ok) ok = normalize_leading_square_class(out, config.key_len, (ulong)config.p, config.allow_nonmonic);
+    return ok;
+}
+
+static int compare_keys(const ulong *a, const ulong *b) {
+    for (int i = 0; i < config.key_len; i++) {
+        if (a[i] < b[i]) return -1;
+        if (a[i] > b[i]) return 1;
+    }
+    return 0;
+}
+
+static bool canonical_reduction_key(const ulong *poly, ulong *key) {
+    ulong transformed[MAX_DEGREE + 1];
+    bool have_key = false;
+    bool pgl2 = strcmp(config.reduction, "pgl2") == 0 || strcmp(config.reduction, "pgl2save") == 0;
+    if (!pgl2) {
+        for (int scale = 1; scale < config.p; scale++) {
+            for (int shift = 0; shift < config.p; shift++) {
+                if (affine_transform(poly, scale, shift, transformed) && (!have_key || compare_keys(transformed, key) < 0)) {
+                    memcpy(key, transformed, sizeof(ulong) * (size_t)config.key_len);
+                    have_key = true;
+                }
+            }
+        }
+        return have_key;
+    }
+    init_pgl2_cache();
+    for (int i = 0; i < pgl2_cache.count; i++) {
+        if (pgl2_transform_cached(poly, &pgl2_cache.items[i], transformed) && (!have_key || compare_keys(transformed, key) < 0)) {
+            memcpy(key, transformed, sizeof(ulong) * (size_t)config.key_len);
+            have_key = true;
+        }
+    }
+    return have_key;
 }
 
 static void handle_signal(int sig) {
     (void)sig;
     interrupted = 1;
+}
+
+static bool process_candidate(
+    ulong *f,
+    Stats *stats,
+    HashMap *accepted,
+    HashMap *seen,
+    bool save_repeats
+) {
+    if (!poly_squarefree_key(f, config.key_len, (ulong)config.p)) return false;
+
+    stats->considered++;
+    if (config.verbose) {
+        char fbuf[4096];
+        format_polynomial(f, config.key_len, fbuf, sizeof(fbuf));
+        printf("[%lld]\nConsidering f(x) = %s\nChecking %s repeats.\n", stats->considered, fbuf, config.reduction);
+        fflush(stdout);
+    }
+
+    if (config.use_hasse_witt && !passes_hasse_witt_prefilter(f)) {
+        stats->rejected_by_hasse_witt++;
+        return false;
+    }
+
+    ulong reduction_key[MAX_DEGREE + 1] = {0};
+    if (!canonical_reduction_key(f, reduction_key)) {
+        stats->skipped_by_reduction++;
+        return false;
+    }
+
+    int accepted_owner = map_get(accepted, reduction_key);
+    if (accepted_owner) {
+        if (save_repeats) {
+            CurveResult *owner = &results[accepted_owner - 1];
+            append_result(f, owner->middle_coefficient, owner->canonical_index, owner->canonical_f, reduction_key, true);
+            write_results();
+            emit_result(&results[result_count - 1]);
+            return config.max_curves > 0 && (int)result_count >= config.max_curves;
+        }
+        stats->skipped_by_reduction++;
+        return false;
+    }
+
+    int seen_owner = map_get(seen, reduction_key);
+    if (seen_owner) {
+        stats->skipped_by_reduction++;
+        return false;
+    }
+
+    map_setdefault(seen, reduction_key, (int)stats->considered);
+    stats->checked++;
+
+    long long middle = 0;
+    if (trinomial_middle_coefficient(f, &middle)) {
+        append_result(f, middle, (int)result_count + 1, f, reduction_key, false);
+        map_setdefault(accepted, reduction_key, (int)result_count);
+        write_results();
+        emit_result(&results[result_count - 1]);
+        return config.max_curves > 0 && (int)result_count >= config.max_curves;
+    }
+
+    stats->rejected_by_early_l_coefficient++;
+    return false;
+}
+
+static bool assign_sparse_coefficients(
+    ulong *f,
+    const int *support,
+    int support_size,
+    int index,
+    Stats *stats,
+    HashMap *accepted,
+    HashMap *seen,
+    bool save_repeats
+) {
+    if (interrupted) return true;
+    if (index == support_size) {
+        unsigned long long candidate_index = generated_candidate_count++;
+        if (config.workers > 1 && (int)(candidate_index % (unsigned long long)config.workers) != config.worker_index) {
+            return false;
+        }
+        return process_candidate(f, stats, accepted, seen, save_repeats);
+    }
+
+    int exponent = support[index];
+    for (ulong coeff = 1; coeff < (ulong)config.p; coeff++) {
+        f[exponent] = coeff;
+        if (assign_sparse_coefficients(f, support, support_size, index + 1, stats, accepted, seen, save_repeats)) {
+            f[exponent] = 0;
+            return true;
+        }
+    }
+    f[exponent] = 0;
+    return false;
+}
+
+static bool generate_sparse_supports(
+    ulong *f,
+    int degree,
+    int lower_weight,
+    int start,
+    int depth,
+    int *support,
+    Stats *stats,
+    HashMap *accepted,
+    HashMap *seen,
+    bool save_repeats
+) {
+    if (interrupted) return true;
+    if (depth == lower_weight) {
+        return assign_sparse_coefficients(f, support, lower_weight, 0, stats, accepted, seen, save_repeats);
+    }
+
+    int remaining = lower_weight - depth;
+    for (int exponent = start; exponent <= degree - remaining; exponent++) {
+        support[depth] = exponent;
+        if (generate_sparse_supports(f, degree, lower_weight, exponent + 1, depth + 1, support, stats, accepted, seen, save_repeats)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 static void search(void) {
@@ -944,54 +1263,24 @@ static void search(void) {
     for (int degree_index = 0; degree_index < 2 && !interrupted; degree_index++) {
         int degree = 2 * config.g + 1 + degree_index;
         for (int li = 0; li < leading_count && !interrupted; li++) {
-            ulong f[MAX_DEGREE + 1] = {0};
-            f[degree] = leading_values[li];
-            while (!interrupted) {
-                if (poly_squarefree_key(f, config.key_len, (ulong)config.p)) {
-                    stats.considered++;
-                    if (config.verbose) {
-                        char fbuf[4096];
-                        format_polynomial(f, config.key_len, fbuf, sizeof(fbuf));
-                        printf("[%lld]\nConsidering f(x) = %s\nChecking %s repeats.\n", stats.considered, fbuf, config.reduction);
-                        fflush(stdout);
-                    }
-                    int accepted_owner = map_get(&accepted, f);
-                    if (accepted_owner) {
-                        if (save_repeats) {
-                            CurveResult *owner = &results[accepted_owner - 1];
-                            append_result(f, owner->middle_coefficient, owner->canonical_index, owner->canonical_f, true);
-                            write_results();
-                            emit_result(&results[result_count - 1]);
-                            if (config.max_curves > 0 && (int)result_count >= config.max_curves) goto done;
-                        } else {
-                            stats.skipped_by_reduction++;
-                        }
-                    } else {
-                        int seen_owner = map_get(&seen, f);
-                        if (seen_owner) {
-                            stats.skipped_by_reduction++;
-                        } else {
-                            insert_orbit_members(&seen, f, (int)stats.considered);
-                            stats.checked++;
-                            if (config.use_hasse_witt && !passes_hasse_witt_prefilter(f)) {
-                                stats.rejected_by_hasse_witt++;
-                            } else {
-                                long long middle = 0;
-                                if (trinomial_middle_coefficient(f, &middle)) {
-                                    append_result(f, middle, (int)result_count + 1, f, false);
-                                    insert_orbit_members(&accepted, f, (int)result_count);
-                                    write_results();
-                                    emit_result(&results[result_count - 1]);
-                                    if (config.max_curves > 0 && (int)result_count >= config.max_curves) goto done;
-                                } else {
-                                    stats.rejected_by_early_l_coefficient++;
-                                }
-                            }
-                        }
-                    }
-                }
-                if (!next_lower_coeffs(f, degree)) break;
+            for (int lower_weight = 0; lower_weight <= degree && !interrupted; lower_weight++) {
+                ulong f[MAX_DEGREE + 1] = {0};
+                int support[MAX_DEGREE] = {0};
                 f[degree] = leading_values[li];
+                if (generate_sparse_supports(
+                        f,
+                        degree,
+                        lower_weight,
+                        0,
+                        0,
+                        support,
+                        &stats,
+                        &accepted,
+                        &seen,
+                        save_repeats
+                    )) {
+                    goto done;
+                }
             }
         }
     }
@@ -1016,12 +1305,14 @@ done:
 }
 
 static void usage(const char *argv0) {
-    fprintf(stderr, "usage: %s p g [--max N] [--output FILE] [--reduction pgl2|pgl2save|affine|affinesave] [--monic-only] [--no-hasse-witt-prefilter] [--quiet|--verbose]\n", argv0);
+    fprintf(stderr, "usage: %s p g [--max N] [--output FILE] [--reduction pgl2|pgl2save|affine|affinesave] [--workers N --worker-index I] [--monic-only] [--no-hasse-witt-prefilter] [--quiet|--verbose]\n", argv0);
 }
 
 int main(int argc, char **argv) {
     memset(&config, 0, sizeof(config));
     config.max_curves = 0;
+    config.workers = 1;
+    config.worker_index = 0;
     config.allow_nonmonic = true;
     config.use_hasse_witt = true;
     strcpy(config.reduction, "pgl2save");
@@ -1061,6 +1352,10 @@ int main(int argc, char **argv) {
             }
         } else if (strcmp(argv[i], "--monic-only") == 0) {
             config.allow_nonmonic = false;
+        } else if (strcmp(argv[i], "--workers") == 0 && i + 1 < argc) {
+            config.workers = atoi(argv[++i]);
+        } else if (strcmp(argv[i], "--worker-index") == 0 && i + 1 < argc) {
+            config.worker_index = atoi(argv[++i]);
         } else if (strcmp(argv[i], "--no-hasse-witt-prefilter") == 0) {
             config.use_hasse_witt = false;
         } else if (strcmp(argv[i], "--quiet") == 0) {
@@ -1076,16 +1371,34 @@ int main(int argc, char **argv) {
         fprintf(stderr, "Error: --max must be nonnegative\n");
         return 1;
     }
+    if (config.workers < 1) {
+        fprintf(stderr, "Error: --workers must be at least 1\n");
+        return 1;
+    }
+    if (config.worker_index < 0 || config.worker_index >= config.workers) {
+        fprintf(stderr, "Error: --worker-index must satisfy 0 <= index < workers\n");
+        return 1;
+    }
 
     signal(SIGINT, handle_signal);
     signal(SIGTERM, handle_signal);
 
     printf("Searching over F_%d.\n", config.p);
     printf("Using %s presentation reduction.\n", config.reduction);
+    if (config.workers > 1) {
+        printf("Worker shard %d of %d.\n", config.worker_index, config.workers);
+    }
     printf("Saving detailed results to %s and %s.\n", config.output_txt, config.output_json);
     fflush(stdout);
+    if (strcmp(config.reduction, "pgl2") == 0 || strcmp(config.reduction, "pgl2save") == 0) {
+        init_pgl2_cache();
+        printf("Precomputed %d PGL2 transform power tables.\n", pgl2_cache.count);
+        fflush(stdout);
+    }
     write_results();
     search();
+    free_pgl2_cache();
+    free_point_count_caches();
     printf("Done. Saved %zu presentations to %s and %s.\n", result_count, config.output_txt, config.output_json);
     return interrupted ? 130 : 0;
 }

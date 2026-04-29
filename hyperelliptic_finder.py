@@ -18,7 +18,7 @@ import signal
 import sys
 from dataclasses import asdict, dataclass
 from functools import lru_cache
-from itertools import product
+from itertools import combinations, product
 from typing import Iterable, Sequence
 
 
@@ -262,6 +262,37 @@ class FiniteField:
     def add(self, a: int, b: int) -> int:
         return self.element(poly_add(self.coeffs(a), self.coeffs(b), self.p))
 
+    def add_fast(self, a: int, b: int) -> int:
+        if self.degree == 1:
+            return (a + b) % self.p
+        value = 0
+        multiplier = 1
+        x = a
+        y = b
+        for _ in range(self.degree):
+            value += ((x % self.p) + (y % self.p)) % self.p * multiplier
+            multiplier *= self.p
+            x //= self.p
+            y //= self.p
+        return value
+
+    def scalar_mul_fast(self, scalar: int, a: int) -> int:
+        scalar %= self.p
+        if scalar == 0 or a == 0:
+            return 0
+        if scalar == 1:
+            return a
+        if self.degree == 1:
+            return scalar * a % self.p
+        value = 0
+        multiplier = 1
+        x = a
+        for _ in range(self.degree):
+            value += scalar * (x % self.p) % self.p * multiplier
+            multiplier *= self.p
+            x //= self.p
+        return value
+
     def mul(self, a: int, b: int) -> int:
         reduced = poly_mod(poly_mul(self.coeffs(a), self.coeffs(b), self.p), self.modulus, self.p)
         return self.element(reduced)
@@ -296,6 +327,18 @@ def square_solution_counts(p: int, degree: int) -> tuple[int, ...]:
     return tuple(counts)
 
 
+@lru_cache(maxsize=None)
+def field_power_table(p: int, degree: int, max_exponent: int) -> tuple[tuple[int, ...], ...]:
+    field = get_field(p, degree)
+    table = []
+    for x in range(field.order):
+        powers = [1 % p]
+        for _ in range(max_exponent):
+            powers.append(field.mul(powers[-1], x))
+        table.append(tuple(powers))
+    return tuple(table)
+
+
 def eval_polynomial_over_field(f_coeffs: Sequence[int], x: int, field: FiniteField) -> int:
     result = 0
     for coeff in reversed(f_coeffs):
@@ -303,12 +346,26 @@ def eval_polynomial_over_field(f_coeffs: Sequence[int], x: int, field: FiniteFie
     return result
 
 
+def eval_sparse_polynomial_from_powers(
+    f_coeffs: Sequence[int],
+    powers: Sequence[int],
+    field: FiniteField,
+) -> int:
+    result = 0
+    for exponent, coeff in enumerate(f_coeffs):
+        coeff %= field.p
+        if coeff:
+            result = field.add_fast(result, field.scalar_mul_fast(coeff, powers[exponent]))
+    return result
+
+
 def count_points(p: int, k: int, f_coeffs: Sequence[int]) -> int:
     field = get_field(p, k)
     counts = square_solution_counts(p, k)
+    powers_by_x = field_power_table(p, k, len(f_coeffs) - 1)
     finite = 0
-    for x in range(field.order):
-        finite += counts[eval_polynomial_over_field(f_coeffs, x, field)]
+    for powers in powers_by_x:
+        finite += counts[eval_sparse_polynomial_from_powers(f_coeffs, powers, field)]
 
     degree = len(trim(f_coeffs)) - 1
     leading_coeff = f_coeffs[degree] % p
@@ -593,6 +650,16 @@ def orbit_members(
     return set(cached_orbit_members(tuple(poly), p, genus, orbit_reduction_mode(reduction), allow_nonmonic))
 
 
+def canonical_orbit_key(
+    poly: Sequence[int],
+    p: int,
+    genus: int,
+    reduction: str,
+    allow_nonmonic: bool,
+) -> tuple[int, ...]:
+    return min(cached_orbit_members(tuple(poly), p, genus, orbit_reduction_mode(reduction), allow_nonmonic))
+
+
 @lru_cache(maxsize=None)
 def cached_orbit_members(
     poly: tuple[int, ...],
@@ -629,10 +696,15 @@ def cached_orbit_members(
 def generate_polynomials(p: int, g: int, allow_nonmonic: bool) -> Iterable[list[int]]:
     for degree in (2 * g + 1, 2 * g + 2):
         for leading in leading_representatives(p, allow_nonmonic):
-            for lower_coeffs in product(range(p), repeat=degree):
-                poly = list(lower_coeffs) + [leading]
-                if poly_squarefree(poly, p):
-                    yield poly
+            for lower_weight in range(degree + 1):
+                for support in combinations(range(degree), lower_weight):
+                    for nonzero_coeffs in product(range(1, p), repeat=lower_weight):
+                        poly = [0] * (degree + 1)
+                        for exponent, coeff in zip(support, nonzero_coeffs):
+                            poly[exponent] = coeff
+                        poly[degree] = leading
+                        if poly_squarefree(poly, p):
+                            yield poly
 
 
 def format_polynomial(coeffs: Sequence[int], var: str = "x") -> str:
@@ -752,17 +824,26 @@ def find_curves(
     verbose = output_mode == "verbose"
     show_accepted = output_mode != "quiet"
     save_accepted_repeats = reduction in ("pgl2save", "affinesave")
-    accepted_orbit_owner: dict[tuple[int, ...], int] = {}
-    seen_orbit_owner: dict[tuple[int, ...], int] = {}
+    accepted_key_owner: dict[tuple[int, ...], int] = {}
+    seen_key_owner: dict[tuple[int, ...], int] = {}
     for f_coeffs in generate_polynomials(p, g, allow_nonmonic):
         stats.considered += 1
-        f_key = tuple(f_coeffs)
         if verbose:
             emit(f"[{stats.considered}]")
             emit(f"Considering f(x) = {format_polynomial(f_coeffs)}")
             emit(f"Checking {reduction} repeats.")
 
-        accepted_owner = accepted_orbit_owner.get(f_key)
+        if use_hasse_witt_prefilter and verbose:
+            emit("Applying Hasse-Witt prefilter before canonical reduction.")
+        if use_hasse_witt_prefilter and not passes_hasse_witt_prefilter(p, g, f_coeffs):
+            stats.rejected_by_hasse_witt += 1
+            if verbose:
+                emit("Hasse-Witt rejected: a pre-middle coefficient is nonzero modulo p.")
+            continue
+
+        reduction_key = canonical_orbit_key(f_coeffs, p, g, reduction, allow_nonmonic)
+
+        accepted_owner = accepted_key_owner.get(reduction_key)
         if accepted_owner is not None:
             owner_result = results[accepted_owner - 1]
             if save_accepted_repeats:
@@ -789,25 +870,16 @@ def find_curves(
                     emit(f"Skipped: {reduction}-equivalent repeat of accepted [{accepted_owner}].")
             continue
 
-        seen_owner = seen_orbit_owner.get(f_key)
+        seen_owner = seen_key_owner.get(reduction_key)
         if seen_owner is not None:
             stats.skipped_by_reduction += 1
             if verbose:
                 emit(f"Skipped: {reduction}-equivalent repeat of [{seen_owner}].")
             continue
 
-        orbit = orbit_members(f_coeffs, p, g, reduction, allow_nonmonic)
-        for member in orbit:
-            seen_orbit_owner.setdefault(member, stats.considered)
+        seen_key_owner[reduction_key] = stats.considered
 
         stats.checked += 1
-        if use_hasse_witt_prefilter and verbose:
-            emit("New reduction orbit; applying Hasse-Witt prefilter.")
-        if use_hasse_witt_prefilter and not passes_hasse_witt_prefilter(p, g, f_coeffs):
-            stats.rejected_by_hasse_witt += 1
-            if verbose:
-                emit("Hasse-Witt rejected: a pre-middle coefficient is nonzero modulo p.")
-            continue
         if verbose:
             emit("Checking L-polynomial coefficients.")
         status, middle_coefficient = trinomial_middle_coefficient(p, g, f_coeffs)
@@ -831,8 +903,7 @@ def find_curves(
         )
         results.append(result)
         stats.saved += 1
-        for member in orbit:
-            accepted_orbit_owner.setdefault(member, result.index)
+        accepted_key_owner[reduction_key] = result.index
         write_results()
         if show_accepted:
             emit_saved_result(result, g, reduction)

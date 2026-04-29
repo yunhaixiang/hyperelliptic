@@ -1,6 +1,6 @@
 batch_results/
-batch_results_c/
 batch_results_*/
+parallel_results/
 __pycache__/
 .DS_Store
 hyperelliptic_finder_c
