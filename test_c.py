@@ -13,7 +13,7 @@ from pathlib import Path
 
 
 PRIMES = (3,)
-DEFAULT_MIN_GENUS = 1
+DEFAULT_MIN_GENUS = 12
 DEFAULT_MAX_GENUS = 40
 SEPARATOR = "=" * 72
 
@@ -50,6 +50,18 @@ def print_case_footer(case: dict[str, object]) -> None:
     if stderr:
         print("stderr:", flush=True)
         print(stderr, end="" if stderr.endswith("\n") else "\n", flush=True)
+
+
+def saved_presentation_count(output_json: Path) -> int:
+    try:
+        with open(output_json, "r", encoding="utf-8") as handle:
+            data = json.load(handle)
+    except (FileNotFoundError, json.JSONDecodeError, OSError):
+        return 0
+    try:
+        return int(data.get("total_presentations_found", 0))
+    except (TypeError, ValueError):
+        return 0
 
 
 def ensure_binary(root: Path, binary: Path, arch: str, no_build: bool) -> None:
@@ -122,7 +134,7 @@ def run_case(
 
     timed_out = False
     while True:
-        if timeout is not None and time.monotonic() - start > timeout:
+        if timeout is not None and time.monotonic() - start > timeout and saved_presentation_count(output_base.with_suffix(".json")) > 0:
             timed_out = True
             process.terminate()
             break
@@ -177,7 +189,10 @@ def main() -> int:
         dest="timeout",
         type=int,
         default=1800,
-        help="seconds per case before stopping that run and moving to the next case; default: 1800; 0 means no timeout",
+        help=(
+            "seconds per case before stopping that run after at least one presentation has been saved; "
+            "default: 1800; 0 means no timeout"
+        ),
     )
     parser.add_argument("--min-genus", type=int, default=DEFAULT_MIN_GENUS)
     parser.add_argument("--max-genus", type=int, default=DEFAULT_MAX_GENUS)
